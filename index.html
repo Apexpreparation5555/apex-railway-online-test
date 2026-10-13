@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10264b">
+<title>Apex Prepration Academy | Online Test</title>
+<style>
+:root{--navy:#10264b;--blue:#245da8;--gold:#e5ad43;--green:#176b45;--ink:#1d2b43;--muted:#64748b;--bg:#f3f6fb;--line:#dce4ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Noto Sans Devanagari","Nirmala UI",sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#10264b,#245da8);color:#fff;padding:22px 16px 24px;border-bottom:5px solid var(--gold)}
+.wrap{max-width:820px;margin:auto}header .brand{font-size:clamp(20px,4vw,30px);font-weight:850;letter-spacing:.2px}header .sir{color:#ffe1a0;font-weight:700;margin-top:5px}header .sub{opacity:.9;margin-top:10px}
+main{max-width:820px;margin:20px auto;padding:0 14px 40px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 7px 24px #193a6610;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f4f7fc;border-radius:12px;padding:12px;text-align:center}.stat strong{display:block;font-size:21px;color:var(--navy)}.stat span{font-size:12px;color:var(--muted)}
+button{border:0;border-radius:12px;padding:14px 18px;font-weight:800;font-size:16px;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #80b7ff;outline-offset:2px}.primary{background:var(--green);color:white;width:100%;margin-top:15px}.secondary{background:#e8eef7;color:var(--navy)}.hidden{display:none!important}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.timer{font-size:22px;font-weight:850;color:var(--navy);background:#fff3d7;border:1px solid #f2d18a;padding:8px 14px;border-radius:12px;font-variant-numeric:tabular-nums}.progress{height:7px;background:#e8edf5;border-radius:9px;overflow:hidden;margin-top:14px}.bar{height:100%;background:var(--blue);width:0;transition:width .2s}
+label.name-label{display:block;font-weight:700;margin-bottom:7px}input[type=text]{width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;font-size:16px;margin-bottom:14px}
+.q-title{font-size:18px;line-height:1.55;font-weight:800;margin:0 0 4px}.en{font-size:15px;color:#3d6193;margin:0 0 15px;line-height:1.5}.qnum{font-size:12px;font-weight:800;letter-spacing:.7px;color:#9a6a10;margin-bottom:8px}
+.options{display:grid;gap:9px}.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff;cursor:pointer;line-height:1.45}.opt:has(input:checked){border-color:var(--blue);background:#eef5ff}.opt input{margin-top:4px;accent-color:var(--blue);flex-shrink:0}
+.question{margin-bottom:14px}.result-score{font-size:42px;font-weight:900;color:var(--green);text-align:center}.center{text-align:center}.muted{color:var(--muted);font-size:13px}.review-item{border-top:1px solid var(--line);padding:13px 0}.correct{color:var(--green);font-weight:800}.wrong{color:#b42318;font-weight:800}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:0 12px 24px}
+@media(max-width:520px){.card{padding:15px}.stats{gap:7px}.stat{padding:10px 4px}.stat strong{font-size:18px}.q-title{font-size:17px}.timer{font-size:19px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="brand">APEX PREPRATION ACADEMY</div><div class="sir">KUMAR ANKUR SIR</div><div class="sub">Online GK/GS Test • Hindi + English</div></div></header>
+<main>
+<section class="card" id="intro">
+  <h1 style="margin:0 0 8px;color:var(--navy)">Online GK/GS Quiz — Test 01</h1>
+  <p style="margin-top:0">टेस्ट शुरू करने से पहले अपना नाम भरें। समय शुरू होने के बाद 10 मिनट में सभी प्रश्न हल करें।</p>
+  <p class="muted">Enter your name before starting. You have 10 minutes. The test submits automatically when the timer reaches zero.</p>
+  <label class="name-label" for="studentName">विद्यार्थी का नाम / Student name</label>
+  <input id="studentName" type="text" maxlength="80" placeholder="अपना नाम लिखें / Enter your name">
+  <div class="stats"><div class="stat"><strong>10</strong><span>प्रश्न / Questions</span></div><div class="stat"><strong>10</strong><span>अंक / Marks</span></div><div class="stat"><strong>10:00</strong><span>समय / Time</span></div></div>
+  <button class="primary" id="startBtn">START TEST / टेस्ट शुरू करें</button>
+</section>
+<section class="card hidden" id="testPanel">
+ <div class="row"><div><strong>ONLINE TEST 01</strong><div class="muted" id="answered">0/10 answered</div></div><div class="timer" id="timer" aria-live="polite">10:00</div></div>
+ <div class="progress"><div class="bar" id="progressBar"></div></div>
+ <div id="questions" style="margin-top:18px"></div>
+ <button class="primary" id="submitBtn">SUBMIT TEST / टेस्ट जमा करें</button>
+ <p class="muted">ध्यान दें: समय पूरा होने पर टेस्ट अपने-आप जमा हो जाएगा। / The test auto-submits when time expires.</p>
+</section>
+<section class="card hidden" id="resultPanel">
+ <div class="center"><div class="muted">YOUR RESULT / आपका परिणाम</div><div class="result-score" id="score">0/10</div><h2 id="resultTitle">Test completed!</h2><p id="studentResult"></p><p id="resultMessage"></p><button class="secondary" onclick="window.print()">Print / Save PDF</button></div>
+ <div id="review" style="margin-top:20px"></div>
+ <button class="primary" onclick="location.reload()">TAKE TEST AGAIN / दोबारा टेस्ट दें</button>
+ <p class="muted">नोट: यह डेमो स्टैटिक वेबसाइट है। स्कोर इसी डिवाइस पर दिखता है; शिक्षक को सभी विद्यार्थियों के परिणाम अपने-आप एक जगह नहीं मिलते।</p>
+</section>
+</main>
+<footer>APEX PREPRATION ACADEMY • KUMAR ANKUR SIR</footer>
+<script>
+const quiz = [
+{hi:"भारतीय संविधान कब लागू हुआ?",en:"When did the Constitution of India come into effect?",opts:["15 अगस्त 1947 / 15 August 1947","26 जनवरी 1950 / 26 January 1950","26 नवंबर 1949 / 26 November 1949","2 अक्टूबर 1950 / 2 October 1950"],a:1,ex:"भारतीय संविधान 26 जनवरी 1950 को लागू हुआ। / The Constitution came into effect on 26 January 1950."},
+{hi:"भारत की सबसे लंबी नदी कौन-सी है?",en:"Which is the longest river in India?",opts:["यमुना / Yamuna","गोदावरी / Godavari","गंगा / Ganga","नर्मदा / Narmada"],a:2,ex:"सामान्य GK में गंगा को भारत की सबसे लंबी नदी माना जाता है। / The Ganga is commonly identified as India's longest river."},
+{hi:"निर्वात में प्रकाश की चाल लगभग कितनी होती है?",en:"What is the approximate speed of light in a vacuum?",opts:["3 × 10⁶ m/s","3 × 10⁷ m/s","3 × 10⁸ m/s","3 × 10⁹ m/s"],a:2,ex:"निर्वात में प्रकाश की चाल लगभग 3 × 10⁸ मीटर/सेकंड है। / Light travels at about 3 × 10⁸ m/s in vacuum."},
+{hi:"1857 की क्रांति की शुरुआत कहाँ से हुई थी?",en:"Where did the Revolt of 1857 begin?",opts:["दिल्ली / Delhi","कानपुर / Kanpur","मेरठ / Meerut","झाँसी / Jhansi"],a:2,ex:"विद्रोह की शुरुआत 10 मई 1857 को मेरठ से हुई। / The revolt began in Meerut on 10 May 1857."},
+{hi:"भारतीय रिज़र्व बैंक (RBI) की स्थापना कब हुई?",en:"When was the Reserve Bank of India (RBI) established?",opts:["1925","1935","1947","1950"],a:1,ex:"RBI ने 1 अप्रैल 1935 को काम करना शुरू किया। / The RBI commenced operations on 1 April 1935."},
+{hi:"मानव शरीर में रक्त को छानने का मुख्य कार्य कौन-सा अंग करता है?",en:"Which organ mainly filters blood in the human body?",opts:["हृदय / Heart","फेफड़े / Lungs","गुर्दे / Kidneys","आमाशय / Stomach"],a:2,ex:"गुर्दे रक्त से अपशिष्ट पदार्थ छानने में मदद करते हैं। / The kidneys filter wastes from the blood."},
+{hi:"भारत छोड़ो आंदोलन किस वर्ष शुरू हुआ?",en:"In which year did the Quit India Movement begin?",opts:["1930","1942","1946","1947"],a:1,ex:"भारत छोड़ो आंदोलन 1942 में शुरू हुआ। / The Quit India Movement began in 1942."},
+{hi:"भारत में स्थित सबसे ऊँची पर्वत चोटी कौन-सी है?",en:"Which is the highest mountain peak located in India?",opts:["नंदा देवी / Nanda Devi","कंचनजंघा / Kangchenjunga","अनामुडी / Anamudi","कामेत / Kamet"],a:1,ex:"कंचनजंघा 8,586 मीटर ऊँची है। / Kangchenjunga is 8,586 metres high."},
+{hi:"ध्वनि सामान्यतः सबसे तेज़ किस माध्यम में चलती है?",en:"Sound generally travels fastest through which medium?",opts:["गैस / Gas","द्रव / Liquid","ठोस / Solid","निर्वात / Vacuum"],a:2,ex:"ध्वनि सामान्यतः ठोस पदार्थों में सबसे तेज़ चलती है। / Sound generally travels fastest in solids."},
+{hi:"भारतीय संविधान में मौलिक कर्तव्य किस संशोधन द्वारा जोड़े गए?",en:"By which amendment were Fundamental Duties added to the Indian Constitution?",opts:["24वाँ संशोधन / 24th Amendment","42वाँ संशोधन / 42nd Amendment","44वाँ संशोधन / 44th Amendment","52वाँ संशोधन / 52nd Amendment"],a:1,ex:"मौलिक कर्तव्य 42वें संविधान संशोधन, 1976 द्वारा जोड़े गए। / Fundamental Duties were added by the 42nd Amendment in 1976."}
+];
+let remaining=600, tick=null, started=false, finished=false, student="";
+const $=id=>document.getElementById(id);
+function renderQuestions(){ $("questions").innerHTML=quiz.map((q,i)=>`<article class="card question"><div class="qnum">QUESTION ${String(i+1).padStart(2,"0")} / 10</div><p class="q-title">${q.hi}</p><p class="en">${q.en}</p><div class="options">${q.opts.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}"><span><b>${"ABCD"[j]}.</b> ${o}</span></label>`).join("")}</div></article>`).join("");document.querySelectorAll('#questions input').forEach(x=>x.addEventListener('change',updateProgress));}
+function updateProgress(){let n=0;quiz.forEach((q,i)=>{if(document.querySelector(`input[name="q${i}"]:checked`))n++});$("answered").textContent=`${n}/10 answered`; $("progressBar").style.width=(n/10*100)+"%";}
+function showTime(){let m=Math.floor(remaining/60),s=remaining%60;$("timer").textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;if(remaining<=60)$("timer").style.color="#b42318";}
+function startTest(){if(started)return;student=$("studentName").value.trim();if(!student){$("studentName").focus();alert("कृपया अपना नाम भरें / Please enter your name.");return;}started=true;$("intro").classList.add("hidden");$("testPanel").classList.remove("hidden");renderQuestions();showTime();tick=setInterval(()=>{remaining--;showTime();if(remaining<=0)submitTest(true)},1000);window.scrollTo({top:0,behavior:"smooth"});}
+function submitTest(auto=false){if(finished)return;if(!auto&&!confirm("क्या आप टेस्ट जमा करना चाहते हैं? / Submit your test now?"))return;finished=true;if(tick)clearInterval(tick);let score=0,review="";quiz.forEach((q,i)=>{const chosen=document.querySelector(`input[name="q${i}"]:checked`);const val=chosen?Number(chosen.value):-1;const ok=val===q.a;if(ok)score++;review+=`<div class="review-item"><b>${i+1}. ${q.hi}</b><div class="muted">${q.en}</div><p class="${ok?'correct':'wrong'}">${ok?'✓ सही / Correct':'✗ गलत या छोड़ा / Incorrect or unanswered'}</p><div><b>सही उत्तर / Correct answer:</b> ${"ABCD"[q.a]}. ${q.opts[q.a]}</div><div class="muted" style="margin-top:5px">${q.ex}</div></div>`;});$("testPanel").classList.add("hidden");$("resultPanel").classList.remove("hidden");$("score").textContent=`${score}/10`; $("resultTitle").textContent=score>=8?"शानदार! Excellent!":score>=5?"अच्छा प्रयास! Good effort!":"अभ्यास जारी रखें / Keep practising";$("studentResult").textContent=`${student} • ${new Date().toLocaleString()}`;$("resultMessage").textContent=`प्रतिशत / Percentage: ${score*10}%${auto?" • समय पूरा हुआ, टेस्ट अपने-आप जमा हुआ। / Time expired; auto-submitted.":""}`;$("review").innerHTML=review;window.scrollTo({top:0,behavior:"smooth"});}
+$("startBtn").addEventListener("click",startTest);$("submitBtn").addEventListener("click",()=>submitTest(false));
+</script>
+</body>
+</html>
