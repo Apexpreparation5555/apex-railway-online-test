@@ -1,130 +1,270 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Railway GK/GS Test | Apex Preparation Academy</title>
+<meta name="theme-color" content="#092b63">
+<title>Railway GK/GS Test | Apex Prepration Academy</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#f0f4f9;color:#182337}
-header{background:linear-gradient(135deg,#092b63,#1769aa);color:white;text-align:center;padding:22px 12px}
-header h1{font-size:23px;margin:0 0 8px}
-header p{margin:5px;font-size:14px}
+body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#eef3f9;color:#182337}
+header{background:linear-gradient(135deg,#092b63,#1769aa);color:#fff;text-align:center;padding:22px 12px}
+.logos{display:flex;justify-content:center;align-items:center;gap:22px;margin-bottom:12px}
+.logos img{width:75px;height:75px;object-fit:contain;background:#fff;border-radius:12px;padding:5px}
+header h1{font-size:23px;margin:8px 0}
+header p{margin:6px;font-size:14px}
 .container{max-width:720px;margin:20px auto;padding:0 12px}
-.card{background:white;border-radius:14px;padding:20px;box-shadow:0 3px 14px #00000012}
-.stats{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:16px;font-weight:bold;font-size:14px}
-.timer{color:#d62828;font-size:19px;font-weight:bold}
-.progress{height:8px;background:#e4eaf2;border-radius:9px;overflow:hidden;margin:12px 0 20px}
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 3px 14px #00000012}
+.stats{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-weight:bold;font-size:14px}
+.timer{color:#d62828;font-size:18px}
+.progress{height:8px;background:#e4eaf2;border-radius:9px;overflow:hidden;margin:14px 0 20px}
 #bar{height:100%;width:0;background:#16a34a;transition:width .2s}
-#question{font-size:19px;line-height:1.6;margin:14px 0}
-.option{display:block;width:100%;text-align:left;padding:13px;margin:10px 0;border:2px solid #dbe3ed;border-radius:9px;background:white;font-size:16px;cursor:pointer;color:#182337}
+#question{font-size:19px;line-height:1.7;margin:16px 0}
+.option{display:block;width:100%;text-align:left;padding:13px;margin:10px 0;border:2px solid #dbe3ed;border-radius:9px;background:#fff;font-size:16px;cursor:pointer;color:#182337}
 .option:hover:not(:disabled){border-color:#1769aa;background:#f0f7ff}
 .option:disabled{cursor:default}
 .option.correct{background:#dcfce7;border-color:#16a34a}
 .option.wrong{background:#fee2e2;border-color:#dc2626}
-#next{width:100%;padding:14px;border:0;border-radius:9px;background:#1259a7;color:white;font-size:17px;font-weight:bold;margin-top:12px;cursor:pointer}
-#next:disabled{background:#9caec4;cursor:not-allowed}
-.small{color:#65748b;font-size:13px}
+button.primary{width:100%;padding:14px;border:0;border-radius:9px;background:#1259a7;color:white;font-size:16px;font-weight:bold;margin-top:12px;cursor:pointer}
+button.primary:disabled{background:#9caec4;cursor:not-allowed}
+.small{color:#65748b;font-size:13px;line-height:1.6}
 footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
 .result{text-align:center}
 .result h2{color:#1260a8}
-.review{text-align:left;background:#f5f8fc;padding:12px;border-radius:8px;margin:10px 0}
-@media(max-width:480px){header h1{font-size:19px}#question{font-size:17px}.card{padding:15px}}
+.review{text-align:left;background:#f5f8fc;padding:12px;border-radius:8px;margin:10px 0;line-height:1.6}
+[hidden]{display:none!important}
+@media(max-width:480px){
+ header h1{font-size:19px}
+ #question{font-size:17px}
+ .card{padding:15px}
+ .logos img{width:65px;height:65px}
+}
 </style>
 </head>
 <body>
+
 <header>
-<img src="logo.png" alt="Apex Academy Logo"
-style="width:85px;height:85px;object-fit:contain;">
-<h1>APEX PREPRATION ACADEMY</h1>
-<p>KUMAR ANKUR SIR</p>
-<p>🚆 Railway GK/GS Online Test</p>
+  <div class="logos">
+    <img src="logo.png" alt="Apex Academy Logo">
+    <img src="railway-logo.png" alt="Railway Exam Preparation Logo">
+  </div>
+  <h1>APEX PREPRATION ACADEMY</h1>
+  <p><strong>KUMAR ANKUR SIR</strong></p>
+  <p>🚆 Railway GK/GS Online Test</p>
+  <p>हिंदी + English | 25 प्रश्न | 25 अंक</p>
 </header>
-<div class="container">
-<div class="card" id="quiz">
-<div class="stats">
-<span id="count">प्रश्न 1 / 25</span>
-<span>अधिकतम अंक: 25</span>
-<span class="timer">⏱ <span id="time">30</span> सेकंड</span>
-</div>
-<div class="progress"><div id="bar"></div></div>
-<div class="small">सही उत्तर चुनें / Choose the correct answer</div>
-<div id="question"></div>
-<div id="options"></div>
-<button id="next" disabled>अगला प्रश्न / Next Question →</button>
-<p class="small" id="message">समय समाप्त होने पर अगला प्रश्न अपने आप खुलेगा।</p>
-</div>
-<div class="card result" id="result" hidden></div>
-</div>
+
+<main class="container">
+  <section class="card" id="quiz">
+    <div class="stats">
+      <span id="count">प्रश्न 1 / 25</span>
+      <span>अधिकतम अंक: 25</span>
+      <span class="timer">⏱ <span id="time">30</span> सेकंड</span>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+    <div class="small">सही उत्तर चुनें / Choose the correct answer</div>
+    <div id="question"></div>
+    <div id="options"></div>
+    <button class="primary" id="next" disabled>अगला प्रश्न / Next Question →</button>
+    <p class="small" id="message" aria-live="polite">हर प्रश्न के लिए 30 सेकंड हैं। समय पूरा होने पर अगला प्रश्न अपने आप खुलेगा।</p>
+  </section>
+
+  <section class="card result" id="result" hidden></section>
+</main>
+
 <footer>© APEX PREPRATION ACADEMY | KUMAR ANKUR SIR</footer>
+
 <script>
-const questions=[
+"use strict";
+
+const questions = [
 {q:"भारत में पहली यात्री रेलगाड़ी कब चली थी? / When did India's first passenger train run?",o:["1843","1853","1863","1873"],a:1},
 {q:"भारत की पहली यात्री रेलगाड़ी किन स्थानों के बीच चली थी? / Between which places did India's first passenger train run?",o:["दिल्ली–आगरा / Delhi–Agra","बॉम्बे–ठाणे / Bombay–Thane","हावड़ा–पटना / Howrah–Patna","चेन्नई–मैसूर / Chennai–Mysore"],a:1},
 {q:"भारतीय रेलवे का मुख्यालय कहाँ है? / Where is the headquarters of Indian Railways?",o:["मुंबई / Mumbai","कोलकाता / Kolkata","नई दिल्ली / New Delhi","चेन्नई / Chennai"],a:2},
 {q:"ब्रॉड गेज की चौड़ाई कितनी होती है? / What is the width of broad gauge?",o:["1000 mm","1435 mm","1676 mm","762 mm"],a:2},
 {q:"भारत में पहली मेट्रो रेल कहाँ शुरू हुई? / Where did India's first metro railway start?",o:["दिल्ली / Delhi","कोलकाता / Kolkata","मुंबई / Mumbai","चेन्नई / Chennai"],a:1},
 {q:"रेलवे बोर्ड की स्थापना किस वर्ष हुई? / In which year was the Railway Board established?",o:["1901","1905","1911","1925"],a:1},
-{q:"भारत में राष्ट्रीय रेल संग्रहालय कहाँ है? / Where is the National Rail Museum located?",o:["जयपुर / Jaipur","नई दिल्ली / New Delhi","लखनऊ / Lucknow","भोपाल / Bhopal"],a:1},
+{q:"राष्ट्रीय रेल संग्रहालय कहाँ स्थित है? / Where is the National Rail Museum located?",o:["जयपुर / Jaipur","नई दिल्ली / New Delhi","लखनऊ / Lucknow","भोपाल / Bhopal"],a:1},
 {q:"चित्तरंजन लोकोमोटिव वर्क्स किस राज्य में है? / Chittaranjan Locomotive Works is in which state?",o:["बिहार / Bihar","पश्चिम बंगाल / West Bengal","झारखंड / Jharkhand","ओडिशा / Odisha"],a:1},
 {q:"इंटीग्रल कोच फैक्ट्री कहाँ स्थित है? / Where is the Integral Coach Factory located?",o:["चेन्नई / Chennai","कपूरथला / Kapurthala","वाराणसी / Varanasi","पटना / Patna"],a:0},
-{q:"राष्ट्रीय ट्रेन पूछताछ के लिए हेल्पलाइन नंबर 139 किससे संबंधित है? / Indian Railways helpline 139 is used for what?",o:["रेल यात्री सहायता / Rail passenger assistance","केवल माल ढुलाई / Freight only","मौसम विभाग / Weather department","डाक सेवा / Postal service"],a:0},
+{q:"भारतीय रेलवे की यात्री हेल्पलाइन 139 किससे संबंधित है? / Indian Railways helpline 139 is used for what?",o:["रेल यात्री सहायता / Rail passenger assistance","केवल माल ढुलाई / Freight only","मौसम विभाग / Weather department","डाक सेवा / Postal service"],a:0},
 {q:"भारत की पहली विद्युत रेलगाड़ी कब चली थी? / When did India's first electric train run?",o:["1925","1935","1947","1951"],a:0},
 {q:"भारत की पहली विद्युत रेलगाड़ी किस मार्ग पर चली थी? / On which route did India's first electric train run?",o:["बॉम्बे VT–कुर्ला / Bombay VT–Kurla","दिल्ली–आगरा / Delhi–Agra","हावड़ा–दिल्ली / Howrah–Delhi","चेन्नई–बेंगलुरु / Chennai–Bengaluru"],a:0},
 {q:"रेल व्हील फैक्ट्री कहाँ स्थित है? / Where is Rail Wheel Factory located?",o:["बेंगलुरु / Bengaluru","रायबरेली / Rae Bareli","कानपुर / Kanpur","जबलपुर / Jabalpur"],a:0},
-{q:"कोंकण रेलवे मुख्य रूप से भारत के किस तटीय क्षेत्र में है? / Konkan Railway mainly serves which coastal region?",o:["पूर्वी तट / East Coast","पश्चिमी तट / West Coast","उत्तरी मैदान / Northern Plains","मध्य भारत / Central India"],a:1},
-{q:"रेलवे में लाल सिग्नल का क्या अर्थ है? / What does a red railway signal mean?",o:["आगे बढ़ें / Proceed","रुकें / Stop","गति बढ़ाएँ / Increase speed","सीटी बजाएँ / Blow whistle"],a:1},
+{q:"कोंकण रेलवे मुख्य रूप से किस तटीय क्षेत्र में है? / Konkan Railway mainly serves which coastal region?",o:["पूर्वी तट / East Coast","पश्चिमी तट / West Coast","उत्तरी मैदान / Northern Plains","मध्य भारत / Central India"],a:1},
+{q:"रेलवे में लाल सिग्नल का सामान्य अर्थ क्या है? / What does a red railway signal generally mean?",o:["आगे बढ़ें / Proceed","रुकें / Stop","गति बढ़ाएँ / Increase speed","सीटी बजाएँ / Blow whistle"],a:1},
 {q:"रेलवे में हरे सिग्नल का सामान्य अर्थ क्या है? / What does a green railway signal generally mean?",o:["रुकें / Stop","सावधान होकर रुकें / Prepare to stop","आगे बढ़ने की अनुमति / Proceed","लाइन बंद है / Line closed"],a:2},
-{q:"भारत में रेल बजट को आम बजट में किस वर्ष मिलाया गया? / In which year was the Railway Budget merged with the Union Budget?",o:["2015","2016","2017","2018"],a:2},
+{q:"रेल बजट को आम बजट में किस वित्त वर्ष से मिलाया गया? / From which financial year was the Railway Budget merged with the Union Budget?",o:["2015–16","2016–17","2017–18","2018–19"],a:2},
 {q:"रेलवे सुरक्षा बल का संक्षिप्त नाम क्या है? / What is the abbreviation for Railway Protection Force?",o:["RPF","RPS","RFS","IRF"],a:0},
-{q:"भारत में पहली रेलगाड़ी ने लगभग कितनी दूरी तय की थी? / Approximately how far did India's first train travel?",o:["14 km","34 km","54 km","104 km"],a:1},
-{q:"रेलवे में स्लीपर क्लास का कोच किस श्रेणी का उदाहरण है? / Sleeper class is an example of which type of coach category?",o:["यात्री कोच / Passenger coach","माल डिब्बा / Freight wagon","इंजन / Locomotive","ब्रेक वैन ही / Brake van only"],a:0},
+{q:"भारत की पहली यात्री रेलगाड़ी ने लगभग कितनी दूरी तय की थी? / Approximately how far did India's first passenger train travel?",o:["14 km","34 km","54 km","104 km"],a:1},
+{q:"स्लीपर क्लास किस प्रकार के कोच का उदाहरण है? / Sleeper class is an example of which type of coach?",o:["यात्री कोच / Passenger coach","माल डिब्बा / Freight wagon","इंजन / Locomotive","केवल ब्रेक वैन / Brake van only"],a:0},
 {q:"रेल की पटरियों के बीच की दूरी को क्या कहते हैं? / What is the distance between two railway rails called?",o:["गेज / Gauge","पिच / Pitch","स्पैन / Span","लोड / Load"],a:0},
 {q:"रेलवे में लोकोमोटिव का क्या अर्थ है? / What does locomotive mean in railway terminology?",o:["रेल इंजन / Railway engine","प्लेटफॉर्म / Platform","सिग्नल / Signal","टिकट काउंटर / Ticket counter"],a:0},
-{q:"भारत में डेडिकेटेड फ्रेट कॉरिडोर का मुख्य उद्देश्य क्या है? / What is the main purpose of Dedicated Freight Corridors in India?",o:["माल परिवहन को तेज करना / Improve freight movement","केवल पर्यटन / Tourism only","हवाई यातायात / Air traffic","मेट्रो संचालन / Metro operations"],a:0},
-{q:"रेलवे स्टेशन पर प्लेटफॉर्म का मुख्य उपयोग क्या है? / What is the main purpose of a railway platform?",o:["यात्रियों के चढ़ने-उतरने के लिए / Passenger boarding and alighting","इंजन बनाने के लिए / Manufacturing engines","माल का उत्पादन / Producing goods","पटरियाँ बदलने के लिए / Replacing tracks"],a:0},
+{q:"डेडिकेटेड फ्रेट कॉरिडोर का मुख्य उद्देश्य क्या है? / What is the main purpose of Dedicated Freight Corridors?",o:["माल परिवहन को बेहतर बनाना / Improve freight movement","केवल पर्यटन / Tourism only","हवाई यातायात / Air traffic","मेट्रो संचालन / Metro operations"],a:0},
+{q:"रेलवे प्लेटफॉर्म का मुख्य उपयोग क्या है? / What is the main purpose of a railway platform?",o:["यात्रियों के चढ़ने-उतरने के लिए / Passenger boarding and alighting","इंजन बनाने के लिए / Manufacturing engines","माल का उत्पादन / Producing goods","पटरियाँ बदलने के लिए / Replacing tracks"],a:0},
 {q:"भारतीय रेलवे किस मंत्रालय के अधीन कार्य करता है? / Indian Railways functions under which ministry?",o:["गृह मंत्रालय / Home Affairs","रेल मंत्रालय / Ministry of Railways","सड़क परिवहन मंत्रालय / Road Transport","वित्त मंत्रालय / Finance"],a:1}
 ];
-let index=0,score=0,remaining=30,clock=null,answered=false,results=[];
-const $=id=>document.getElementById(id);
+
+const TOTAL_SECONDS = 30;
+let index = 0;
+let score = 0;
+let remaining = TOTAL_SECONDS;
+let clock = null;
+let answered = false;
+let results = [];
+let advanceTimeout = null;
+
+const $ = id => document.getElementById(id);
+
+function stopTimers(){
+  clearInterval(clock);
+  clearTimeout(advanceTimeout);
+}
+
 function render(){
-clearInterval(clock);remaining=30;answered=false;
-$("count").textContent="प्रश्न "+(index+1)+" / "+questions.length;
-$("time").textContent=remaining;
-$("bar").style.width=(index/questions.length*100)+"%";
-$("question").textContent=questions[index].q;
-$("options").innerHTML="";
-$("message").textContent="समय समाप्त होने पर अगला प्रश्न अपने आप खुलेगा।";
-questions[index].o.forEach((option,i)=>{
-const b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+option;
-b.onclick=()=>choose(i);$("options").appendChild(b);
-});
-$("next").disabled=true;
-$("next").textContent=index===questions.length-1?"रिज़ल्ट देखें / View Result":"अगला प्रश्न / Next Question →";
-clock=setInterval(()=>{
-remaining--;$("time").textContent=remaining;
-if(remaining<=0){clearInterval(clock);if(!answered){answered=true;results[index]=-1;lockOptions();$("message").textContent="समय समाप्त! / Time is up!";$("next").disabled=false;setTimeout(next,900);}}
-},1000);
+  stopTimers();
+  answered = false;
+  remaining = TOTAL_SECONDS;
+
+  $("count").textContent = "प्रश्न " + (index + 1) + " / " + questions.length;
+  $("time").textContent = remaining;
+  $("bar").style.width = (index / questions.length * 100) + "%";
+  $("question").textContent = questions[index].q;
+  $("options").innerHTML = "";
+  $("message").textContent = "समय समाप्त होने पर अगला प्रश्न अपने आप खुलेगा।";
+  $("next").disabled = true;
+
+  $("next").textContent = index === questions.length - 1
+    ? "रिज़ल्ट देखें / View Result"
+    : "अगला प्रश्न / Next Question →";
+
+  questions[index].o.forEach((option, i) => {
+    const button = document.createElement("button");
+    button.className = "option";
+    button.textContent = String.fromCharCode(65 + i) + ". " + option;
+    button.onclick = () => choose(i);
+    $("options").appendChild(button);
+  });
+
+  clock = setInterval(() => {
+    remaining--;
+    $("time").textContent = remaining;
+
+    if(remaining <= 0){
+      stopTimers();
+      if(!answered){
+        answered = true;
+        results[index] = -1;
+        lockOptions();
+        $("message").textContent = "समय समाप्त! अगला प्रश्न खुल रहा है। / Time is up!";
+        $("next").disabled = true;
+        advanceTimeout = setTimeout(next, 800);
+      }
+    }
+  }, 1000);
 }
-function lockOptions(){document.querySelectorAll(".option").forEach(b=>b.disabled=true)}
+
+function lockOptions(){
+  document.querySelectorAll(".option").forEach(button => {
+    button.disabled = true;
+  });
+}
+
 function choose(i){
-if(answered)return;answered=true;clearInterval(clock);
-const correct=questions[index].a;results[index]=i;
-if(i===correct)score++;
-document.querySelectorAll(".option").forEach((b,j)=>{b.disabled=true;if(j===correct)b.classList.add("correct");if(j===i&&i!==correct)b.classList.add("wrong")});
-$("message").textContent=i===correct?"सही उत्तर! / Correct answer!":"गलत उत्तर / Incorrect answer";
-$("next").disabled=false;
+  if(answered) return;
+
+  answered = true;
+  clearInterval(clock);
+  clearTimeout(advanceTimeout);
+
+  const correct = questions[index].a;
+  results[index] = i;
+
+  if(i === correct) score++;
+
+  document.querySelectorAll(".option").forEach((button, j) => {
+    button.disabled = true;
+    if(j === correct) button.classList.add("correct");
+    if(j === i && i !== correct) button.classList.add("wrong");
+  });
+
+  $("message").textContent = i === correct
+    ? "सही उत्तर! / Correct answer!"
+    : "गलत उत्तर / Incorrect answer";
+
+  $("next").disabled = false;
 }
-function next(){if(!answered)return;clearInterval(clock);index++;if(index<questions.length)render();else showResult()}
-$("next").onclick=next;
+
+function next(){
+  if(!answered) return;
+
+  stopTimers();
+  index++;
+
+  if(index < questions.length){
+    render();
+  } else {
+    showResult();
+  }
+}
+
+$("next").onclick = next;
+
 function showResult(){
-clearInterval(clock);$("quiz").hidden=true;$("result").hidden=false;
-const percent=Math.round(score/questions.length*100);
-$("result").innerHTML="<h2>🎉 टेस्ट पूरा हुआ! / Test Completed!</h2><p><b>APEX PREPRATION ACADEMY</b></p><p>KUMAR ANKUR SIR</p><h1>"+score+" / "+questions.length+"</h1><p>आपका स्कोर / Your Score: "+percent+"%</p><p>सही उत्तर / Correct: "+score+"</p><p>गलत या छोड़े गए / Wrong or Unanswered: "+(questions.length-score)+"</p><div id='review'></div><button id='restart' style='width:100%;padding:14px;background:#1259a7;color:white;border:0;border-radius:9px;font-size:16px;cursor:pointer'>दोबारा टेस्ट दें / Retake Test</button>";
-const review=$("review");
-questions.forEach((q,i)=>{const d=document.createElement("div");d.className="review";d.textContent=(i+1)+". "+q.q+" | आपका उत्तर: "+(results[i]===undefined||results[i]===-1?"नहीं दिया / Not answered":q.o[results[i]])+" | सही उत्तर: "+q.o[q.a];review.appendChild(d)});
-$("restart").onclick=()=>{index=0;score=0;results=[];$("result").hidden=true;$("quiz").hidden=false;render();window.scrollTo(0,0)};
+  stopTimers();
+  $("quiz").hidden = true;
+  $("result").hidden = false;
+  $("bar").style.width = "100%";
+
+  const percent = Math.round(score / questions.length * 100);
+
+  $("result").innerHTML = `
+    <h2>🎉 टेस्ट पूरा हुआ! / Test Completed!</h2>
+    <p><strong>APEX PREPRATION ACADEMY</strong></p>
+    <p>KUMAR ANKUR SIR</p>
+    <h1>${score} / ${questions.length}</h1>
+    <p>आपका स्कोर / Your Score: ${percent}%</p>
+    <p>सही उत्तर / Correct: ${score}</p>
+    <p>गलत या छोड़े गए / Wrong or Unanswered: ${questions.length - score}</p>
+    <div id="review"></div>
+    <button class="primary" id="print">रिज़ल्ट प्रिंट / Save as PDF</button>
+    <button class="primary" id="restart">दोबारा टेस्ट दें / Retake Test</button>
+  `;
+
+  const review = $("review");
+
+  questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "review";
+
+    const userAnswer = results[i] === undefined || results[i] === -1
+      ? "नहीं दिया / Not answered"
+      : q.o[results[i]];
+
+    div.textContent = (i + 1) + ". " + q.q
+      + " | आपका उत्तर: " + userAnswer
+      + " | सही उत्तर: " + q.o[q.a];
+
+    review.appendChild(div);
+  });
+
+  $("print").onclick = () => window.print();
+
+  $("restart").onclick = () => {
+    stopTimers();
+    index = 0;
+    score = 0;
+    results = [];
+    $("result").hidden = true;
+    $("quiz").hidden = false;
+    render();
+    window.scrollTo(0, 0);
+  };
+
+  window.scrollTo(0, 0);
 }
+
 render();
 </script>
 </body>
