@@ -252,37 +252,82 @@ function next(){
 
 $("next").onclick = next;
 
-function showResult(){
+
+function showResult() {
   stopTimers();
+
   $("quiz").hidden = true;
   $("result").hidden = false;
   $("bar").style.width = "100%";
 
-  const percent = Math.round(score / questions.length * 100);
-if (typeof window.saveStudentResult === "function") {
-  const studentName = localStorage.getItem("apexStudentName") || "";
-  const studentMobile = localStorage.getItem("apexStudentMobile") || "";
+  // सबमिट होने पर ही स्कोर की गणना
+  const correctCount = questions.reduce((total, q, i) => {
+    return total + (results[i] === q.a ? 1 : 0);
+  }, 0);
 
-  if (studentName && studentMobile) {
-    window.saveStudentResult(
-      studentName,
-      studentMobile,
-      score,
-      "railway-gk-gs-test-01"
+  const answeredCount = questions.reduce((total, q, i) => {
+    return total + (
+      Number.isInteger(results[i]) &&
+      results[i] >= 0 &&
+      results[i] < q.o.length ? 1 : 0
     );
+  }, 0);
+
+  const wrongCount = questions.reduce((total, q, i) => {
+    return total + (
+      Number.isInteger(results[i]) &&
+      results[i] >= 0 &&
+      results[i] < q.o.length &&
+      results[i] !== q.a ? 1 : 0
+    );
+  }, 0);
+
+  const unansweredCount = questions.length - answeredCount;
+
+  score = correctCount;
+
+  const percent = questions.length
+    ? Math.round(correctCount / questions.length * 100)
+    : 0;
+
+  if (typeof window.saveStudentResult === "function") {
+    const studentName =
+      localStorage.getItem("apexStudentName") || "";
+    const studentMobile =
+      localStorage.getItem("apexStudentMobile") || "";
+
+    if (studentName && studentMobile) {
+      window.saveStudentResult(
+        studentName,
+        studentMobile,
+        score,
+        "railway-gk-gs-test-01"
+      );
+    }
   }
-}
+
   $("result").innerHTML = `
     <h2>🎉 टेस्ट पूरा हुआ! / Test Completed!</h2>
     <p><strong>APEX PREPRATION ACADEMY</strong></p>
     <p>KUMAR ANKUR SIR</p>
-    <h1>${score} / ${questions.length}</h1>
+
+    <h1>${correctCount} / ${questions.length}</h1>
     <p>आपका स्कोर / Your Score: ${percent}%</p>
-    <p>सही उत्तर / Correct: ${score}</p>
-    <p>गलत या छोड़े गए / Wrong or Unanswered: ${questions.length - score}</p>
+
+    <p>✅ सही उत्तर / Correct: ${correctCount}</p>
+    <p>❌ गलत उत्तर / Wrong: ${wrongCount}</p>
+    <p>⏭️ बिना उत्तर / Unanswered: ${unansweredCount}</p>
+
+    <h2>📖 Solutions / उत्तर एवं व्याख्या</h2>
     <div id="review"></div>
-    <button class="primary" id="print">रिज़ल्ट प्रिंट / Save as PDF</button>
-    <button class="primary" id="restart">दोबारा टेस्ट दें / Retake Test</button>
+
+    <button class="primary" id="print">
+      रिज़ल्ट प्रिंट / Save as PDF
+    </button>
+
+    <button class="primary" id="restart">
+      दोबारा टेस्ट दें / Retake Test
+    </button>
   `;
 
   const review = $("review");
@@ -291,13 +336,32 @@ if (typeof window.saveStudentResult === "function") {
     const div = document.createElement("div");
     div.className = "review";
 
-    const userAnswer = results[i] === undefined || results[i] === -1
-      ? "नहीं दिया / Not answered"
-      : q.o[results[i]];
+    const userAnswer =
+      Number.isInteger(results[i]) &&
+      results[i] >= 0 &&
+      results[i] < q.o.length
+        ? q.o[results[i]]
+        : "नहीं दिया / Not answered";
 
-    div.textContent = (i + 1) + ". " + q.q
-      + " | आपका उत्तर: " + userAnswer
-      + " | सही उत्तर: " + q.o[q.a];
+    const questionTitle = document.createElement("h3");
+    questionTitle.textContent = `${i + 1}. ${q.q}`;
+
+    const yourAnswer = document.createElement("p");
+    yourAnswer.textContent = `आपका उत्तर / Your Answer: ${userAnswer}`;
+
+    const correctAnswer = document.createElement("p");
+    correctAnswer.textContent = `सही उत्तर / Correct Answer: ${q.o[q.a]}`;
+
+    const explanation = document.createElement("p");
+    explanation.textContent =
+      `व्याख्या / Explanation: ${
+        q.solution || "इस प्रश्न की व्याख्या अभी उपलब्ध नहीं है।"
+      }`;
+
+    div.appendChild(questionTitle);
+    div.appendChild(yourAnswer);
+    div.appendChild(correctAnswer);
+    div.appendChild(explanation);
 
     review.appendChild(div);
   });
@@ -309,14 +373,17 @@ if (typeof window.saveStudentResult === "function") {
     index = 0;
     score = 0;
     results = [];
+
     $("result").hidden = true;
     $("quiz").hidden = false;
+
     render();
     window.scrollTo(0, 0);
   };
 
   window.scrollTo(0, 0);
 }
+
 
 $("startTest").onclick = async () => {
 const name = $("studentName").value.trim();
