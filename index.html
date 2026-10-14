@@ -305,9 +305,21 @@ window.apexAdminLogout = async function() {
 };
 </script>
 <!-- APEX ADMIN PANEL -->
-<section id="adminPanel" style="display:none;max-width:600px;margin:25px auto;padding:20px;border:2px solid #176b3a;border-radius:12px;">
-  <h2>🔐 APEX ADMIN PANEL</h2>
+<section id="adminLogin" style="max-width:400px;margin:25px auto;padding:20px;border:2px solid #176b3a;border-radius:12px;">
+  <h2>🔐 APEX ADMIN LOGIN</h2>
   <p>KUMAR ANKUR SIR</p>
-  <p>Admin सुविधा जल्द Firebase Login से जोड़ी जाएगी।</p>
-</section> 
+
+  <input id="adminEmail" type="email" placeholder="Admin Email"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+  <input id="adminPassword" type="password" placeholder="Admin Password"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+  <button onclick="apexAdminLogin(
+    document.getElementById('adminEmail').value,
+    document.getElementById('adminPassword').value
+  )" style="width:100%;padding:12px;background:#176b3a;color:white;border:0;border-radius:6px;">
+    Login
+  </button>
+</section>
 </html>
