@@ -410,12 +410,14 @@ const snapshot = await getDocs(collection(db, "questions"));
 let firebaseQuestions = snapshot.docs.map(item => {
   const data = item.data();
 
-  return {
-    q: data.q,
-    o: data.o,
-    a: Number(data.a),
-    subject: data.subject || "Railway GK"
-  };
+  
+return {
+  q: data.q,
+  o: data.o,
+  a: Number(data.a),
+  subject: data.subject || "Railway GK",
+  solution: data.solution || "इस प्रश्न की व्याख्या अभी उपलब्ध नहीं है।"
+};
 }).filter(item =>
   typeof item.q === "string" &&
   Array.isArray(item.o) &&
