@@ -56,6 +56,16 @@ footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
 </header>
 
 <main class="container">
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
   <section class="card" id="quiz">
     <div class="stats">
       <span id="count">प्रश्न 1 / 25</span>
@@ -281,8 +291,16 @@ render();
 </script>
 </body>
 <script type="module">
-import { initializeApp } from
- import {
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
   getFirestore,
   collection,
   addDoc,
