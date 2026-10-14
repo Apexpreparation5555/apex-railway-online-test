@@ -196,7 +196,23 @@ function lockOptions(){
   });
 }
 
-function choose(i){
+function choose(i) {
+  if (answered) return;
+
+  answered = true;
+  clearInterval(clock);
+  clearTimeout(advanceTimeout);
+
+  results[index] = i;
+
+  // टेस्ट के दौरान सही उत्तर या गलत उत्तर नहीं दिखाना
+  lockOptions();
+
+  $("message").textContent =
+    "उत्तर सेव हो गया। आगे बढ़ने के लिए Next दबाएँ।";
+
+  $("next").disabled = false;
+}
   if(answered) return;
 
   answered = true;
@@ -629,7 +645,7 @@ $("saveQuestion").onclick = async function() {
     $("option3").value.trim()
   ];
   const answer = Number($("correctOption").value);
-
+const solution = $("newSolution").value.trim();
   if (!q || options.some(option => !option)) {
     alert("प्रश्न और चारों विकल्प भरें।");
     return;
@@ -638,9 +654,12 @@ $("saveQuestion").onclick = async function() {
   try {
     await addDoc(questionCollection, {
       q: q,
-      o: options,
-      a: answer,
-      createdAt: new Date()
+o: options,
+a: answer,
+solution: solution,
+subject: "Railway GK",
+createdAt: new Date()
+ $("newSolution").value = "";    
     });
 
     $("questionMessage").textContent = "प्रश्न सफलतापूर्वक सेव हो गया!";
@@ -784,6 +803,10 @@ window.apexAdminLogout = async function() {
     style="width:100%;padding:10px;margin:6px 0;">
 
   <label>सही उत्तर चुनें</label>
+ <label>Solution / उत्तर की व्याख्या</label>
+<textarea id="newSolution" rows="4"
+  placeholder="सही उत्तर क्यों है? सरल भाषा में समझाएँ"
+  style="width:100%;padding:10px;margin:8px 0;"></textarea>
   <select id="correctOption"
     style="width:100%;padding:10px;margin:8px 0;">
     <option value="0">A</option>
