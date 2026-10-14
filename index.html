@@ -370,10 +370,67 @@ const db = getFirestore(app);
 }
 
 window.saveStudentResult = saveStudentResult;
+ $("loadResults").onclick = async function() {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("पहले Admin Login करें।");
+    return;
+  }
+
+  $("resultsMessage").textContent = "रिज़ल्ट लोड हो रहे हैं...";
+  $("resultsList").innerHTML = "";
+
+  try {
+    const snapshot = await getDocs(
+      query(collection(db, "results"), orderBy("createdAt", "desc"))
+    );
+
+    if (snapshot.empty) {
+      $("resultsMessage").textContent = "अभी कोई रिज़ल्ट उपलब्ध नहीं है।";
+      return;
+    }
+
+    $("resultsMessage").textContent =
+      "कुल रिज़ल्ट: " + snapshot.size;
+
+    const table = document.createElement("table");
+    table.style.width = "100%";
+    table.style.borderCollapse = "collapse";
+
+    table.innerHTML = `
+      <tr>
+        <th>नाम</th>
+        <th>मोबाइल</th>
+        <th>अंक</th>
+        <th>टेस्ट</th>
+      </tr>
+    `;
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const row = table.insertRow();
+
+      [data.name, data.mobile, data.score, data.testId].forEach(value => {
+        const cell = row.insertCell();
+        cell.textContent = value ?? "";
+        cell.style.padding = "8px";
+        cell.style.border = "1px solid #ddd";
+      });
+    });
+
+    $("resultsList").appendChild(table);
+  } catch (error) {
+    console.error(error);
+    $("resultsMessage").textContent =
+      "रिज़ल्ट नहीं खुल पाए। Firebase Rules जाँचें।";
+  }
+};
 window.apexAdminLogin = async function(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     alert("Admin Login सफल हुआ!");
+   document.getElementById("adminResults").hidden = false;
   } catch (error) {
     alert("Login नहीं हुआ। Email और Password जाँचें।");
   }
@@ -385,6 +442,21 @@ window.apexAdminLogout = async function() {
 };
 </script>
 <!-- APEX ADMIN PANEL -->
+ <!-- STUDENT RESULTS -->
+<section id="adminResults" hidden
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
+
+  <h2>📊 विद्यार्थियों के टेस्ट रिज़ल्ट</h2>
+
+  <button id="loadResults"
+    style="padding:12px;background:#1259a7;color:white;border:0;border-radius:6px;">
+    रिज़ल्ट देखें
+  </button>
+
+  <p id="resultsMessage">Admin Login के बाद रिज़ल्ट देखें।</p>
+
+  <div id="resultsList" style="overflow-x:auto;"></div>
+</section>
 <section id="adminLogin" style="max-width:400px;margin:25px auto;padding:20px;border:2px solid #176b3a;border-radius:12px;">
   <h2>🔐 APEX ADMIN LOGIN</h2>
   <p>KUMAR ANKUR SIR</p>
