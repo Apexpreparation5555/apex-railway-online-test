@@ -56,16 +56,31 @@ footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
 </header>
 
 <main class="container">
- import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+<section class="card" id="studentForm">
+  <h2>📝 विद्यार्थी विवरण / Student Details</h2>
 
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+  <label for="studentName">नाम / Name</label>
+  <input
+    id="studentName"
+    type="text"
+    placeholder="अपना नाम लिखें"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;"
+  >
+
+  <label for="studentMobile">मोबाइल नंबर / Mobile Number</label>
+  <input
+    id="studentMobile"
+    type="tel"
+    inputmode="numeric"
+    maxlength="10"
+    placeholder="10 अंकों का मोबाइल नंबर"
+    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;"
+  >
+
+  <button class="primary" id="startTest">
+    टेस्ट शुरू करें / Start Test
+  </button>
+</section> 
 <section class="card" id="quiz" hidden>
     <div class="stats">
       <span id="count">प्रश्न 1 / 25</span>
@@ -317,15 +332,7 @@ import {
   query,
   orderBy
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-  "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-
+  
 import {
   getAuth,
   signInWithEmailAndPassword,
