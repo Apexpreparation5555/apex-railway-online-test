@@ -577,6 +577,74 @@ await loadQuestions();
     $("questionMessage").textContent =
       "प्रश्न सेव नहीं हुआ। Firebase Rules जाँचें।";
   }
+};
+const testCollection = collection(db, "tests");
+
+$("saveTestSettings").onclick = async function () {
+if (!auth.currentUser) {
+alert("पहले Admin Login करें।");
+return;
+}
+
+const name = $("testName").value.trim();
+const type = $("testType").value;
+const durationMinutes = Number($("testDuration").value);
+const questionCount = Number($("testQuestionCount").value);
+const marksPerQuestion = Number($("testMarks").value);
+const negativeMarking = Number($("testNegative").value);
+const subjects = $("testSubjects").value
+.split(",").map(s => s.trim()).filter(Boolean);
+const randomQuestions = $("testRandom").checked;
+
+if (
+!name ||
+!["mixed", "sectional", "full"].includes(type) ||
+!Number.isFinite(durationMinutes) || durationMinutes < 1 ||
+!Number.isInteger(questionCount) || questionCount < 1 ||
+!Number.isFinite(marksPerQuestion) || marksPerQuestion < 0 ||
+!Number.isFinite(negativeMarking) || negativeMarking < 0 ||
+subjects.length === 0
+) {
+$("testSettingsMessage").textContent =
+"कृपया सभी सेटिंग्स सही भरें।";
+return;
+}
+
+const settings = {
+name,
+type,
+durationMinutes,
+questionCount,
+marksPerQuestion,
+negativeMarking,
+randomQuestions,
+subjects,
+updatedAt: new Date()
+};
+
+try {
+const snapshot = await getDocs(testCollection);
+const existing = snapshot.docs.find(
+item => item.data().name === name
+);
+
+if (existing) {
+  await updateDoc(doc(db, "tests", existing.id), settings);
+} else {
+  await addDoc(testCollection, {
+    ...settings,
+    createdAt: new Date()
+  });
+}
+
+$("testSettingsMessage").textContent =
+  "✅ टेस्ट सेटिंग्स Firebase में सेव हो गईं!";
+
+} catch (error) {
+console.error(error);
+$("testSettingsMessage").textContent =
+"सेव नहीं हुआ। Firebase Rules या Console में error जाँचें।";
+}
 }; 
 window.apexAdminLogin = async function(email, password) {
   try {
