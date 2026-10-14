@@ -196,6 +196,7 @@ function lockOptions(){
   });
 }
 
+
 function choose(i) {
   if (answered) return;
 
@@ -205,14 +206,24 @@ function choose(i) {
 
   results[index] = i;
 
-  // टेस्ट के दौरान सही उत्तर या गलत उत्तर नहीं दिखाना
-  lockOptions();
+  // सभी विकल्पों से पुराना चयन हटाएँ
+  document.querySelectorAll(".option").forEach(button => {
+    button.classList.remove("selected");
+    button.disabled = true;
+  });
+
+  // चुने हुए विकल्प को पीला दिखाएँ
+  const selectedButton = document.querySelectorAll(".option")[i];
+  if (selectedButton) {
+    selectedButton.classList.add("selected");
+  }
 
   $("message").textContent =
-    "उत्तर सेव हो गया। आगे बढ़ने के लिए Next दबाएँ।";
+    "आपका उत्तर चुना गया है। आगे बढ़ने के लिए Next दबाएँ।";
 
   $("next").disabled = false;
 }
+
 function next(){
   if(!answered) return;
 
