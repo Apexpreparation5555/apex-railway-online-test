@@ -567,6 +567,7 @@ $("saveQuestion").onclick = async function() {
     });
 
     $("questionMessage").textContent = "प्रश्न सफलतापूर्वक सेव हो गया!";
+await loadQuestions();   
     $("newQuestion").value = "";
     for (let i = 0; i < 4; i++) {
       $("option" + i).value = "";
@@ -583,6 +584,7 @@ window.apexAdminLogin = async function(email, password) {
     alert("Admin Login सफल हुआ!");
    document.getElementById("adminResults").hidden = false;
    document.getElementById("questionManager").hidden = false;
+await loadQuestions();   
   } catch (error) {
     alert("Login नहीं हुआ। Email और Password जाँचें।");
   }
@@ -638,6 +640,58 @@ window.apexAdminLogout = async function() {
   <div id="questionList"></div>
 </section>
 <!-- APEX ADMIN PANEL -->
+ 
+<!-- APEX TEST SETTINGS -->
+<section id="testSettings" hidden
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
+
+  <h2>⚙️ टेस्ट सेटिंग्स / Test Settings</h2>
+
+  <label>टेस्ट का नाम</label>
+  <input id="testName" value="Full Mock Test 01"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>टेस्ट का प्रकार</label>
+  <select id="testType" style="width:100%;padding:10px;margin:6px 0;">
+    <option value="mixed">Mixed Test</option>
+    <option value="sectional">Sectional Test</option>
+    <option value="full" selected>Full Mock Test</option>
+  </select>
+
+  <label>समय (मिनट)</label>
+  <input id="testDuration" type="number" min="1" value="90"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>प्रश्नों की संख्या</label>
+  <input id="testQuestionCount" type="number" min="1" value="100"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>प्रत्येक सही उत्तर के अंक</label>
+  <input id="testMarks" type="number" min="0" step="0.25" value="1"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>गलत उत्तर पर अंक कटौती</label>
+  <input id="testNegative" type="number" min="0" step="0.01" value="0.33"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>विषय (अभी एक विषय का नाम)</label>
+  <input id="testSubjects" value="Railway GK"
+    placeholder="जैसे History, Geography, Science"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label style="display:block;margin:10px 0;">
+    <input id="testRandom" type="checkbox">
+    प्रश्न Random क्रम में दिखाएँ
+  </label>
+
+  <button type="button" id="saveTestSettings"
+    style="width:100%;padding:12px;background:#1259a7;color:white;border:0;border-radius:8px;">
+    सेटिंग सेव करें
+  </button>
+
+  <p id="testSettingsMessage"></p>
+</section>
+
  <!-- STUDENT RESULTS -->
 <section id="adminResults" hidden
   style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
