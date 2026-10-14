@@ -476,6 +476,7 @@ window.apexAdminLogin = async function(email, password) {
     await signInWithEmailAndPassword(auth, email, password);
     alert("Admin Login सफल हुआ!");
    document.getElementById("adminResults").hidden = false;
+   document.getElementById("questionManager").hidden = false;
   } catch (error) {
     alert("Login नहीं हुआ। Email और Password जाँचें।");
   }
