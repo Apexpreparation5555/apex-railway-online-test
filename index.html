@@ -431,6 +431,112 @@ window.saveStudentResult = saveStudentResult;
   }
 };
 const questionCollection = collection(db, "questions");
+ 
+async function loadQuestions() {
+  if (!auth.currentUser) {
+    alert("पहले Admin Login करें।");
+    return;
+  }
+
+  const list = document.getElementById("questionList");
+  list.innerHTML = "प्रश्न लोड हो रहे हैं...";
+
+  try {
+    const snapshot = await getDocs(questionCollection);
+    list.innerHTML = "";
+
+    if (snapshot.empty) {
+      list.textContent = "अभी कोई प्रश्न सेव नहीं है।";
+      return;
+    }
+
+    snapshot.forEach((item) => {
+      const data = item.data();
+      const box = document.createElement("div");
+      box.style.cssText =
+        "border:1px solid #ddd;padding:12px;margin:10px 0;border-radius:8px";
+
+      const title = document.createElement("p");
+      title.textContent = data.q || "";
+      box.appendChild(title);
+
+      const options = document.createElement("p");
+      options.textContent = (data.o || []).join(" | ");
+      box.appendChild(options);
+
+      const edit = document.createElement("button");
+      edit.textContent = "✏️ Edit";
+      edit.style.marginRight = "10px";
+
+      edit.onclick = async () => {
+        const newQ = prompt("प्रश्न बदलें:", data.q || "");
+        if (newQ === null || !newQ.trim()) return;
+
+        const newOptions = [];
+        for (let i = 0; i < 4; i++) {
+          const value = prompt(
+            "विकल्प " + String.fromCharCode(65 + i) + " बदलें:",
+            (data.o || [])[i] || ""
+          );
+          if (value === null || !value.trim()) {
+            alert("चारों विकल्प भरना ज़रूरी है।");
+            return;
+          }
+          newOptions.push(value.trim());
+        }
+
+        const answerText = prompt(
+          "सही विकल्प का नंबर लिखें: 1=A, 2=B, 3=C, 4=D",
+          String(Number(data.a ?? 0) + 1)
+        );
+
+        if (answerText === null) return;
+        const answer = Number(answerText) - 1;
+
+        if (!Number.isInteger(answer) || answer < 0 || answer > 3) {
+          alert("सही विकल्प 1 से 4 के बीच होना चाहिए।");
+          return;
+        }
+
+        try {
+          await updateDoc(doc(db, "questions", item.id), {
+            q: newQ.trim(),
+            o: newOptions,
+            a: answer
+          });
+          alert("प्रश्न अपडेट हो गया!");
+          await loadQuestions();
+        } catch (error) {
+          console.error(error);
+          alert("अपडेट नहीं हुआ। Firebase Rules जाँचें।");
+        }
+      };
+
+      const remove = document.createElement("button");
+      remove.textContent = "🗑️ Delete";
+
+      remove.onclick = async () => {
+        if (!confirm("क्या यह प्रश्न हटाना चाहते हैं?")) return;
+
+        try {
+          await deleteDoc(doc(db, "questions", item.id));
+          alert("प्रश्न हटा दिया गया!");
+          await loadQuestions();
+        } catch (error) {
+          console.error(error);
+          alert("प्रश्न नहीं हटा। Firebase Rules जाँचें।");
+        }
+      };
+
+      box.appendChild(edit);
+      box.appendChild(remove);
+      list.appendChild(box);
+    });
+  } catch (error) {
+    console.error(error);
+    list.textContent = "प्रश्न लोड नहीं हुए। Firebase Rules जाँचें।";
+  }
+}
 
 $("saveQuestion").onclick = async function() {
   if (!auth.currentUser) {
