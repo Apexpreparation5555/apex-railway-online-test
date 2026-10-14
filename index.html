@@ -103,7 +103,7 @@ footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
 <script>
 "use strict";
 
-const questions = [
+let questions = [
 {q:"भारत में पहली यात्री रेलगाड़ी कब चली थी? / When did India's first passenger train run?",o:["1843","1853","1863","1873"],a:1},
 {q:"भारत की पहली यात्री रेलगाड़ी किन स्थानों के बीच चली थी? / Between which places did India's first passenger train run?",o:["दिल्ली–आगरा / Delhi–Agra","बॉम्बे–ठाणे / Bombay–Thane","हावड़ा–पटना / Howrah–Patna","चेन्नई–मैसूर / Chennai–Mysore"],a:1},
 {q:"भारतीय रेलवे का मुख्यालय कहाँ है? / Where is the headquarters of Indian Railways?",o:["मुंबई / Mumbai","कोलकाता / Kolkata","नई दिल्ली / New Delhi","चेन्नई / Chennai"],a:2},
@@ -355,6 +355,51 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+ window.loadFirebaseQuestions = async function (testSettings) {
+try {
+const snapshot = await getDocs(collection(db, "questions"));
+
+let firebaseQuestions = snapshot.docs.map(item => {
+  const data = item.data();
+
+  return {
+    q: data.q,
+    o: data.o,
+    a: Number(data.a),
+    subject: data.subject || "Railway GK"
+  };
+}).filter(item =>
+  typeof item.q === "string" &&
+  Array.isArray(item.o) &&
+  item.o.length === 4 &&
+  Number.isInteger(item.a) &&
+  item.a >= 0 &&
+  item.a < 4
+);
+
+if (testSettings && Array.isArray(testSettings.subjects)) {
+  firebaseQuestions = firebaseQuestions.filter(item =>
+    testSettings.subjects.includes(item.subject)
+  );
+}
+
+if (testSettings?.randomQuestions) {
+  firebaseQuestions.sort(() => Math.random() - 0.5);
+}
+
+if (testSettings?.questionCount) {
+  firebaseQuestions = firebaseQuestions.slice(
+    0, testSettings.questionCount
+  );
+}
+
+return firebaseQuestions;
+
+} catch (error) {
+console.error("Firebase questions load error:", error);
+throw error;
+}
+};
  const $ = id => document.getElementById(id);
  async function saveStudentResult(name, mobile, score, testId) {
   try {
