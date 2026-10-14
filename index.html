@@ -302,7 +302,55 @@ if (typeof window.saveStudentResult === "function") {
   window.scrollTo(0, 0);
 }
 
-$("startTest").onclick = () => {
+$("startTest").onclick = async () => {
+const name = $("studentName").value.trim();
+const mobile = $("studentMobile").value.trim();
+
+if (!name || !/^\d{10}$/.test(mobile)) {
+alert("कृपया नाम और 10 अंकों का मोबाइल नंबर भरें।");
+return;
+}
+
+const startButton = $("startTest");
+startButton.disabled = true;
+startButton.textContent = "प्रश्न लोड हो रहे हैं...";
+
+try {
+if (typeof window.getFirebaseTestSettings !== "function" ||
+typeof window.loadFirebaseQuestions !== "function") {
+throw new Error("Firebase functions उपलब्ध नहीं हैं।");
+}
+
+const settings = await window.getFirebaseTestSettings();
+const firebaseQuestions =
+  await window.loadFirebaseQuestions(settings);
+
+if (!firebaseQuestions.length) {
+  throw new Error("इस टेस्ट के लिए Firebase में प्रश्न नहीं मिले।");
+}
+
+questions = firebaseQuestions;
+
+localStorage.setItem("apexStudentName", name);
+localStorage.setItem("apexStudentMobile", mobile);
+
+index = 0;
+score = 0;
+results = [];
+
+$("studentForm").hidden = true;
+$("quiz").hidden = false;
+
+render();
+
+} catch (error) {
+console.error(error);
+alert("टेस्ट शुरू नहीं हुआ: " + error.message);
+} finally {
+startButton.disabled = false;
+startButton.textContent = "टेस्ट शुरू करें / Start Test";
+}
+};
   const name = $("studentName").value.trim();
   const mobile = $("studentMobile").value.trim();
 
@@ -624,7 +672,22 @@ await loadQuestions();
   }
 };
 const testCollection = collection(db, "tests");
+window.getFirebaseTestSettings = async function () {
+const snapshot = await getDocs(testCollection);
 
+if (snapshot.empty) {
+throw new Error("Firebase में कोई Test Settings नहीं मिलीं।");
+}
+
+const testDoc = snapshot.docs.find(
+item => item.data().name === "Full Mock Test 01"
+) || snapshot.docs[0];
+
+return {
+id: testDoc.id,
+...testDoc.data()
+};
+};
 $("saveTestSettings").onclick = async function () {
 if (!auth.currentUser) {
 alert("पहले Admin Login करें।");
