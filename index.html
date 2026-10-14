@@ -213,30 +213,6 @@ function choose(i) {
 
   $("next").disabled = false;
 }
-  if(answered) return;
-
-  answered = true;
-  clearInterval(clock);
-  clearTimeout(advanceTimeout);
-
-  const correct = questions[index].a;
-  results[index] = i;
-
-  if(i === correct) score++;
-
-  document.querySelectorAll(".option").forEach((button, j) => {
-    button.disabled = true;
-    if(j === correct) button.classList.add("correct");
-    if(j === i && i !== correct) button.classList.add("wrong");
-  });
-
-  $("message").textContent = i === correct
-    ? "सही उत्तर! / Correct answer!"
-    : "गलत उत्तर / Incorrect answer";
-
-  $("next").disabled = false;
-}
-
 function next(){
   if(!answered) return;
 
@@ -727,8 +703,7 @@ o: options,
 a: answer,
 solution: solution,
 subject: "Railway GK",
-createdAt: new Date()
- $("newSolution").value = "";    
+createdAt: new Date() 
     });
 
     $("questionMessage").textContent = "प्रश्न सफलतापूर्वक सेव हो गया!";
