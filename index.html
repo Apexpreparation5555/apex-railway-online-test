@@ -330,7 +330,10 @@ import {
   addDoc,
   getDocs,
   query,
-  orderBy
+  orderBy,
+  doc,
+  updateDoc,
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
   
 import {
@@ -352,6 +355,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+ const $ = id => document.getElementById(id);
  async function saveStudentResult(name, mobile, score, testId) {
   try {
     await addDoc(collection(db, "results"), {
@@ -426,6 +430,47 @@ window.saveStudentResult = saveStudentResult;
       "रिज़ल्ट नहीं खुल पाए। Firebase Rules जाँचें।";
   }
 };
+const questionCollection = collection(db, "questions");
+
+$("saveQuestion").onclick = async function() {
+  if (!auth.currentUser) {
+    alert("पहले Admin Login करें।");
+    return;
+  }
+
+  const q = $("newQuestion").value.trim();
+  const options = [
+    $("option0").value.trim(),
+    $("option1").value.trim(),
+    $("option2").value.trim(),
+    $("option3").value.trim()
+  ];
+  const answer = Number($("correctOption").value);
+
+  if (!q || options.some(option => !option)) {
+    alert("प्रश्न और चारों विकल्प भरें।");
+    return;
+  }
+
+  try {
+    await addDoc(questionCollection, {
+      q: q,
+      o: options,
+      a: answer,
+      createdAt: new Date()
+    });
+
+    $("questionMessage").textContent = "प्रश्न सफलतापूर्वक सेव हो गया!";
+    $("newQuestion").value = "";
+    for (let i = 0; i < 4; i++) {
+      $("option" + i).value = "";
+    }
+  } catch (error) {
+    console.error(error);
+    $("questionMessage").textContent =
+      "प्रश्न सेव नहीं हुआ। Firebase Rules जाँचें।";
+  }
+}; 
 window.apexAdminLogin = async function(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -441,6 +486,50 @@ window.apexAdminLogout = async function() {
   alert("Logout हो गया।");
 };
 </script>
+ <!-- APEX QUESTION MANAGER -->
+<section id="questionManager" hidden
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
+
+  <h2>📚 GK/GS प्रश्न प्रबंधन</h2>
+
+  <label>प्रश्न हिंदी + English</label>
+  <textarea id="newQuestion" rows="3"
+    placeholder="प्रश्न यहाँ लिखें"
+    style="width:100%;padding:10px;margin:8px 0;"></textarea>
+
+  <label>विकल्प A</label>
+  <input id="option0" placeholder="विकल्प A"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>विकल्प B</label>
+  <input id="option1" placeholder="विकल्प B"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>विकल्प C</label>
+  <input id="option2" placeholder="विकल्प C"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>विकल्प D</label>
+  <input id="option3" placeholder="विकल्प D"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>सही उत्तर चुनें</label>
+  <select id="correctOption"
+    style="width:100%;padding:10px;margin:8px 0;">
+    <option value="0">A</option>
+    <option value="1">B</option>
+    <option value="2">C</option>
+    <option value="3">D</option>
+  </select>
+
+  <button type="button" id="saveQuestion"
+    style="width:100%;padding:12px;background:#176b3a;color:white;border:0;border-radius:8px;">
+    प्रश्न सेव करें
+  </button>
+
+  <p id="questionMessage"></p>
+  <div id="questionList"></div>
+</section>
 <!-- APEX ADMIN PANEL -->
  <!-- STUDENT RESULTS -->
 <section id="adminResults" hidden
