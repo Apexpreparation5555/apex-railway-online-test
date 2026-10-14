@@ -66,7 +66,7 @@ import {
   query,
   orderBy
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-  <section class="card" id="quiz">
+<section class="card" id="quiz" hidden>
     <div class="stats">
       <span id="count">प्रश्न 1 / 25</span>
       <span>अधिकतम अंक: 25</span>
@@ -287,7 +287,23 @@ if (typeof window.saveStudentResult === "function") {
   window.scrollTo(0, 0);
 }
 
-render();
+$("startTest").onclick = () => {
+  const name = $("studentName").value.trim();
+  const mobile = $("studentMobile").value.trim();
+
+  if (!name || !/^\d{10}$/.test(mobile)) {
+    alert("कृपया नाम और 10 अंकों का मोबाइल नंबर भरें।");
+    return;
+  }
+
+  localStorage.setItem("apexStudentName", name);
+  localStorage.setItem("apexStudentMobile", mobile);
+
+  $("studentForm").hidden = true;
+  $("quiz").hidden = false;
+
+  render();
+};
 </script>
 </body>
 <script type="module">
