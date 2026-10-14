@@ -698,14 +698,14 @@ const solution = $("newSolution").value.trim();
 
   try {
     await addDoc(questionCollection, {
-      q: q,
-o: options,
-a: answer,
-solution: solution,
-subject: "Railway GK",
-createdAt: new Date() 
-    });
-
+  q: q,
+  o: options,
+  a: answer,
+  solution: solution,
+  subject: "Railway GK",
+  createdAt: new Date()
+});
+$("newSolution").value = "";
     $("questionMessage").textContent = "प्रश्न सफलतापूर्वक सेव हो गया!";
 await loadQuestions();   
     $("newQuestion").value = "";
