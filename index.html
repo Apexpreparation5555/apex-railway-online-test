@@ -270,6 +270,14 @@ render();
 </body>
 <script type="module">
 import { initializeApp } from
+ import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
   "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 
 import {
@@ -290,7 +298,25 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+ async function saveStudentResult(name, mobile, score, testId) {
+  try {
+    await addDoc(collection(db, "results"), {
+      name: name,
+      mobile: mobile,
+      score: Number(score),
+      testId: testId,
+      createdAt: new Date()
+    });
+    console.log("Result saved successfully");
+    return true;
+  } catch (error) {
+    console.error("Result save failed:", error);
+    return false;
+  }
+}
 
+window.saveStudentResult = saveStudentResult;
 window.apexAdminLogin = async function(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
