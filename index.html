@@ -351,22 +351,6 @@ startButton.disabled = false;
 startButton.textContent = "टेस्ट शुरू करें / Start Test";
 }
 };
-  const name = $("studentName").value.trim();
-  const mobile = $("studentMobile").value.trim();
-
-  if (!name || !/^\d{10}$/.test(mobile)) {
-    alert("कृपया नाम और 10 अंकों का मोबाइल नंबर भरें।");
-    return;
-  }
-
-  localStorage.setItem("apexStudentName", name);
-  localStorage.setItem("apexStudentMobile", mobile);
-
-  $("studentForm").hidden = true;
-  $("quiz").hidden = false;
-
-  render();
-};
 </script>
 </body>
 <script type="module">
