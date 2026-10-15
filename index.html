@@ -272,11 +272,23 @@ function showResult() {
 
   const unansweredCount = questions.length - answeredCount;
 
-  score = correctCount;
+const marksPerQuestion = Number(activeTestSettings?.marksPerQuestion ?? 1);
+const negativeMarking = Number(activeTestSettings?.negativeMarking ?? 0);
 
-  const percent = questions.length
-    ? Math.round(correctCount / questions.length * 100)
-    : 0;
+score = Math.max(
+  0,
+  Number(
+    (correctCount * marksPerQuestion -
+      wrongCount * negativeMarking).toFixed(2)
+  )
+);
+
+  const totalMarks =
+  questions.length * Number(activeTestSettings?.marksPerQuestion ?? 1);
+
+const percent = totalMarks > 0
+  ? Math.round((score / totalMarks) * 100)
+  : 0;
 
   // Firebase में विद्यार्थी का रिज़ल्ट सेव करें
 const studentName =
@@ -314,7 +326,7 @@ if (
     <p><strong>APEX PREPRATION ACADEMY</strong></p>
     <p>KUMAR ANKUR SIR</p>
 
-    <h1>${correctCount} / ${questions.length}</h1>
+    <h1>${score} / ${questions.length * Number(activeTestSettings?.marksPerQuestion ?? 1)}</h1>
     <p>आपका स्कोर / Your Score: ${percent}%</p>
 
     <p>✅ सही उत्तर / Correct: ${correctCount}</p>
@@ -805,8 +817,7 @@ window.getFirebaseTestSettings = async function () {
     ...settings.data()
   };
 };
-
-};
+ 
 $("saveTestSettings").onclick = async function () {
 if (!auth.currentUser) {
 alert("पहले Admin Login करें।");
