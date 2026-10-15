@@ -285,21 +285,36 @@ function showResult() {
     ? Math.round(correctCount / questions.length * 100)
     : 0;
 
-  if (typeof window.saveStudentResult === "function") {
-    const studentName =
-      localStorage.getItem("apexStudentName") || "";
-    const studentMobile =
-      localStorage.getItem("apexStudentMobile") || "";
+  // Firebase में विद्यार्थी का रिज़ल्ट सेव करें
+const studentName =
+  localStorage.getItem("apexStudentName") || "";
 
-    if (studentName && studentMobile) {
-      window.saveStudentResult(
-        studentName,
-        studentMobile,
-        score,
-        "railway-gk-gs-test-01"
-      );
+const studentMobile =
+  localStorage.getItem("apexStudentMobile") || "";
+
+if (
+  studentName &&
+  studentMobile &&
+  typeof window.saveStudentResult === "function"
+) {
+  window.saveStudentResult(
+    studentName,
+    studentMobile,
+    score,
+    "railway-gk-gs-test-01"
+  ).then(saved => {
+    if (saved) {
+      console.log("✅ रिज़ल्ट Firebase में सेव हो गया।");
+    } else {
+      alert("रिज़ल्ट Firebase में सेव नहीं हुआ। कृपया Admin से संपर्क करें।");
     }
-  }
+  }).catch(error => {
+    console.error("Result save error:", error);
+    alert("रिज़ल्ट सेव करने में समस्या आई।");
+  });
+} else {
+  console.error("विद्यार्थी का विवरण या Firebase फ़ंक्शन उपलब्ध नहीं है।");
+}
 
   $("result").innerHTML = `
     <h2>🎉 टेस्ट पूरा हुआ! / Test Completed!</h2>
