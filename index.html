@@ -142,6 +142,7 @@ let questions = [
 ];
 
 let TOTAL_SECONDS = 600;
+let activeTestSettings = null; 
 let index = 0;
 let score = 0;
 let remaining = TOTAL_SECONDS;
@@ -202,9 +203,6 @@ function choose(i) {
   if (answered) return;
 
   answered = true;
-  clearInterval(clock);
-  clearTimeout(advanceTimeout);
-
   results[index] = i;
 
   // सभी विकल्पों से पुराना चयन हटाएँ
@@ -411,6 +409,7 @@ throw new Error("Firebase functions उपलब्ध नहीं हैं।
 }
 
 const settings = await window.getFirebaseTestSettings();
+ activeTestSettings = settings;
 window.updateTestInfo?.(settings);
  TOTAL_SECONDS = (Number(settings.durationMinutes) || 10) * 60;
 const firebaseQuestions =
@@ -763,8 +762,8 @@ await loadQuestions();
       "प्रश्न सेव नहीं हुआ। Firebase Rules जाँचें।";
   }
 };
+
 const testCollection = collection(db, "tests");
-window.getFirebaseTestSettings = async function () {
 
 window.updateTestInfo = function (settings) {
   const info = document.getElementById("testInfo");
@@ -789,21 +788,24 @@ window.updateTestInfo = function (settings) {
     `${subjects} | ${count} प्रश्न | ` +
     `${count * marks} अंक | ${duration} मिनट`;
 };
- 
-const snapshot = await getDocs(testCollection);
 
-if (snapshot.empty) {
-throw new Error("Firebase में कोई Test Settings नहीं मिलीं।");
-}
+window.getFirebaseTestSettings = async function () {
+  const snapshot = await getDocs(testCollection);
 
-const testDoc = snapshot.docs.find(
-item => item.data().name === "Full Mock Test 01"
-) || snapshot.docs[0];
+  if (snapshot.empty) {
+    throw new Error("Firebase में कोई Test Settings नहीं मिलीं।");
+  }
 
-return {
-id: testDoc.id,
-...testDoc.data()
+  const settings = snapshot.docs.find(
+    item => item.data().name === "Full Mock Test 01"
+  ) || snapshot.docs[0];
+
+  return {
+    id: settings.id,
+    ...settings.data()
+  };
 };
+
 };
 $("saveTestSettings").onclick = async function () {
 if (!auth.currentUser) {
