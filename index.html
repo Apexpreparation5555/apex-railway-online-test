@@ -141,7 +141,7 @@ let questions = [
 {q:"भारतीय रेलवे किस मंत्रालय के अधीन कार्य करता है? / Indian Railways functions under which ministry?",o:["गृह मंत्रालय / Home Affairs","रेल मंत्रालय / Ministry of Railways","सड़क परिवहन मंत्रालय / Road Transport","वित्त मंत्रालय / Finance"],a:1}
 ];
 
-const TOTAL_SECONDS = 30;
+let TOTAL_SECONDS = 600;
 let index = 0;
 let score = 0;
 let remaining = TOTAL_SECONDS;
@@ -158,16 +158,18 @@ function stopTimers(){
 }
 
 function render(){
-  stopTimers();
+
+function render(){
+  clearInterval(clock);
+  clearTimeout(advanceTimeout);
+
   answered = false;
-  remaining = TOTAL_SECONDS;
 
   $("count").textContent = "प्रश्न " + (index + 1) + " / " + questions.length;
-  $("time").textContent = remaining;
   $("bar").style.width = (index / questions.length * 100) + "%";
   $("question").textContent = questions[index].q;
   $("options").innerHTML = "";
-  $("message").textContent = "समय समाप्त होने पर अगला प्रश्न अपने आप खुलेगा।";
+  $("message").textContent = "सभी प्रश्नों के लिए कुल टेस्ट टाइमर चल रहा है।";
   $("next").disabled = true;
 
   $("next").textContent = index === questions.length - 1
@@ -181,23 +183,16 @@ function render(){
     button.onclick = () => choose(i);
     $("options").appendChild(button);
   });
+}
 
-  clock = setInterval(() => {
-    remaining--;
-    $("time").textContent = remaining;
 
-    if(remaining <= 0){
-      stopTimers();
-      if(!answered){
-        answered = true;
-        results[index] = -1;
-        lockOptions();
-        $("message").textContent = "समय समाप्त! अगला प्रश्न खुल रहा है। / Time is up!";
-        $("next").disabled = true;
-        advanceTimeout = setTimeout(next, 800);
-      }
-    }
-  }, 1000);
+function updateTimerDisplay(){
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+
+  $("time").textContent =
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
 }
 
 function lockOptions(){
@@ -234,10 +229,11 @@ function choose(i) {
   $("next").disabled = false;
 }
 
+
 function next(){
   if(!answered) return;
 
-  stopTimers();
+  clearTimeout(advanceTimeout);
   index++;
 
   if(index < questions.length){
@@ -246,6 +242,7 @@ function next(){
     showResult();
   }
 }
+
 
 $("next").onclick = next;
 
@@ -417,6 +414,8 @@ throw new Error("Firebase functions उपलब्ध नहीं हैं।
 }
 
 const settings = await window.getFirebaseTestSettings();
+window.updateTestInfo?.(settings);
+ TOTAL_SECONDS = (Number(settings.durationMinutes) || 10) * 60;
 const firebaseQuestions =
   await window.loadFirebaseQuestions(settings);
 
@@ -433,11 +432,24 @@ index = 0;
 score = 0;
 results = [];
 
+
 $("studentForm").hidden = true;
 $("quiz").hidden = false;
 
-render();
+remaining = TOTAL_SECONDS;
+updateTimerDisplay();
 
+clock = setInterval(() => {
+  remaining--;
+  updateTimerDisplay();
+
+  if (remaining <= 0) {
+    clearInterval(clock);
+    showResult();
+  }
+}, 1000);
+
+render();
 } catch (error) {
 console.error(error);
 alert("टेस्ट शुरू नहीं हुआ: " + error.message);
