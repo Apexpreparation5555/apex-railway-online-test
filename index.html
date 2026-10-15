@@ -756,6 +756,31 @@ await loadQuestions();
 };
 const testCollection = collection(db, "tests");
 window.getFirebaseTestSettings = async function () {
+
+window.updateTestInfo = function (settings) {
+  const info = document.getElementById("testInfo");
+  if (!info || !settings) return;
+
+  const typeNames = {
+    mixed: "Mix Test",
+    sectional: "Sectional Test",
+    full: "Full Mock Test"
+  };
+
+  const subjects = Array.isArray(settings.subjects)
+    ? settings.subjects.join(" + ")
+    : "Railway GK";
+
+  const count = Number(settings.questionCount) || 0;
+  const marks = Number(settings.marksPerQuestion) || 0;
+  const duration = Number(settings.durationMinutes) || 10;
+
+  info.textContent =
+    `${typeNames[settings.type] || settings.name} | ` +
+    `${subjects} | ${count} प्रश्न | ` +
+    `${count * marks} अंक | ${duration} मिनट`;
+};
+ 
 const snapshot = await getDocs(testCollection);
 
 if (snapshot.empty) {
