@@ -567,7 +567,8 @@ throw error;
 }
 
 window.saveStudentResult = saveStudentResult;
- $("loadResults").onclick = async function() {
+
+$("loadResults").onclick = async function() {
   const user = auth.currentUser;
 
   if (!user) {
@@ -583,11 +584,6 @@ window.saveStudentResult = saveStudentResult;
       query(collection(db, "results"), orderBy("createdAt", "desc"))
     );
 
-    if (snapshot.empty) {
-      $("resultsMessage").textContent = "अभी कोई रिज़ल्ट उपलब्ध नहीं है।";
-      return;
-    }
-
     $("resultsMessage").textContent =
       "कुल रिज़ल्ट: " + snapshot.size;
 
@@ -601,11 +597,12 @@ window.saveStudentResult = saveStudentResult;
         <th>मोबाइल</th>
         <th>अंक</th>
         <th>टेस्ट</th>
+        <th>एक्शन</th>
       </tr>
     `;
 
-    snapshot.forEach(doc => {
-      const data = doc.data();
+    snapshot.forEach(resultDoc => {
+      const data = resultDoc.data();
       const row = table.insertRow();
 
       [data.name, data.mobile, data.score, data.testId].forEach(value => {
@@ -614,15 +611,56 @@ window.saveStudentResult = saveStudentResult;
         cell.style.padding = "8px";
         cell.style.border = "1px solid #ddd";
       });
+
+      const actionCell = row.insertCell();
+      actionCell.style.padding = "8px";
+      actionCell.style.border = "1px solid #ddd";
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "🗑️ Delete";
+      deleteButton.style.cssText =
+        "background:#dc2626;color:white;border:0;padding:8px;border-radius:6px;";
+
+      deleteButton.onclick = async () => {
+        if (!auth.currentUser) {
+          alert("पहले Admin Login करें।");
+          return;
+        }
+
+        const confirmDelete = confirm(
+          `क्या ${data.name || "इस विद्यार्थी"} का रिज़ल्ट हटाना चाहते हैं?`
+        );
+
+        if (!confirmDelete) return;
+
+        deleteButton.disabled = true;
+
+        try {
+          await deleteDoc(doc(db, "results", resultDoc.id));
+          row.remove();
+
+          $("resultsMessage").textContent =
+            "रिज़ल्ट सफलतापूर्वक हटाया गया।";
+
+        } catch (error) {
+          console.error(error);
+          alert("रिज़ल्ट नहीं हटा। Firebase Rules जाँचें।");
+          deleteButton.disabled = false;
+        }
+      };
+
+      actionCell.appendChild(deleteButton);
     });
 
     $("resultsList").appendChild(table);
+
   } catch (error) {
     console.error(error);
     $("resultsMessage").textContent =
       "रिज़ल्ट नहीं खुल पाए। Firebase Rules जाँचें।";
   }
 };
+
 const questionCollection = collection(db, "questions");
  
 async function loadQuestions() {
