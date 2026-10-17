@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -814,7 +813,7 @@ await loadQuestions();
 };
 
 const testCollection = collection(db, "tests");
-
+const mockTestCollection = collection(db, "mockTests");
 window.updateTestInfo = function (settings) {
   const info = document.getElementById("testInfo");
   if (!info || !settings) return;
@@ -921,7 +920,49 @@ console.error(error);
 $("testSettingsMessage").textContent =
 "सेव नहीं हुआ। Firebase Rules या Console में error जाँचें।";
 }
-}; 
+};
+$("saveTestSettings").onclick = async function () {
+if (!auth.currentUser) {
+alert("पहले Admin Login करें।");
+return;
+}
+
+const name = $("testName").value.trim();
+const type = $("testType").value;
+const durationMinutes = Number($("testDuration").value);
+const questionCount = Number($("testQuestionCount").value);
+const marksPerQuestion = Number($("testMarks").value);
+const negativeMarking = Number($("testNegative").value);
+const subjects = $("testSubjects").value
+.split(",").map(s => s.trim()).filter(Boolean);
+const randomQuestions = $("testRandom").checked;
+
+if (
+!name ||
+!["mixed", "sectional", "full"].includes(type) ||
+!Number.isFinite(durationMinutes) || durationMinutes < 1 ||
+!Number.isInteger(questionCount) || questionCount < 1 ||
+!Number.isFinite(marksPerQuestion) || marksPerQuestion < 0 ||
+!Number.isFinite(negativeMarking) || negativeMarking < 0 ||
+subjects.length === 0
+) {
+$("testSettingsMessage").textContent =
+"कृपया सभी सेटिंग्स सही भरें।";
+return;
+}
+
+const settings = {
+name,
+type,
+durationMinutes,
+questionCount,
+marksPerQuestion,
+negativeMarking,
+randomQuestions,
+subjects,
+updatedAt: new Date()
+};
+ 
 window.apexAdminLogin = async function(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
