@@ -1,122 +1,146 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="APEX PREPRATION ACADEMY पर RRB ALP, RRB NTPC, Railway Group D और RRB Technician के Online Mock Tests और Previous Year Papers का अभ्यास करें।">
-  <title>Railway Mock Tests | APEX PREPRATION ACADEMY</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f5fa;
-      color: #172b4d;
-    }
-    header {
-      background: linear-gradient(135deg, #10264b, #245da8);
-      color: white;
-      text-align: center;
-      padding: 28px 16px;
-    }
-    header h1 { margin: 0 0 8px; font-size: 25px; }
-    header p { margin: 5px 0; }
-    main { max-width: 950px; margin: auto; padding: 20px 14px; }
-    .intro {
-      background: white; padding: 18px; border-radius: 14px;
-      margin-bottom: 18px; text-align: center;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-    }
-    .card {
-      background: white; border-radius: 14px; padding: 20px;
-      box-shadow: 0 3px 12px #10264b12;
-      border: 1px solid #e1e8f2;
-    }
-    .card h2 { font-size: 20px; margin-top: 0; }
-    .card p { color: #52627a; line-height: 1.5; }
-    button, .home {
-      display: inline-block; border: 0; border-radius: 8px;
-      padding: 11px 14px; background: #245da8; color: white;
-      font-weight: bold; text-decoration: none; cursor: pointer;
-    }
-    .home { background: #e5ad43; color: #10264b; margin-top: 16px; }
-    #testList { margin-top: 20px; }
-    .test-item {
-      background: white; border-radius: 10px; padding: 15px;
-      margin: 10px 0; border: 1px solid #e1e8f2;
-    }
-    footer { text-align: center; padding: 24px 12px; color: #52627a; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="APEX PREPRATION ACADEMY Railway Mock Tests">
+<title>Railway Mock Tests | APEX PREPRATION ACADEMY</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f5fa;color:#172b4d}
+header{background:linear-gradient(135deg,#10264b,#245da8);color:white;text-align:center;padding:25px 12px}
+main{max-width:950px;margin:auto;padding:18px 12px}
+.intro,.card,.test{background:white;padding:18px;border-radius:12px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+button,.home{display:inline-block;background:#245da8;color:white;border:0;border-radius:7px;padding:11px 14px;text-decoration:none;cursor:pointer;font-weight:bold}
+.home{background:#e5ad43;color:#10264b}
+.test{border:1px solid #dce4ef}
+.muted{color:#58677d}
+#message{padding:12px;background:white;border-radius:8px}
+</style>
 </head>
 <body>
-  <header>
-    <h1>🚆 APEX PREPRATION ACADEMY</h1>
-    <p><strong>KUMAR ANKUR SIR</strong></p>
-    <p>Railway Online Mock Test Portal</p>
-  </header>
+<header>
+<h1>🚆 APEX PREPRATION ACADEMY</h1>
+<p><b>KUMAR ANKUR SIR</b></p>
+<p>Railway Online Mock Test Portal</p>
+</header>
+<main>
+<section class="intro">
+<h2>📚 Railway Mock Tests</h2>
+<p>अपनी परीक्षा चुनें और उपलब्ध टेस्ट देखें।</p>
+<a class="home" href="./index.html">मुख्य वेबसाइट</a>
+</section>
+<section class="grid" id="categories"></section>
+<h2 id="listHeading">उपलब्ध टेस्ट</h2>
+<div id="message">Firebase से टेस्ट लोड हो रहे हैं...</div>
+<section id="testList"></section>
+</main>
+<footer style="text-align:center;padding:20px">© APEX PREPRATION ACADEMY | KUMAR ANKUR SIR</footer>
 
-  <main>
-    <section class="intro">
-      <h2>📚 Railway Mock Tests</h2>
-      <p>अपनी परीक्षा चुनें और अपनी सुविधा के अनुसार टेस्ट का अभ्यास करें।</p>
-      <a class="home" href="./index.html">मुख्य वेबसाइट पर जाएँ</a>
-    </section>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import {
+  getFirestore, collection, getDocs, query, where
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-    <section class="grid" id="examCategories"></section>
-    <section id="testList"></section>
-  </main>
+// यहाँ अपना पूरा firebaseConfig ऑब्जेक्ट लगाएँ
+const firebaseConfig = const firebaseConfig = {
+  apiKey: "AIzaSyCXvkDy93wP8-yCnEKNZojNALV460D2mUg",
+  authDomain: "apex-railway-gk-gs-d2caa.firebaseapp.com",
+  projectId: "apex-railway-gk-gs-d2caa",
+  storageBucket: "apex-railway-gk-gs-d2caa.firebasestorage.app",
+  messagingSenderId: "555383750688",
+  appId: "1:555383750688:web:e3aa9997fe51fb8de6bc45",
+  measurementId: "G-2RXSEHKVXM"
+};;
 
-  <footer>
-    © APEX PREPRATION ACADEMY | KUMAR ANKUR SIR
-  </footer>
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  <script>
-    const exams = [
-      { id: "RRB ALP", title: "🚆 RRB ALP", desc: "Assistant Loco Pilot Mock Tests" },
-      { id: "RRB NTPC", title: "📘 RRB NTPC", desc: "NTPC परीक्षा की तैयारी" },
-      { id: "Railway Group D", title: "🎯 Railway Group D", desc: "Group D Mock Tests" },
-      { id: "RRB Technician", title: "🛠️ RRB Technician", desc: "Technician परीक्षा की तैयारी" }
-    ];
+const exams = [
+  {id:"RRB ALP", title:"🚆 RRB ALP", desc:"Assistant Loco Pilot"},
+  {id:"RRB NTPC", title:"📘 RRB NTPC", desc:"NTPC परीक्षा"},
+  {id:"Railway Group D", title:"🎯 Railway Group D", desc:"Group D परीक्षा"},
+  {id:"RRB Technician", title:"🛠️ RRB Technician", desc:"Technician परीक्षा"}
+];
 
-    const categoryArea = document.getElementById("examCategories");
-    const testList = document.getElementById("testList");
+const categoryArea = document.getElementById("categories");
+const testList = document.getElementById("testList");
+const message = document.getElementById("message");
+let selectedCategory = "";
 
-    exams.forEach(exam => {
-      const card = document.createElement("article");
-      card.className = "card";
+for (const exam of exams) {
+  const card = document.createElement("article");
+  card.className = "card";
+  const title = document.createElement("h3");
+  title.textContent = exam.title;
+  const desc = document.createElement("p");
+  desc.textContent = exam.desc;
+  const button = document.createElement("button");
+  button.textContent = "टेस्ट देखें";
+  button.addEventListener("click", () => {
+    selectedCategory = exam.id;
+    document.getElementById("listHeading").textContent =
+      exam.id + " — उपलब्ध टेस्ट";
+    loadTests();
+  });
+  card.append(title, desc, button);
+  categoryArea.appendChild(card);
+}
 
-      const heading = document.createElement("h2");
-      heading.textContent = exam.title;
+async function loadTests() {
+  testList.replaceChildren();
+  message.textContent = "टेस्ट लोड हो रहे हैं...";
+  try {
+    const snapshot = await getDocs(
+      query(collection(db, "mockTests"), where("isPublished", "==", true))
+    );
 
-      const description = document.createElement("p");
-      description.textContent = exam.desc;
+    const tests = snapshot.docs
+      .map(item => ({id:item.id, ...item.data()}))
+      .filter(test => !selectedCategory || test.examCategory === selectedCategory);
+
+    if (tests.length === 0) {
+      message.textContent = "इस कैटेगरी में अभी कोई Published टेस्ट उपलब्ध नहीं है।";
+      return;
+    }
+
+    message.textContent = "";
+    for (const test of tests) {
+      const box = document.createElement("article");
+      box.className = "test";
+      const heading = document.createElement("h3");
+      heading.textContent = test.name || "Railway Mock Test";
+      const details = document.createElement("p");
+      details.className = "muted";
+      details.textContent =
+        `${test.examCategory || ""} | ${test.year || "वर्ष नहीं दिया"} | ` +
+        `${test.questionCount || 0} प्रश्न | ${test.durationMinutes || 0} मिनट`;
+
+      const type = document.createElement("p");
+      type.textContent = test.testType === "previousYear"
+        ? "Previous Year Test"
+        : "New Mock Test";
 
       const button = document.createElement("button");
-      button.textContent = "टेस्ट देखें";
-      button.addEventListener("click", () => showTests(exam.id));
+      button.textContent = "टेस्ट शुरू करें";
+      button.addEventListener("click", () => {
+        message.textContent =
+          "यह टेस्ट अभी पोर्टल पर सूचीबद्ध है। इसे मौजूदा टेस्ट इंजन से जोड़ना अगला चरण है।";
+      });
 
-      card.append(heading, description, button);
-      categoryArea.appendChild(card);
-    });
-
-    function showTests(examId) {
-      testList.replaceChildren();
-
-      const heading = document.createElement("h2");
-      heading.textContent = examId + " — उपलब्ध टेस्ट";
-      testList.appendChild(heading);
-
-      const message = document.createElement("p");
-      message.className = "test-item";
-      message.textContent =
-        "इस कैटेगरी में अभी टेस्ट नहीं जोड़े गए हैं। Admin Panel से टेस्ट जोड़ने की सुविधा अगला स्टेप है।";
-      testList.appendChild(message);
+      box.append(heading, details, type, button);
+      testList.appendChild(box);
     }
-  </script>
+  } catch (error) {
+    console.error("Mock tests load error:", error);
+    message.textContent =
+      "टेस्ट लोड नहीं हुए। Firebase config और Firestore Rules जाँचें।";
+  }
+}
+
+loadTests();
+</script>
 </body>
 </html>
-
