@@ -814,6 +814,42 @@ await loadQuestions();
 
 const testCollection = collection(db, "tests");
 const mockTestCollection = collection(db, "mockTests");
+$("saveMockTest").onclick = async function () {
+  if (!auth.currentUser) {
+    alert("पहले Admin Login करें।");
+    return;
+  }
+
+  const name = $("mockTestName").value.trim();
+  const examCategory = $("mockTestCategory").value;
+  const durationMinutes = Number($("mockTestDuration").value);
+  const questionCount = Number($("mockTestQuestions").value);
+  const isPublished = $("mockTestPublished").checked;
+
+  if (!name || durationMinutes < 1 || questionCount < 1) {
+    alert("टेस्ट का नाम, समय और प्रश्नों की संख्या सही भरें।");
+    return;
+  }
+
+  try {
+    await addDoc(mockTestCollection, {
+      name,
+      examCategory,
+      durationMinutes,
+      questionCount,
+      isPublished,
+      createdAt: new Date()
+    });
+
+    $("mockTestMessage").textContent = "✅ Mock Test सेव हो गया!";
+    $("mockTestName").value = "";
+    $("mockTestPublished").checked = false;
+  } catch (error) {
+    console.error(error);
+    $("mockTestMessage").textContent =
+      "सेव नहीं हुआ। Firebase Rules जाँचें।";
+  }
+}; 
 window.updateTestInfo = function (settings) {
   const info = document.getElementById("testInfo");
   if (!info || !settings) return;
