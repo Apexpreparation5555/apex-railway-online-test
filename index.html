@@ -990,7 +990,46 @@ window.apexAdminLogout = async function() {
   <div id="questionList"></div>
 </section>
 <!-- APEX ADMIN PANEL -->
- 
+ <!-- APEX MOCK TEST MANAGER -->
+<section id="mockTestManager" hidden
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
+
+  <h2>📝 Mock Test प्रबंधन</h2>
+
+  <label>टेस्ट का नाम</label>
+  <input id="mockTestName" placeholder="जैसे RRB ALP Mock Test 01"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>Exam Category</label>
+  <select id="mockTestCategory"
+    style="width:100%;padding:10px;margin:6px 0;">
+    <option value="RRB ALP">RRB ALP</option>
+    <option value="RRB NTPC">RRB NTPC</option>
+    <option value="Railway Group D">Railway Group D</option>
+    <option value="RRB Technician">RRB Technician</option>
+  </select>
+
+  <label>समय (मिनट)</label>
+  <input id="mockTestDuration" type="number" min="1" value="90"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>प्रश्नों की संख्या</label>
+  <input id="mockTestQuestions" type="number" min="1" value="100"
+    style="width:100%;padding:10px;margin:6px 0;">
+
+  <label>
+    <input id="mockTestPublished" type="checkbox">
+    विद्यार्थियों को टेस्ट दिखाएँ (Publish)
+  </label>
+
+  <button type="button" id="saveMockTest"
+    style="width:100%;padding:12px;margin-top:12px;background:#1259a7;color:white;border:0;border-radius:8px;">
+    Mock Test सेव करें
+  </button>
+
+  <p id="mockTestMessage"></p>
+  <div id="mockTestList"></div>
+</section>
 <!-- APEX TEST SETTINGS -->
 <section id="testSettings" hidden
   style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
