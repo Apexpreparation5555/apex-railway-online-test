@@ -545,13 +545,15 @@ if (testSettings && Array.isArray(testSettings.subjects)) {
 if (testSettings?.randomQuestions) {
   firebaseQuestions.sort(() => Math.random() - 0.5);
 }
-firebaseQuestions.sort((a, b) =>
-  String(a.subject).localeCompare(String(b.subject))
-);
-if (testSettings?.questionCount) {
-  firebaseQuestions = firebaseQuestions.slice(
-    0, testSettings.questionCount
-  );
+const subjectOrder = ["GK/GS", "Maths", "Reasoning"];
+
+firebaseQuestions.sort((a, b) => {
+  const aIndex = subjectOrder.indexOf(a.subject);
+  const bIndex = subjectOrder.indexOf(b.subject);
+
+  return (aIndex === -1 ? 999 : aIndex) -
+         (bIndex === -1 ? 999 : bIndex);
+});
 }
 
 return firebaseQuestions;
