@@ -553,10 +553,14 @@ firebaseQuestions.sort((a, b) => {
   return (aIndex === -1 ? 999 : aIndex) -
          (bIndex === -1 ? 999 : bIndex);
 });
+
+if (testSettings?.questionCount) {
+  firebaseQuestions = firebaseQuestions.slice(
+    0, Number(testSettings.questionCount)
+  );
 }
 
 return firebaseQuestions;
-
 } catch (error) {
 console.error("Firebase questions load error:", error);
 throw error;
