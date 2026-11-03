@@ -235,6 +235,18 @@ sectionHeading.textContent = "Section: " + currentSubject;
     button.onclick = () => choose(i);
     $("options").appendChild(button);
   });
+ if (Number.isInteger(results[index])) {
+  answered = true;
+
+  document.querySelectorAll(".option").forEach((button, buttonIndex) => {
+    button.classList.toggle("selected", buttonIndex === results[index]);
+  });
+
+  $("next").disabled = false;
+
+  $("message").textContent =
+    "आप अपना उत्तर बदल सकते हैं। आगे बढ़ने के लिए Next दबाएँ।";
+}
 }
 
 
