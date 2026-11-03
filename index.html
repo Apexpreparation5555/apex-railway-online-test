@@ -649,6 +649,16 @@ document.getElementById("backToExam").addEventListener("click", () => {
     $("testModeSelection").hidden = true;
     $("examSelection").hidden = false;
     window.scrollTo(0, 0);
+});
+document.getElementById("backFromQuiz").addEventListener("click", () => {
+    const confirmExit = confirm("क्या आप चल रहा टेस्ट छोड़ना चाहते हैं?");
+
+    if (confirmExit) {
+        stopTimers();
+        $("quiz").hidden = true;
+        $("testModeSelection").hidden = false;
+        window.scrollTo(0, 0);
+    }
 }); 
 </script>
 <script type="module">
@@ -660,7 +670,7 @@ import {
   addDoc,
   getDocs,
   query,
-  orderBy,
+  ordery,
   doc,
   updateDoc,
   deleteDoc
