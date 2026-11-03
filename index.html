@@ -189,8 +189,16 @@ function stopTimers(){
 function render(){
 
   answered = false;
+const currentSubject = questions[index].subject || "General";
+const sectionIndex = questions
+  .slice(0, index + 1)
+  .filter(q => (q.subject || "General") === currentSubject).length;
 
-  $("count").textContent = "प्रश्न " + (index + 1) + " / " + questions.length;
+const sectionTotal = questions
+  .filter(q => (q.subject || "General") === currentSubject).length;
+
+$("count").textContent =
+  currentSubject + " प्रश्न " + sectionIndex + " / " + sectionTotal;
   $("bar").style.width = (index / questions.length * 100) + "%";
   $("question").textContent = questions[index].q;
 const currentSubject = questions[index].subject;
