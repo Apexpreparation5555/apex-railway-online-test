@@ -259,29 +259,6 @@ function choose(i) {
 
   $("next").disabled = false;
 }
-  if (answered) return;
-
-  answered = true;
-  results[index] = i;
-
-  // सभी विकल्पों से पुराना चयन हटाएँ
-  document.querySelectorAll(".option").forEach(button => {
-    button.classList.remove("selected");
-    button.disabled = true;
-  });
-
-  // चुने हुए विकल्प को पीला दिखाएँ
-  const selectedButton = document.querySelectorAll(".option")[i];
-  if (selectedButton) {
-    selectedButton.classList.add("selected");
-  }
-
-  $("message").textContent =
-    "आपका उत्तर चुना गया है। आगे बढ़ने के लिए Next दबाएँ।";
-
-  $("next").disabled = false;
-}
-
 
 function next(){
   if(!answered) return;
