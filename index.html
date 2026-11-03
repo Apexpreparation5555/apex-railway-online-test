@@ -553,6 +553,66 @@ document.querySelectorAll(".exam-btn[data-exam]").forEach(button => {
     window.scrollTo(0, 0);
   };
 });
+ document.querySelectorAll(".exam-btn[data-mode]").forEach(button => {
+  button.onclick = async () => {
+    selectedTestMode = button.dataset.mode;
+
+    button.disabled = true;
+    button.textContent = "टेस्ट लोड हो रहा है...";
+
+    try {
+      const settings = await window.getFirebaseTestSettings(
+        selectedExam,
+        selectedTestMode
+      );
+
+      activeTestSettings = settings;
+      window.updateTestInfo?.(settings);
+
+      TOTAL_SECONDS = (Number(settings.durationMinutes) || 90) * 60;
+
+      const firebaseQuestions =
+        await window.loadFirebaseQuestions(settings);
+
+      if (!firebaseQuestions.length) {
+        throw new Error("इस टेस्ट के लिए प्रश्न नहीं मिले।");
+      }
+
+      questions = firebaseQuestions;
+      index = 0;
+      score = 0;
+      results = [];
+
+      $("testModeSelection").hidden = true;
+      $("quiz").hidden = false;
+
+      remaining = TOTAL_SECONDS;
+      updateTimerDisplay();
+
+      clock = setInterval(() => {
+        remaining--;
+        updateTimerDisplay();
+
+        if (remaining <= 0) {
+          clearInterval(clock);
+          showResult();
+        }
+      }, 1000);
+
+      render();
+
+    } catch (error) {
+      console.error(error);
+      alert("टेस्ट शुरू नहीं हुआ: " + error.message);
+    } finally {
+      button.disabled = false;
+      button.textContent =
+        selectedTestMode === "sectional"
+          ? "📚 Sectional Test"
+          : "📝 Full Mock Test";
+    }
+  };
+});
 console.log("Start Test button connected");
 $("startTest").onclick = () => {
   const name = $("studentName").value.trim();
