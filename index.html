@@ -139,6 +139,9 @@ footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
 </section> 
  
 <section class="card" id="examSelection" hidden>
+ <button type="button" class="primary" id="backToLogin">
+    ← वापस जाएँ / BACK
+</button>
   <h2>🎓 अपना Exam चुनें / Select Your Exam</h2>
   <p class="small">जिस परीक्षा की तैयारी कर रहे हैं, उसे चुनें।</p>
 
@@ -631,6 +634,11 @@ $("startTest").onclick = () => {
 
   window.scrollTo(0, 0);
 };
+document.getElementById("backToLogin").addEventListener("click", () => {
+    $("examSelection").hidden = true;
+    $("studentForm").hidden = false;
+    window.scrollTo(0, 0);
+}); 
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
