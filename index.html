@@ -641,6 +641,11 @@ document.getElementById("backToLogin").addEventListener("click", () => {
     $("examSelection").hidden = true;
     $("studentForm").hidden = false;
     window.scrollTo(0, 0);
+});
+document.getElementById("backToExam").addEventListener("click", () => {
+    $("testModeSelection").hidden = true;
+    $("examSelection").hidden = false;
+    window.scrollTo(0, 0);
 }); 
 </script>
 <script type="module">
