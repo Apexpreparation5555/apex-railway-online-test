@@ -283,6 +283,12 @@ function next(){
 
 
 $("next").onclick = next;
+ $("prev").onclick = function() {
+  if (index > 0) {
+    index--;
+    render();
+  }
+};
 
 
 function showResult() {
