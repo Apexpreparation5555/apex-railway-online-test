@@ -65,6 +65,24 @@ footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
  .card{padding:15px}
  .logos img{width:65px;height:65px}
 }
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.exam-btn {
+  min-height: 75px;
+  margin-top: 0 !important;
+  background: linear-gradient(135deg, #092b63, #1769aa);
+}
+
+@media(max-width:480px) {
+  .exam-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+} 
 </style>
 </head>
 <body>
