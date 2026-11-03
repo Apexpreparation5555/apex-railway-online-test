@@ -246,6 +246,19 @@ function lockOptions(){
 
 
 function choose(i) {
+  answered = true;
+  results[index] = i;
+
+  document.querySelectorAll(".option").forEach((button, buttonIndex) => {
+    button.classList.toggle("selected", buttonIndex === i);
+    button.disabled = false;
+  });
+
+  $("message").textContent =
+    "आप अपना उत्तर बदल सकते हैं। आगे बढ़ने के लिए Next दबाएँ।";
+
+  $("next").disabled = false;
+}
   if (answered) return;
 
   answered = true;
