@@ -222,6 +222,7 @@ sectionHeading.textContent = "Section: " + currentSubject;
   $("options").innerHTML = "";
   $("message").textContent = "सभी प्रश्नों के लिए कुल टेस्ट टाइमर चल रहा है।";
   $("next").disabled = true;
+ $("prev").disabled = index === 0;
 
   $("next").textContent = index === questions.length - 1
     ? "रिज़ल्ट देखें / View Result"
