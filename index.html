@@ -528,70 +528,22 @@ $("result").innerHTML = `
 }
 
 console.log("Start Test button connected");
-$("startTest").onclick = async () => {
-const name = $("studentName").value.trim();
-const mobile = $("studentMobile").value.trim();
+$("startTest").onclick = () => {
+  const name = $("studentName").value.trim();
+  const mobile = $("studentMobile").value.trim();
 
-if (!name || !/^\d{10}$/.test(mobile)) {
-alert("कृपया नाम और 10 अंकों का मोबाइल नंबर भरें।");
-return;
-}
-
-const startButton = $("startTest");
-startButton.disabled = true;
-startButton.textContent = "प्रश्न लोड हो रहे हैं...";
-
-try {
-if (typeof window.getFirebaseTestSettings !== "function" ||
-typeof window.loadFirebaseQuestions !== "function") {
-throw new Error("Firebase functions उपलब्ध नहीं हैं।");
-}
-
-const settings = await window.getFirebaseTestSettings();
- activeTestSettings = settings;
-window.updateTestInfo?.(settings);
- TOTAL_SECONDS = (Number(settings.durationMinutes) || 10) * 60;
-const firebaseQuestions =
-  await window.loadFirebaseQuestions(settings);
-
-if (!firebaseQuestions.length) {
-  throw new Error("इस टेस्ट के लिए Firebase में प्रश्न नहीं मिले।");
-}
-
-questions = firebaseQuestions;
-
-localStorage.setItem("apexStudentName", name);
-localStorage.setItem("apexStudentMobile", mobile);
-
-index = 0;
-score = 0;
-results = [];
-
-
-$("studentForm").hidden = true;
-$("quiz").hidden = false;
-
-remaining = TOTAL_SECONDS;
-updateTimerDisplay();
-
-clock = setInterval(() => {
-  remaining--;
-  updateTimerDisplay();
-
-  if (remaining <= 0) {
-    clearInterval(clock);
-    showResult();
+  if (!name || !/^\d{10}$/.test(mobile)) {
+    alert("कृपया नाम और 10 अंकों का मोबाइल नंबर भरें।");
+    return;
   }
-}, 1000);
 
-render();
-} catch (error) {
-console.error(error);
-alert("टेस्ट शुरू नहीं हुआ: " + error.message);
-} finally {
-startButton.disabled = false;
-startButton.textContent = "टेस्ट शुरू करें / Start Test";
-}
+  localStorage.setItem("apexStudentName", name);
+  localStorage.setItem("apexStudentMobile", mobile);
+
+  $("studentForm").hidden = true;
+  $("examSelection").hidden = false;
+
+  window.scrollTo(0, 0);
 };
 </script>
 <script type="module">
