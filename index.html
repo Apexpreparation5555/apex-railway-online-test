@@ -987,16 +987,24 @@ window.updateTestInfo = function (settings) {
     `${count * marks} अंक | ${duration} मिनट`;
 };
 
-window.getFirebaseTestSettings = async function () {
+window.getFirebaseTestSettings = async function (exam, mode) {
   const snapshot = await getDocs(testCollection);
 
   if (snapshot.empty) {
     throw new Error("Firebase में कोई Test Settings नहीं मिलीं।");
   }
 
-  const settings = snapshot.docs.find(
-    item => item.data().name === "Full Mock Test 01"
-  ) || snapshot.docs[0];
+  const settings = snapshot.docs.find(item => {
+    const data = item.data();
+
+    return data.exam === exam && data.type === mode;
+  });
+
+  if (!settings) {
+    throw new Error(
+      exam + " के लिए " + mode + " टेस्ट उपलब्ध नहीं है।"
+    );
+  }
 
   return {
     id: settings.id,
