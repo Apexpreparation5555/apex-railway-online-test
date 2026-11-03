@@ -129,7 +129,17 @@ footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
     <div class="small">सही उत्तर चुनें / Choose the correct answer</div>
     <div id="question"></div>
     <div id="options"></div>
-    <button class="primary" id="next" disabled>अगला प्रश्न / Next Question →</button>
+    <div style="display:flex;gap:10px;">
+  <button class="primary" id="prev" disabled
+    style="flex:1;">
+    ← Previous
+  </button>
+
+  <button class="primary" id="next" disabled
+    style="flex:1;">
+    Next Question →
+  </button>
+</div>
     <p class="small" id="message" aria-live="polite">हर प्रश्न के लिए 30 सेकंड हैं। समय पूरा होने पर अगला प्रश्न अपने आप खुलेगा।</p>
   </section>
 
