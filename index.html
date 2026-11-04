@@ -1017,42 +1017,188 @@ await loadQuestions();
 
 const testCollection = collection(db, "tests");
 const mockTestCollection = collection(db, "mockTests");
-$("saveMockTest").onclick = async function () {
-  if (!auth.currentUser) {
-    alert("पहले Admin Login करें।");
-    return;
-  }
+const mockTestQuestionsCollection = collection(db, "mockTestQuestions");
+
+let activeMockTestId = "";
+
+const mockTarget = $("mockTestQuestionTarget");
+
+mockTarget.onchange = () => {
+  activeMockTestId = mockTarget.value;
+};
+
+async function loadMockTests() {
+  const snapshot = await getDocs(mockTestCollection);
+
+  mockTarget.innerHTML = '<option value="">Mock Test चुनें</option>';
+  $("mockTestList").innerHTML = "";
+
+  snapshot.forEach(item => {
+    const data = item.data();
+
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = data.name;
+    mockTarget.appendChild(option);
+
+    const box = document.createElement("div");
+    box.style.cssText = "padding:10px;border:1px solid #ddd;margin:8px 0;border-radius:8px";
+
+    const title = document.createElement("strong");
+    title.textContent = data.name;
+
+    const selectButton = document.createElement("button");
+    selectButton.textContent = "इस टेस्ट में प्रश्न जोड़ें";
+    selectButton.onclick = () => {
+      mockTarget.value = item.id;
+      activeMockTestId = item.id;
+      $("mockQuestionMessage").textContent = data.name + " चुना गया।";
+    };
+
+    box.append(title, document.createElement("br"), selectButton);
+    $("mockTestList").appendChild(box);
+  });
+}
+
+$("saveMockTest").onclick = async function() {
+  if (!auth.currentUser) return alert("पहले Admin Login करें।");
 
   const name = $("mockTestName").value.trim();
-  const examCategory = $("mockTestCategory").value;
   const durationMinutes = Number($("mockTestDuration").value);
   const questionCount = Number($("mockTestQuestions").value);
-  const isPublished = $("mockTestPublished").checked;
 
   if (!name || durationMinutes < 1 || questionCount < 1) {
-    alert("टेस्ट का नाम, समय और प्रश्नों की संख्या सही भरें।");
-    return;
+    return alert("टेस्ट की जानकारी सही भरें।");
   }
 
   try {
-    await addDoc(mockTestCollection, {
+    const saved = await addDoc(mockTestCollection, {
       name,
-      examCategory,
+      examCategory: $("mockTestCategory").value,
       durationMinutes,
       questionCount,
-      isPublished,
+      isPublished: $("mockTestPublished").checked,
       createdAt: new Date()
     });
 
-    $("mockTestMessage").textContent = "✅ Mock Test सेव हो गया!";
+    activeMockTestId = saved.id;
     $("mockTestName").value = "";
-    $("mockTestPublished").checked = false;
+
+    await loadMockTests();
+    mockTarget.value = saved.id;
+
+    $("mockTestMessage").textContent = "Mock Test सेव हो गया!";
   } catch (error) {
     console.error(error);
-    $("mockTestMessage").textContent =
-      "सेव नहीं हुआ। Firebase Rules जाँचें।";
+    $("mockTestMessage").textContent = "Mock Test सेव नहीं हुआ।";
   }
-}; 
+};
+
+async function saveMockQuestion(data) {
+  if (!auth.currentUser) throw new Error("Admin Login जरूरी है।");
+  if (!activeMockTestId) throw new Error("पहले Mock Test चुनें।");
+
+  await addDoc(mockTestQuestionsCollection, {
+    mockTestId: activeMockTestId,
+    q: data.q,
+    o: data.o,
+    a: data.a,
+    subject: data.subject || "GK/GS",
+    solution: data.solution || "",
+    createdAt: new Date()
+  });
+}
+
+$("saveMockQuestion").onclick = async function() {
+  try {
+    const q = $("mockQ").value.trim();
+    const options = ["A", "B", "C", "D"].map(letter =>
+      $("mock" + letter).value.trim()
+    );
+
+    if (!q || options.some(value => !value)) {
+      throw new Error("प्रश्न और चारों विकल्प भरें।");
+    }
+
+    const answer = ["A", "B", "C", "D"].indexOf($("mockAnswer").value);
+
+    await saveMockQuestion({
+      q,
+      o: options,
+      a: answer,
+      subject: $("mockSubject").value,
+      solution: $("mockSolution").value.trim()
+    });
+
+    $("mockQ").value = "";
+    ["A", "B", "C", "D"].forEach(x => $("mock" + x).value = "");
+    $("mockSolution").value = "";
+
+    $("mockQuestionMessage").textContent = "प्रश्न सेव हो गया!";
+  } catch (error) {
+    $("mockQuestionMessage").textContent = error.message;
+  }
+};
+
+$("uploadMockExcel").onclick = async function() {
+  try {
+    if (!auth.currentUser) throw new Error("पहले Admin Login करें।");
+    if (!activeMockTestId) throw new Error("पहले Mock Test चुनें।");
+
+    const file = $("mockExcelFile").files[0];
+    if (!file) throw new Error("पहले Excel या CSV फाइल चुनें।");
+
+    const buffer = await file.arrayBuffer();
+    const workbook = XLSX.read(buffer, { type: "array" });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+
+    if (!rows.length) throw new Error("फाइल में प्रश्न नहीं मिले।");
+
+    const normalize = value =>
+      String(value || "").trim().toLowerCase().replace(/[\s_-]/g, "");
+
+    const savedRows = [];
+
+    for (const row of rows) {
+      const values = {};
+      Object.keys(row).forEach(key => values[normalize(key)] = row[key]);
+
+      const answer = String(values.correctanswer || "").trim().toUpperCase();
+      const answerIndex = ["A", "B", "C", "D"].indexOf(answer);
+
+      const q = String(values.question || "").trim();
+      const options = ["a", "b", "c", "d"].map(letter =>
+        String(values["option" + letter] || "").trim()
+      );
+
+      if (!q || options.some(x => !x) || answerIndex < 0) {
+        throw new Error("किसी प्रश्न में जानकारी अधूरी है। Correct Answer A/B/C/D होना चाहिए।");
+      }
+
+      savedRows.push({
+        q,
+        o: options,
+        a: answerIndex,
+        subject: String(values.subject || "GK/GS").trim(),
+        solution: String(values.solution || "").trim()
+      });
+    }
+
+    for (const question of savedRows) {
+      await saveMockQuestion(question);
+    }
+
+    $("mockQuestionMessage").textContent =
+      savedRows.length + " प्रश्न सफलतापूर्वक Upload हुए।";
+
+    $("mockExcelFile").value = "";
+
+  } catch (error) {
+    console.error(error);
+    $("mockQuestionMessage").textContent = error.message;
+  }
+};
 window.updateTestInfo = function (settings) {
   const info = document.getElementById("testInfo");
   if (!info || !settings) return;
