@@ -1076,6 +1076,8 @@ window.loadStudentMockTests = async function(exam) {
         (test.durationMinutes || 0) + " मिनट";
 
       button.dataset.mockTestId = testDoc.id;
+    button.dataset.durationMinutes = test.durationMinutes || 30;
+button.dataset.testName = test.name; 
 
       list.appendChild(button);
     });
