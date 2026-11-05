@@ -455,7 +455,11 @@ const studentName =
 const studentMobile =
   localStorage.getItem("apexStudentMobile") || "";
 
-const resultSaveKey = "apexResultSaved_railway-gk-gs-test-01";
+const currentTestId =
+  activeTestSettings?.mockTestId || "railway-gk-gs-test-01";
+
+const resultSaveKey =
+  "apexResultSaved_" + currentTestId + "_" + studentMobile;
 
 if (localStorage.getItem(resultSaveKey) === "1") {
   console.log("यह टेस्ट पहले ही पूरा हो चुका है।");
@@ -471,7 +475,7 @@ if (localStorage.getItem(resultSaveKey) === "1") {
     studentName,
     studentMobile,
     score,
-    "railway-gk-gs-test-01"
+currentTestId
   ).then(saved => {
     if (saved) {
       console.log("पहली बार का रिज़ल्ट सेव हो गया।");
