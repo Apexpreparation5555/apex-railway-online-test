@@ -575,8 +575,12 @@ document.querySelectorAll(".exam-btn[data-exam]").forEach(button => {
     selectedExam = button.dataset.exam;
 
     $("examSelection").hidden = true;
-    $("testModeSelection").hidden = false;
-    $("selectedExamTitle").textContent = selectedExam + " — अपना टेस्ट चुनें";
+$("testModeSelection").hidden = true;
+$("publishedMockTests").hidden = false;
+
+$("selectedExamTitle").textContent = selectedExam + " — अपना टेस्ट चुनें";
+
+window.loadStudentMockTests(selectedExam);
 
     window.scrollTo(0, 0);
   };
