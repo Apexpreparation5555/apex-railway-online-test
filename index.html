@@ -1127,12 +1127,12 @@ document.getElementById("studentMockTestList").addEventListener("click", async f
       const q = questionDoc.data();
 
       loadedQuestions.push({
-        question: q.q,
-        options: q.o,
-        answer: q.a,
-        subject: q.subject || "General",
-        solution: q.solution || ""
-      });
+  q: q.q,
+  o: q.o,
+  a: q.a,
+  subject: q.subject || "General",
+  solution: q.solution || ""
+});
     });
 
     console.log("Loaded Mock Test Questions:", loadedQuestions);
