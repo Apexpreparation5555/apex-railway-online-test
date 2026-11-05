@@ -1098,7 +1098,50 @@ document.getElementById("showPublishedMockTests").addEventListener("click", asyn
 
   await window.loadStudentMockTests(selectedExam.dataset.exam);
 });
+// LOAD SELECTED MOCK TEST QUESTIONS
+document.getElementById("studentMockTestList").addEventListener("click", async function(e) {
+  const button = e.target.closest("button[data-mock-test-id]");
+  if (!button) return;
 
+  const mockTestId = button.dataset.mockTestId;
+  const list = document.getElementById("studentMockTestList");
+
+  list.textContent = "प्रश्न लोड हो रहे हैं...";
+
+  try {
+    const questionQuery = query(
+      mockTestQuestionsCollection,
+      where("mockTestId", "==", mockTestId)
+    );
+
+    const questionSnapshot = await getDocs(questionQuery);
+
+    if (questionSnapshot.empty) {
+      list.textContent = "इस Mock Test में अभी प्रश्न उपलब्ध नहीं हैं।";
+      return;
+    }
+
+    const loadedQuestions = [];
+
+    questionSnapshot.forEach((questionDoc) => {
+      const q = questionDoc.data();
+
+      loadedQuestions.push({
+        question: q.q,
+        options: q.o,
+        answer: q.a,
+        subject: q.subject || "General",
+        solution: q.solution || ""
+      });
+    });
+
+    console.log("Loaded Mock Test Questions:", loadedQuestions);
+
+  } catch (error) {
+    console.error(error);
+    list.textContent = "प्रश्न लोड नहीं हुए। कृपया दोबारा कोशिश करें।";
+  }
+});
 // BACK BUTTON
 document.getElementById("backToTestMode").addEventListener("click", function() {
   document.getElementById("publishedMockTests").hidden = true;
