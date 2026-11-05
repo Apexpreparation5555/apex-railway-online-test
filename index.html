@@ -1085,21 +1085,6 @@ window.loadStudentMockTests = async function(exam) {
     list.textContent = "Mock Tests लोड नहीं हुए। कृपया दोबारा कोशिश करें।";
   }
 };
-
-// OPEN PUBLISHED MOCK TESTS
-document.getElementById("showPublishedMockTests").addEventListener("click", async function() {
-  const selectedExam = document.querySelector("[data-exam].selected");
-
-  if (!selectedExam) {
-    alert("पहले परीक्षा चुनें।");
-    return;
-  }
-
-  document.getElementById("testModeSelection").hidden = true;
-  document.getElementById("publishedMockTests").hidden = false;
-
-  await window.loadStudentMockTests(selectedExam.dataset.exam);
-});
 // LOAD SELECTED MOCK TEST QUESTIONS
 document.getElementById("studentMockTestList").addEventListener("click", async function(e) {
   const button = e.target.closest("button[data-mock-test-id]");
