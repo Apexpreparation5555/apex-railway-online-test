@@ -1037,7 +1037,73 @@ await loadQuestions();
 const testCollection = collection(db, "tests");
 const mockTestCollection = collection(db, "mockTests");
 const mockTestQuestionsCollection = collection(db, "mockTestQuestions");
+// STUDENT PUBLISHED MOCK TESTS
+window.loadStudentMockTests = async function(exam) {
+  const list = document.getElementById("studentMockTestList");
 
+  list.textContent = "Mock Tests लोड हो रहे हैं...";
+
+  try {
+    const testQuery = query(
+      mockTestCollection,
+      where("examCategory", "==", exam),
+      where("isPublished", "==", true)
+    );
+
+    const snapshot = await getDocs(testQuery);
+
+    list.innerHTML = "";
+
+    if (snapshot.empty) {
+      list.textContent = "अभी इस परीक्षा के लिए कोई Mock Test उपलब्ध नहीं है।";
+      return;
+    }
+
+    snapshot.forEach((testDoc) => {
+      const test = testDoc.data();
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "primary exam-btn";
+      button.style.width = "100%";
+      button.style.marginBottom = "10px";
+
+      button.textContent =
+        test.name + " | " +
+        (test.questionCount || 0) + " प्रश्न | " +
+        (test.durationMinutes || 0) + " मिनट";
+
+      button.dataset.mockTestId = testDoc.id;
+
+      list.appendChild(button);
+    });
+
+  } catch (error) {
+    console.error("Student Mock Test Error:", error);
+    list.textContent = "Mock Tests लोड नहीं हुए। कृपया दोबारा कोशिश करें।";
+  }
+};
+
+// OPEN PUBLISHED MOCK TESTS
+document.getElementById("showPublishedMockTests").addEventListener("click", async function() {
+  const selectedExam = document.querySelector("[data-exam].selected");
+
+  if (!selectedExam) {
+    alert("पहले परीक्षा चुनें।");
+    return;
+  }
+
+  document.getElementById("testModeSelection").hidden = true;
+  document.getElementById("publishedMockTests").hidden = false;
+
+  await window.loadStudentMockTests(selectedExam.dataset.exam);
+});
+
+// BACK BUTTON
+document.getElementById("backToTestMode").addEventListener("click", function() {
+  document.getElementById("publishedMockTests").hidden = true;
+  document.getElementById("testModeSelection").hidden = false;
+});
 let activeMockTestId = "";
 
 const mockTarget = $("mockTestQuestionTarget");
