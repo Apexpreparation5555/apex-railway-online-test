@@ -1124,8 +1124,46 @@ document.getElementById("studentMockTestList").addEventListener("click", async f
 });
     });
 
-    console.log("Loaded Mock Test Questions:", loadedQuestions);
+    // START SELECTED MOCK TEST
+if (!loadedQuestions.length) {
+  alert("इस टेस्ट में प्रश्न उपलब्ध नहीं हैं।");
+  return;
+}
 
+stopTimers();
+
+questions = loadedQuestions;
+index = 0;
+score = 0;
+results = [];
+
+activeTestSettings = {
+  name: button.dataset.testName,
+  durationMinutes: Number(button.dataset.durationMinutes || 30),
+  marksPerQuestion: 1,
+  negativeMarking: 0
+};
+
+TOTAL_SECONDS = activeTestSettings.durationMinutes * 60;
+remaining = TOTAL_SECONDS;
+
+document.getElementById("publishedMockTests").hidden = true;
+$("quiz").hidden = false;
+
+updateTimerDisplay();
+
+clock = setInterval(() => {
+  remaining--;
+  updateTimerDisplay();
+
+  if (remaining <= 0) {
+    stopTimers();
+    showResult();
+  }
+}, 1000);
+
+render();
+window.scrollTo(0, 0);
   } catch (error) {
     console.error(error);
     list.textContent = "प्रश्न लोड नहीं हुए। कृपया दोबारा कोशिश करें।";
