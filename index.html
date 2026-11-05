@@ -1132,7 +1132,8 @@ document.getElementById("studentMockTestList").addEventListener("click", async f
 // BACK BUTTON
 document.getElementById("backToTestMode").addEventListener("click", function() {
   document.getElementById("publishedMockTests").hidden = true;
-  document.getElementById("testModeSelection").hidden = false;
+  document.getElementById("testModeSelection").hidden = true;
+  document.getElementById("examSelection").hidden = false;
 });
 let activeMockTestId = "";
 
