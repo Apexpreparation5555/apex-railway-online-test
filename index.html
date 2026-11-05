@@ -648,6 +648,46 @@ window.loadStudentMockTests(selectedExam);
   };
 });
 console.log("Start Test button connected");
+ // APEX MOBILE BACK NAVIGATION
+
+document.addEventListener("click", function(e) {
+  const target = e.target.closest(
+    "#startTest, [data-exam], [data-mode], #studentMockTestList button"
+  );
+
+  if (target) {
+    history.pushState({ apexPage: true }, "", location.href);
+  }
+});
+
+window.addEventListener("popstate", function() {
+
+  if (!$("quiz").hidden) {
+    if (!$("result").hidden) {
+      $("result").hidden = true;
+      $("quiz").hidden = false;
+    } else if ($("backFromQuiz")) {
+      $("backFromQuiz").click();
+    }
+    return;
+  }
+
+  if (!$("publishedMockTests").hidden) {
+    $("backToTestMode").click();
+    return;
+  }
+
+  if (!$("testModeSelection").hidden) {
+    $("backToExam").click();
+    return;
+  }
+
+  if (!$("examSelection").hidden) {
+    $("backToLogin").click();
+    return;
+  }
+
+});
 $("startTest").onclick = () => {
   const name = $("studentName").value.trim();
   const mobile = $("studentMobile").value.trim();
