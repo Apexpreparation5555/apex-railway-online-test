@@ -700,16 +700,7 @@ document.getElementById("backToExam").addEventListener("click", () => {
     $("examSelection").hidden = false;
     window.scrollTo(0, 0);
 });
-document.getElementById("backFromQuiz").addEventListener("click", () => {
-    const confirmExit = confirm("क्या आप चल रहा टेस्ट छोड़ना चाहते हैं?");
 
-    if (confirmExit) {
-        stopTimers();
-        $("quiz").hidden = true;
-        $("testModeSelection").hidden = false;
-        window.scrollTo(0, 0);
-    }
-}); 
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
