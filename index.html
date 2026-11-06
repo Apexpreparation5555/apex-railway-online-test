@@ -624,7 +624,9 @@ window.loadStudentMockTests(selectedExam);
   };
 });
 console.log("Start Test button connected");
- // APEX MOBILE BACK NAVIGATION
+// APEX MOBILE BACK NAVIGATION
+
+let quizReturnSection = "testModeSelection";
 
 document.addEventListener("click", function(e) {
   const target = e.target.closest(
@@ -638,35 +640,52 @@ document.addEventListener("click", function(e) {
 
 window.addEventListener("popstate", function() {
 
+  // Result से वापस Quiz
+  if (!$("result").hidden) {
+    $("result").hidden = true;
+    $("quiz").hidden = false;
+    return;
+  }
+
+  // Quiz से पिछली स्क्रीन
   if (!$("quiz").hidden) {
     const confirmExit = confirm("क्या आप चल रहा टेस्ट छोड़ना चाहते हैं?");
 
     if (confirmExit) {
-        stopTimers();
-        $("quiz").hidden = true;
-        $("testModeSelection").hidden = false;
-        window.scrollTo(0, 0);
+      stopTimers();
+      $("quiz").hidden = true;
+      $(quizReturnSection).hidden = false;
+      window.scrollTo(0, 0);
     } else {
-        history.pushState({ apexPage: true }, "", location.href);
+      history.pushState({ apexPage: true }, "", location.href);
     }
     return;
-}
+  }
 
+  // Published Mock Test से Exam Selection
   if (!$("publishedMockTests").hidden) {
-    $("backToTestMode").click();
+    $("publishedMockTests").hidden = true;
+    $("examSelection").hidden = false;
+    window.scrollTo(0, 0);
     return;
   }
 
+  // Test Mode से Exam Selection
   if (!$("testModeSelection").hidden) {
-    $("backToExam").click();
+    $("testModeSelection").hidden = true;
+    $("examSelection").hidden = false;
+    window.scrollTo(0, 0);
     return;
   }
 
+  // Exam Selection से Student Details
   if (!$("examSelection").hidden) {
-    $("backToLogin").click();
+    $("examSelection").hidden = true;
+    $("studentForm").hidden = false;
+    window.scrollTo(0, 0);
     return;
   }
-
+});
 });
 $("startTest").onclick = () => {
   const name = $("studentName").value.trim();
