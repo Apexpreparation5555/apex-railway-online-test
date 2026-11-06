@@ -648,14 +648,18 @@ document.addEventListener("click", function(e) {
 window.addEventListener("popstate", function() {
 
   if (!$("quiz").hidden) {
-    if (!$("result").hidden) {
-      $("result").hidden = true;
-      $("quiz").hidden = false;
-    } else if ($("backFromQuiz")) {
-      $("backFromQuiz").click();
+    const confirmExit = confirm("क्या आप चल रहा टेस्ट छोड़ना चाहते हैं?");
+
+    if (confirmExit) {
+        stopTimers();
+        $("quiz").hidden = true;
+        $("testModeSelection").hidden = false;
+        window.scrollTo(0, 0);
+    } else {
+        history.pushState({ apexPage: true }, "", location.href);
     }
     return;
-  }
+}
 
   if (!$("publishedMockTests").hidden) {
     $("backToTestMode").click();
