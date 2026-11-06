@@ -1183,12 +1183,6 @@ window.scrollTo(0, 0);
     list.textContent = "प्रश्न लोड नहीं हुए। कृपया दोबारा कोशिश करें।";
   }
 });
-// BACK BUTTON
-document.getElementById("backToTestMode").addEventListener("click", function() {
-  document.getElementById("publishedMockTests").hidden = true;
-  document.getElementById("testModeSelection").hidden = true;
-  document.getElementById("examSelection").hidden = false;
-});
 let activeMockTestId = "";
 
 const mockTarget = $("mockTestQuestionTarget");
