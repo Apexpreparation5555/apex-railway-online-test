@@ -1534,12 +1534,6 @@ window.apexAdminLogin = async function(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     alert("Admin Login सफल हुआ!");
-   document.getElementById("adminResults").hidden = false;
-   document.getElementById("questionManager").hidden = false;
-  document.getElementById("testSettings").hidden = false;
-   document.getElementById("mockTestManager").hidden = false;
-await loadQuestions(); 
- await loadMockTests();  
   } catch (error) {
     alert("Login नहीं हुआ। Email और Password जाँचें।");
   }
