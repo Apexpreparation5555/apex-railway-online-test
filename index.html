@@ -1549,6 +1549,30 @@ window.apexAdminLogout = async function() {
   await signOut(auth);
   alert("Logout हो गया।");
 };
+// ADMIN SESSION RESTORE
+onAuthStateChanged(auth, async (user) => {
+  const adminSections = [
+    "adminResults",
+    "questionManager",
+    "testSettings",
+    "mockTestManager"
+  ];
+
+  adminSections.forEach(id => {
+    document.getElementById(id).hidden = !user;
+  });
+
+  $("adminLogout").hidden = !user;
+
+  if (user) {
+    try {
+      await loadQuestions();
+      await loadMockTests();
+    } catch (error) {
+      console.error("Admin Dashboard Load Error:", error);
+    }
+  }
+}); 
 </script>
  <!-- APEX QUESTION MANAGER -->
 <section id="questionManager" hidden
