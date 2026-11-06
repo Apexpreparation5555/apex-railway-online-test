@@ -692,6 +692,41 @@ window.addEventListener("popstate", function() {
 });
 });
 $("startTest").onclick = () => {
+ // STUDENT SESSION RESTORE
+const savedName = localStorage.getItem("apexStudentName");
+const savedMobile = localStorage.getItem("apexStudentMobile");
+
+if (savedName && /^\d{10}$/.test(savedMobile || "")) {
+  $("studentName").value = savedName;
+  $("studentMobile").value = savedMobile;
+
+  $("studentForm").hidden = true;
+  $("examSelection").hidden = false;
+  $("studentLogout").hidden = false;
+}
+
+// STUDENT LOGOUT
+$("studentLogout").onclick = () => {
+  if (!confirm("क्या आप Student Logout करना चाहते हैं?")) return;
+
+  localStorage.removeItem("apexStudentName");
+  localStorage.removeItem("apexStudentMobile");
+
+  stopTimers();
+
+  $("quiz").hidden = true;
+  $("result").hidden = true;
+  $("examSelection").hidden = true;
+  $("testModeSelection").hidden = true;
+  $("publishedMockTests").hidden = true;
+  $("studentForm").hidden = false;
+  $("studentLogout").hidden = true;
+
+  $("studentName").value = "";
+  $("studentMobile").value = "";
+
+  window.scrollTo(0, 0);
+};
   const name = $("studentName").value.trim();
   const mobile = $("studentMobile").value.trim();
 
