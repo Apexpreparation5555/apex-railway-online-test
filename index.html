@@ -266,11 +266,6 @@ let results = [];
 let advanceTimeout = null;
 
 const $ = id => document.getElementById(id);
- // ADMIN PAGE ACCESS
-const adminPage =
-  new URLSearchParams(window.location.search).get("admin") === "1";
-
-$("adminLogin").hidden = !adminPage;
 function stopTimers(){
   clearInterval(clock);
   clearTimeout(advanceTimeout);
