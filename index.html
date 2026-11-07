@@ -374,6 +374,11 @@ function next(){
 
 
 $("next").onclick = next;
+$("submitTest").onclick = () => {
+  if (confirm("क्या आप अभी टेस्ट Submit करना चाहते हैं?")) {
+    showResult();
+  }
+}; 
  $("prev").onclick = function() {
   if (index > 0) {
     index--;
