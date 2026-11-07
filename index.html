@@ -747,7 +747,20 @@ $("studentLogout").hidden = false;
 
   window.scrollTo(0, 0);
 };
+// RESTORE STUDENT SESSION AFTER REFRESH
+window.addEventListener("DOMContentLoaded", () => {
+    const savedName = localStorage.getItem("apexStudentName");
+    const savedMobile = localStorage.getItem("apexStudentMobile");
 
+    if (savedName && /^\d{10}$/.test(savedMobile || "")) {
+        $("studentName").value = savedName;
+        $("studentMobile").value = savedMobile;
+
+        $("studentForm").hidden = true;
+        $("examSelection").hidden = false;
+        $("studentLogout").hidden = false;
+    }
+});
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
