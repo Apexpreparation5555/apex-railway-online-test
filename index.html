@@ -1201,10 +1201,10 @@ results = [];
 
 activeTestSettings = {
   name: button.dataset.testName,
- mockTestId: mockTestId,
+  mockTestId: mockTestId,
   durationMinutes: Number(button.dataset.durationMinutes || 30),
   marksPerQuestion: 1,
-  negativeMarking: 0
+  negativeMarking: 0.33
 };
 
 remaining = activeTestSettings.durationMinutes * 60;
