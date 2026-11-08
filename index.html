@@ -1,1826 +1,1647 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#092b63">
-
-<title>APEX PREPRATION ACADEMY | Railway GK GS Mock Test by Kumar Ankur Sir</title>
-
-<meta name="description" content="APEX PREPRATION ACADEMY - KUMAR ANKUR SIR के साथ Railway GK GS Online Mock Test, Railway NTPC, Group D और ALP की तैयारी हिंदी और अंग्रेजी में करें। ऑनलाइन टेस्ट और प्रश्नों का अभ्यास करें।">
-
-<meta name="robots" content="index, follow">
-
-<link rel="canonical" href="https://apexpreparation5555.github.io/apex-railway-online-test/">
-
-<meta property="og:title" content="APEX PREPRATION ACADEMY - Railway Online Test">
-
-<meta property="og:description" content="KUMAR ANKUR SIR के साथ Railway GK/GS Online Test की तैयारी करें।">
-
-<meta property="og:url" content="https://apexpreparation5555.github.io/apex-railway-online-test/">
- <meta property="og:site_name" content="APEX PREPRATION ACADEMY">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://apexpreparation5555.github.io/apex-railway-online-test/logo.png">
-<meta name="author" content="KUMAR ANKUR SIR">
-
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#eef3f9;color:#182337}
-header{background:linear-gradient(135deg,#092b63,#1769aa);color:#fff;text-align:center;padding:22px 12px}
-.logos{display:flex;justify-content:center;align-items:center;gap:22px;margin-bottom:12px}
-.logos img{width:75px;height:75px;object-fit:contain;background:#fff;border-radius:12px;padding:5px}
-header h1{font-size:23px;margin:8px 0}
-header p{margin:6px;font-size:14px}
-.container{max-width:720px;margin:20px auto;padding:0 12px}
-.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 3px 14px #00000012}
-.stats{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-weight:bold;font-size:14px}
-.timer{color:#d62828;font-size:18px}
-.progress{height:8px;background:#e4eaf2;border-radius:9px;overflow:hidden;margin:14px 0 20px}
-#bar{height:100%;width:0;background:#16a34a;transition:width .2s}
-#question{font-size:19px;line-height:1.7;margin:16px 0}
-.option{display:block;width:100%;text-align:left;padding:13px;margin:10px 0;border:2px solid #dbe3ed;border-radius:9px;background:#fff;font-size:16px;cursor:pointer;color:#182337}
-.option:hover:not(:disabled){border-color:#1769aa;background:#f0f7ff}
-.option:disabled{cursor:default}
-.option.correct{background:#dcfce7;border-color:#16a34a}
-.option.wrong{background:#fee2e2;border-color:#dc2626}
- 
-.option.selected {
-  background: #dcfce7 !important;
-  border: 2px solid #16a34a !important;
-  color: #166534 !important;
-  font-weight: 700;
-  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18);
-}
-button.primary{width:100%;padding:14px;border:0;border-radius:9px;background:#1259a7;color:white;font-size:16px;font-weight:bold;margin-top:12px;cursor:pointer}
-button.primary:disabled{background:#9caec4;cursor:not-allowed}
-.small{color:#65748b;font-size:13px;line-height:1.6}
-footer{text-align:center;padding:18px;color:#65748b;font-size:13px}
-.result{text-align:center}
-.result h2{color:#1260a8}
-.review{text-align:left;background:#f5f8fc;padding:12px;border-radius:8px;margin:10px 0;line-height:1.6}
-[hidden]{display:none!important}
-@media(max-width:480px){
- header h1{font-size:19px}
- #question{font-size:17px}
- .card{padding:15px}
- .logos img{width:65px;height:65px}
-}
-.exam-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.exam-btn {
-  min-height: 75px;
-  margin-top: 0 !important;
-  background: linear-gradient(135deg, #092b63, #1769aa);
-}
-
-@media(max-width:480px) {
-  .exam-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-} 
-</style>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script> 
-</head>
-<body>
-
-<header>
-  <div class="logos">
-    <img src="logo.png" alt="Apex Academy Logo">
-  </div>
-  <h1>APEX PREPRATION ACADEMY</h1>
-  <p><strong>KUMAR ANKUR SIR</strong></p>
-  <p>🚆 Railway GK/GS Online Test</p>
-<div id="testInfo">
-  हिंदी + English | Mix Test
-</div>
-<button id="studentLogout" hidden
-  style="padding:9px 18px;background:#dc2626;color:white;border:0;border-radius:7px;margin-top:12px;">
-  Student Logout
-</button> 
-</header>
-<main class="container">
-<section class="card" id="studentForm">
-  <h2>📝 विद्यार्थी विवरण / Student Details</h2>
-
-  <label for="studentName">नाम / Name</label>
-  <input
-    id="studentName"
-    type="text"
-    placeholder="अपना नाम लिखें"
-    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;"
-  >
-
-  <label for="studentMobile">मोबाइल नंबर / Mobile Number</label>
-  <input
-    id="studentMobile"
-    type="tel"
-    inputmode="numeric"
-    maxlength="10"
-    placeholder="10 अंकों का मोबाइल नंबर"
-    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;"
-  >
-
-<button class="primary" id="startTest">
-लॉगिन करें / LOGIN
-</button>
-</section> 
- 
-<section class="card" id="examSelection" hidden>
-
-  <h2>🎓 अपना Exam चुनें / Select Your Exam</h2>
-  <p class="small">जिस परीक्षा की तैयारी कर रहे हैं, उसे चुनें।</p>
-
-  <div class="exam-grid">
-
-    <button class="primary exam-btn" data-exam="RRB ALP">
-      🚆 RRB ALP
-    </button>
-
-    <button class="primary exam-btn" data-exam="RRB NTPC">
-      🚉 RRB NTPC
-    </button>
-
-    <button class="primary exam-btn" data-exam="Railway Group D">
-      🚂 Railway Group D
-    </button>
-
-    <button class="primary exam-btn" data-exam="RRB Technician">
-      🔧 RRB Technician
-    </button>
-
-    <button class="primary exam-btn" data-exam="RPF Constable">
-      🛡️ RPF Constable
-    </button>
-
-    <button class="primary exam-btn" data-exam="Other Exams">
-      📚 Other Exams
-    </button>
-
-  </div>
-</section>
-<section class="card" id="testModeSelection" hidden>
-  <h2 id="selectedExamTitle">Select Test</h2>
-  <p class="small">अपना टेस्ट चुनें।</p>
-
-  <div class="exam-grid">
-    <button class="primary exam-btn" data-mode="sectional">
-      📚 Sectional Test
-    </button>
-
-    <button class="primary exam-btn" data-mode="full">
-      📝 Full Mock Test
-    </button>
-
-  </div>
-</section>
-<!-- PUBLISHED MOCK TESTS -->
-<section class="card" id="publishedMockTests" hidden>
-
-  <h2>📝 Available Mock Tests</h2>
-  <p class="small">अपना Mock Test चुनें और परीक्षा शुरू करें।</p>
-
-  <div id="studentMockTestList">
-    Mock Tests लोड हो रहे हैं...
-  </div>
-
-</section> 
-<section class="card" id="quiz" hidden>
-    <div class="stats">
-      <span id="count">प्रश्न 1 / 25</span>
-      <span>अधिकतम अंक: 25</span>
-      <span class="timer">⏱ <span id="time">30</span> सेकंड</span>
-    </div>
-    <div class="progress"><div id="bar"></div></div>
-    <div class="small">सही उत्तर चुनें / Choose the correct answer</div>
-    <div id="question"></div>
-    <div id="options"></div>
-    <div style="display:flex;gap:10px;">
-  <button class="primary" id="prev" disabled
-    style="flex:1;">
-    ← Previous
-  </button>
-
-  <button class="primary" id="next" disabled
-    style="flex:1;">
-    Next Question →
-  </button>
-</div>
- <button id="submitTest" type="button"
-style="background:#dc2626;color:white;padding:12px;
-border:none;border-radius:8px;font-weight:bold;
-width:100%;margin-top:12px;">
-Submit Test / टेस्ट जमा करें
-</button>
-    <p class="small" id="message" aria-live="polite">हर प्रश्न के लिए 30 सेकंड हैं। समय पूरा होने पर अगला प्रश्न अपने आप खुलेगा।</p>
-  </section>
-
-  <section class="card result" id="result" hidden></section>
-</main>
-
-<footer>© APEX PREPRATION ACADEMY | KUMAR ANKUR SIR</footer>
-
-<script>
-"use strict";
-
-let questions = [
-{q:"भारत में पहली यात्री रेलगाड़ी कब चली थी? / When did India's first passenger train run?",o:["1843","1853","1863","1873"],a:1},
-{q:"भारत की पहली यात्री रेलगाड़ी किन स्थानों के बीच चली थी? / Between which places did India's first passenger train run?",o:["दिल्ली–आगरा / Delhi–Agra","बॉम्बे–ठाणे / Bombay–Thane","हावड़ा–पटना / Howrah–Patna","चेन्नई–मैसूर / Chennai–Mysore"],a:1},
-{q:"भारतीय रेलवे का मुख्यालय कहाँ है? / Where is the headquarters of Indian Railways?",o:["मुंबई / Mumbai","कोलकाता / Kolkata","नई दिल्ली / New Delhi","चेन्नई / Chennai"],a:2},
-{q:"ब्रॉड गेज की चौड़ाई कितनी होती है? / What is the width of broad gauge?",o:["1000 mm","1435 mm","1676 mm","762 mm"],a:2},
-{q:"भारत में पहली मेट्रो रेल कहाँ शुरू हुई? / Where did India's first metro railway start?",o:["दिल्ली / Delhi","कोलकाता / Kolkata","मुंबई / Mumbai","चेन्नई / Chennai"],a:1},
-{q:"रेलवे बोर्ड की स्थापना किस वर्ष हुई? / In which year was the Railway Board established?",o:["1901","1905","1911","1925"],a:1},
-{q:"राष्ट्रीय रेल संग्रहालय कहाँ स्थित है? / Where is the National Rail Museum located?",o:["जयपुर / Jaipur","नई दिल्ली / New Delhi","लखनऊ / Lucknow","भोपाल / Bhopal"],a:1},
-{q:"चित्तरंजन लोकोमोटिव वर्क्स किस राज्य में है? / Chittaranjan Locomotive Works is in which state?",o:["बिहार / Bihar","पश्चिम बंगाल / West Bengal","झारखंड / Jharkhand","ओडिशा / Odisha"],a:1},
-{q:"इंटीग्रल कोच फैक्ट्री कहाँ स्थित है? / Where is the Integral Coach Factory located?",o:["चेन्नई / Chennai","कपूरथला / Kapurthala","वाराणसी / Varanasi","पटना / Patna"],a:0},
-{q:"भारतीय रेलवे की यात्री हेल्पलाइन 139 किससे संबंधित है? / Indian Railways helpline 139 is used for what?",o:["रेल यात्री सहायता / Rail passenger assistance","केवल माल ढुलाई / Freight only","मौसम विभाग / Weather department","डाक सेवा / Postal service"],a:0},
-{q:"भारत की पहली विद्युत रेलगाड़ी कब चली थी? / When did India's first electric train run?",o:["1925","1935","1947","1951"],a:0},
-{q:"भारत की पहली विद्युत रेलगाड़ी किस मार्ग पर चली थी? / On which route did India's first electric train run?",o:["बॉम्बे VT–कुर्ला / Bombay VT–Kurla","दिल्ली–आगरा / Delhi–Agra","हावड़ा–दिल्ली / Howrah–Delhi","चेन्नई–बेंगलुरु / Chennai–Bengaluru"],a:0},
-{q:"रेल व्हील फैक्ट्री कहाँ स्थित है? / Where is Rail Wheel Factory located?",o:["बेंगलुरु / Bengaluru","रायबरेली / Rae Bareli","कानपुर / Kanpur","जबलपुर / Jabalpur"],a:0},
-{q:"कोंकण रेलवे मुख्य रूप से किस तटीय क्षेत्र में है? / Konkan Railway mainly serves which coastal region?",o:["पूर्वी तट / East Coast","पश्चिमी तट / West Coast","उत्तरी मैदान / Northern Plains","मध्य भारत / Central India"],a:1},
-{q:"रेलवे में लाल सिग्नल का सामान्य अर्थ क्या है? / What does a red railway signal generally mean?",o:["आगे बढ़ें / Proceed","रुकें / Stop","गति बढ़ाएँ / Increase speed","सीटी बजाएँ / Blow whistle"],a:1},
-{q:"रेलवे में हरे सिग्नल का सामान्य अर्थ क्या है? / What does a green railway signal generally mean?",o:["रुकें / Stop","सावधान होकर रुकें / Prepare to stop","आगे बढ़ने की अनुमति / Proceed","लाइन बंद है / Line closed"],a:2},
-{q:"रेल बजट को आम बजट में किस वित्त वर्ष से मिलाया गया? / From which financial year was the Railway Budget merged with the Union Budget?",o:["2015–16","2016–17","2017–18","2018–19"],a:2},
-{q:"रेलवे सुरक्षा बल का संक्षिप्त नाम क्या है? / What is the abbreviation for Railway Protection Force?",o:["RPF","RPS","RFS","IRF"],a:0},
-{q:"भारत की पहली यात्री रेलगाड़ी ने लगभग कितनी दूरी तय की थी? / Approximately how far did India's first passenger train travel?",o:["14 km","34 km","54 km","104 km"],a:1},
-{q:"स्लीपर क्लास किस प्रकार के कोच का उदाहरण है? / Sleeper class is an example of which type of coach?",o:["यात्री कोच / Passenger coach","माल डिब्बा / Freight wagon","इंजन / Locomotive","केवल ब्रेक वैन / Brake van only"],a:0},
-{q:"रेल की पटरियों के बीच की दूरी को क्या कहते हैं? / What is the distance between two railway rails called?",o:["गेज / Gauge","पिच / Pitch","स्पैन / Span","लोड / Load"],a:0},
-{q:"रेलवे में लोकोमोटिव का क्या अर्थ है? / What does locomotive mean in railway terminology?",o:["रेल इंजन / Railway engine","प्लेटफॉर्म / Platform","सिग्नल / Signal","टिकट काउंटर / Ticket counter"],a:0},
-{q:"डेडिकेटेड फ्रेट कॉरिडोर का मुख्य उद्देश्य क्या है? / What is the main purpose of Dedicated Freight Corridors?",o:["माल परिवहन को बेहतर बनाना / Improve freight movement","केवल पर्यटन / Tourism only","हवाई यातायात / Air traffic","मेट्रो संचालन / Metro operations"],a:0},
-{q:"रेलवे प्लेटफॉर्म का मुख्य उपयोग क्या है? / What is the main purpose of a railway platform?",o:["यात्रियों के चढ़ने-उतरने के लिए / Passenger boarding and alighting","इंजन बनाने के लिए / Manufacturing engines","माल का उत्पादन / Producing goods","पटरियाँ बदलने के लिए / Replacing tracks"],a:0},
-{q:"भारतीय रेलवे किस मंत्रालय के अधीन कार्य करता है? / Indian Railways functions under which ministry?",o:["गृह मंत्रालय / Home Affairs","रेल मंत्रालय / Ministry of Railways","सड़क परिवहन मंत्रालय / Road Transport","वित्त मंत्रालय / Finance"],a:1}
-];
-
-let TOTAL_SECONDS = 600;
-let activeTestSettings = null; 
-let index = 0;
-let score = 0;
-let remaining = TOTAL_SECONDS;
-let clock = null;
-let answered = false;
-let results = [];
-let advanceTimeout = null;
-
-const $ = id => document.getElementById(id);
-function stopTimers(){
-  clearInterval(clock);
-  clearTimeout(advanceTimeout);
-}
-function render(){
-
-  answered = false;
-const currentSubject = questions[index].subject || "General";
-const sectionIndex = questions
-  .slice(0, index + 1)
-  .filter(q => (q.subject || "General") === currentSubject).length;
-
-const sectionTotal = questions
-  .filter(q => (q.subject || "General") === currentSubject).length;
-
-$("count").textContent =
-  currentSubject + " प्रश्न " + sectionIndex + " / " + sectionTotal;
-  $("bar").style.width = (index / questions.length * 100) + "%";
-  $("question").textContent = questions[index].q;
-
-let sectionHeading = document.getElementById("sectionHeading");
-
-if (!sectionHeading) {
-  sectionHeading = document.createElement("h3");
-  sectionHeading.id = "sectionHeading";
-  $("question").before(sectionHeading);
-}
-
-sectionHeading.textContent = "Section: " + currentSubject; 
-  $("options").innerHTML = "";
-  $("message").textContent = "सभी प्रश्नों के लिए कुल टेस्ट टाइमर चल रहा है।";
-  $("next").disabled = true;
- $("prev").disabled = index === 0;
-
-  $("next").textContent = index === questions.length - 1
-    ? "रिज़ल्ट देखें / View Result"
-    : "अगला प्रश्न / Next Question →";
-
-  questions[index].o.forEach((option, i) => {
-    const button = document.createElement("button");
-    button.className = "option";
-    button.textContent = String.fromCharCode(65 + i) + ". " + option;
-    button.onclick = () => choose(i);
-    $("options").appendChild(button);
-  });
- if (Number.isInteger(results[index])) {
-  answered = true;
-
-  document.querySelectorAll(".option").forEach((button, buttonIndex) => {
-    button.classList.toggle("selected", buttonIndex === results[index]);
-  });
-
-  $("next").disabled = false;
-
-  $("message").textContent =
-    "आप अपना उत्तर बदल सकते हैं। आगे बढ़ने के लिए Next दबाएँ।";
-}
-}
-
-
-function updateTimerDisplay(){
-  const minutes = Math.floor(remaining / 60);
-  const seconds = remaining % 60;
-
-  $("time").textContent =
-    String(minutes).padStart(2, "0") + ":" +
-    String(seconds).padStart(2, "0");
-}
-
-function lockOptions(){
-  document.querySelectorAll(".option").forEach(button => {
-    button.disabled = true;
-  });
-}
-
-
-function choose(i) {
-  answered = true;
-  results[index] = i;
-
-  document.querySelectorAll(".option").forEach((button, buttonIndex) => {
-    button.classList.toggle("selected", buttonIndex === i);
-    button.disabled = false;
-  });
-
-  $("message").textContent =
-    "आप अपना उत्तर बदल सकते हैं। आगे बढ़ने के लिए Next दबाएँ।";
-
-  $("next").disabled = false;
-}
-
-function next(){
-  if(!answered) return;
-
-  clearTimeout(advanceTimeout);
-  index++;
-
-  if(index < questions.length){
-    render();
-  } else {
-    showResult();
-  }
-}
-
-
-$("next").onclick = next;
-$("submitTest").onclick = () => {
-  if (confirm("क्या आप अभी टेस्ट Submit करना चाहते हैं?")) {
-    showResult();
-  }
-}; 
- $("prev").onclick = function() {
-  if (index > 0) {
-    index--;
-    render();
-  }
-};
-
-
-function showResult() {
-  stopTimers();
-
-  $("quiz").hidden = true;
-  $("result").hidden = false;
-  $("bar").style.width = "100%";
-
-  // सबमिट होने पर ही स्कोर की गणना
-  const correctCount = questions.reduce((total, q, i) => {
-    return total + (results[i] === q.a ? 1 : 0);
-  }, 0);
-
-  const answeredCount = questions.reduce((total, q, i) => {
-    return total + (
-      Number.isInteger(results[i]) &&
-      results[i] >= 0 &&
-      results[i] < q.o.length ? 1 : 0
-    );
-  }, 0);
-
-  const wrongCount = questions.reduce((total, q, i) => {
-    return total + (
-      Number.isInteger(results[i]) &&
-      results[i] >= 0 &&
-      results[i] < q.o.length &&
-      results[i] !== q.a ? 1 : 0
-    );
-  }, 0);
-
-  const unansweredCount = questions.length - answeredCount;
-
-const marksPerQuestion = Number(activeTestSettings?.marksPerQuestion ?? 1);
-const negativeMarking = Number(activeTestSettings?.negativeMarking ?? 0);
-
-score = Math.max(
-  0,
-  Number(
-    (correctCount * marksPerQuestion -
-      wrongCount * negativeMarking).toFixed(2)
-  )
-);
-
-  const totalMarks =
-  questions.length * Number(activeTestSettings?.marksPerQuestion ?? 1);
-
-const percent = totalMarks > 0
-  ? Math.round((score / totalMarks) * 100)
-  : 0;
-
-  // Firebase में विद्यार्थी का रिज़ल्ट सेव करें
-
-
-const studentName =
-  localStorage.getItem("apexStudentName") || "";
-
-const studentMobile =
-  localStorage.getItem("apexStudentMobile") || "";
-
-const currentTestId =
-  activeTestSettings?.mockTestId || "railway-gk-gs-test-01";
-
-const resultSaveKey =
-  "apexResultSaved_" + currentTestId + "_" + studentMobile;
-
-if (localStorage.getItem(resultSaveKey) === "1") {
-  console.log("यह टेस्ट पहले ही पूरा हो चुका है।");
-
-} else if (
-  studentName &&
-  studentMobile &&
-  typeof window.saveStudentResult === "function"
-) {
-  localStorage.setItem(resultSaveKey, "1");
-
-  window.saveStudentResult(
-    studentName,
-    studentMobile,
-    score,
-currentTestId
-  ).then(saved => {
-    if (saved) {
-      console.log("पहली बार का रिज़ल्ट सेव हो गया।");
-    } else {
-      localStorage.removeItem(resultSaveKey);
-      alert("रिज़ल्ट सेव नहीं हुआ।");
-    }
-  }).catch(error => {
-    localStorage.removeItem(resultSaveKey);
-    console.error("Result save error:", error);
-    alert("रिज़ल्ट सेव करने में समस्या आई।");
-  });
-
-} else {
-  console.error("विद्यार्थी का विवरण या Firebase फ़ंक्शन उपलब्ध नहीं है।");
-}
-$("result").innerHTML = `
-    <h2>🎉 टेस्ट पूरा हुआ! / Test Completed!</h2>
-    <p><strong>APEX PREPRATION ACADEMY</strong></p>
-    <p>KUMAR ANKUR SIR</p>
-
-    <h1>${score} / ${questions.length * Number(activeTestSettings?.marksPerQuestion ?? 1)}</h1>
-    <p>आपका स्कोर / Your Score: ${percent}%</p>
-
-    <p>✅ सही उत्तर / Correct: ${correctCount}</p>
-    <p>❌ गलत उत्तर / Wrong: ${wrongCount}</p>
-    <p>⏭️ बिना उत्तर / Unanswered: ${unansweredCount}</p>
-
-    <h2>📖 Solutions / उत्तर एवं व्याख्या</h2>
-    <div id="review"></div>
-
-    <button class="primary" id="print">
-      रिज़ल्ट प्रिंट / Save as PDF
-    </button>
-
-    <button class="primary" id="restart">
-      दोबारा टेस्ट दें / Retake Test
-    </button>
-  `;
-
-  const review = $("review");
-
-  questions.forEach((q, i) => {
-    const div = document.createElement("div");
-    div.className = "review";
-
-    const userAnswer =
-      Number.isInteger(results[i]) &&
-      results[i] >= 0 &&
-      results[i] < q.o.length
-        ? q.o[results[i]]
-        : "नहीं दिया / Not answered";
-
-    const questionTitle = document.createElement("h3");
-    questionTitle.textContent = `${i + 1}. ${q.q}`;
-
-    const yourAnswer = document.createElement("p");
-    yourAnswer.textContent = `आपका उत्तर / Your Answer: ${userAnswer}`;
-
-    const correctAnswer = document.createElement("p");
-    correctAnswer.textContent = `सही उत्तर / Correct Answer: ${q.o[q.a]}`;
-
-    const explanation = document.createElement("p");
-    explanation.textContent =
-      `व्याख्या / Explanation: ${
-        q.solution || "इस प्रश्न की व्याख्या अभी उपलब्ध नहीं है।"
-      }`;
-
-    div.appendChild(questionTitle);
-    div.appendChild(yourAnswer);
-    div.appendChild(correctAnswer);
-    div.appendChild(explanation);
-
-    review.appendChild(div);
-  });
-
-  $("print").onclick = () => window.print();
-
-  $("restart").onclick = () => {
-    stopTimers();
-    index = 0;
-    score = 0;
-    results = [];
-
-    $("result").hidden = true;
-    $("quiz").hidden = false;
-
-    render();
-    window.scrollTo(0, 0);
-  };
-
-  window.scrollTo(0, 0);
-}
-let selectedExam = "";
-let selectedTestMode = "";
-
-document.querySelectorAll(".exam-btn[data-exam]").forEach(button => {
-  button.onclick = () => {
-    selectedExam = button.dataset.exam;
-
-    $("examSelection").hidden = true;
-$("testModeSelection").hidden = true;
-$("publishedMockTests").hidden = false;
-
-$("selectedExamTitle").textContent = selectedExam + " — अपना टेस्ट चुनें";
-
-window.loadStudentMockTests(selectedExam);
-
-    window.scrollTo(0, 0);
-  };
-});
- document.querySelectorAll(".exam-btn[data-mode]").forEach(button => {
-  button.onclick = async () => {
-    selectedTestMode = button.dataset.mode;
-
-    button.disabled = true;
-    button.textContent = "टेस्ट लोड हो रहा है...";
-
-    try {
-      const settings = await window.getFirebaseTestSettings(
-        selectedExam,
-        selectedTestMode
-      );
-
-      activeTestSettings = settings;
-      window.updateTestInfo?.(settings);
-
-      TOTAL_SECONDS = (Number(settings.durationMinutes) || 90) * 60;
-
-      const firebaseQuestions =
-        await window.loadFirebaseQuestions(settings);
-
-      if (!firebaseQuestions.length) {
-        throw new Error("इस टेस्ट के लिए प्रश्न नहीं मिले।");
-      }
-
-      questions = firebaseQuestions;
-      index = 0;
-      score = 0;
-      results = [];
-quizReturnSection = "testModeSelection";
-      $("testModeSelection").hidden = true;
-      $("quiz").hidden = false;
-
-      remaining = TOTAL_SECONDS;
-      updateTimerDisplay();
-
-      clock = setInterval(() => {
-        remaining--;
-        updateTimerDisplay();
-
-        if (remaining <= 0) {
-          clearInterval(clock);
-          showResult();
-        }
-      }, 1000);
-
-      render();
-
-    } catch (error) {
-      console.error(error);
-      alert("टेस्ट शुरू नहीं हुआ: " + error.message);
-    } finally {
-      button.disabled = false;
-      button.textContent =
-        selectedTestMode === "sectional"
-          ? "📚 Sectional Test"
-          : "📝 Full Mock Test";
-    }
-  };
-});
-console.log("Start Test button connected");
-// APEX MOBILE BACK NAVIGATION
-
-let quizReturnSection = "testModeSelection";
-
-document.addEventListener("click", function(e) {
-  const target = e.target.closest(
-    "#startTest, [data-exam], [data-mode], #studentMockTestList button"
-  );
-
-  if (target) {
-    history.pushState({ apexPage: true }, "", location.href);
-  }
-});
-
-window.addEventListener("popstate", function() {
-
-  // Result से वापस Quiz
-  if (!$("result").hidden) {
-    $("result").hidden = true;
-    $("quiz").hidden = false;
-    return;
-  }
-
-  // Quiz से पिछली स्क्रीन
-  if (!$("quiz").hidden) {
-    const confirmExit = confirm("क्या आप चल रहा टेस्ट छोड़ना चाहते हैं?");
-
-    if (confirmExit) {
-      stopTimers();
-      $("quiz").hidden = true;
-      $(quizReturnSection).hidden = false;
-      window.scrollTo(0, 0);
-    } else {
-      history.pushState({ apexPage: true }, "", location.href);
-    }
-    return;
-  }
-
-  // Published Mock Test से Exam Selection
-  if (!$("publishedMockTests").hidden) {
-    $("publishedMockTests").hidden = true;
-    $("examSelection").hidden = false;
-    window.scrollTo(0, 0);
-    return;
-  }
-
-  // Test Mode से Exam Selection
-  if (!$("testModeSelection").hidden) {
-    $("testModeSelection").hidden = true;
-    $("examSelection").hidden = false;
-    window.scrollTo(0, 0);
-    return;
-  }
-
-  // Exam Selection से Student Details
-  if (!$("examSelection").hidden) {
-    $("examSelection").hidden = true;
-    $("studentForm").hidden = false;
-    window.scrollTo(0, 0);
-    return;
-  }
-});
-$("startTest").onclick = () => {
- // STUDENT SESSION RESTORE
-const savedName = localStorage.getItem("apexStudentName");
-const savedMobile = localStorage.getItem("apexStudentMobile");
-
-if (savedName && /^\d{10}$/.test(savedMobile || "")) {
-  $("studentName").value = savedName;
-  $("studentMobile").value = savedMobile;
-
-  $("studentForm").hidden = true;
-  $("examSelection").hidden = false;
-  $("studentLogout").hidden = false;
-}
-
-// STUDENT LOGOUT
-$("studentLogout").onclick = () => {
-  if (!confirm("क्या आप Student Logout करना चाहते हैं?")) return;
-
-  localStorage.removeItem("apexStudentName");
-  localStorage.removeItem("apexStudentMobile");
-
-  stopTimers();
-
-  $("quiz").hidden = true;
-  $("result").hidden = true;
-  $("examSelection").hidden = true;
-  $("testModeSelection").hidden = true;
-  $("publishedMockTests").hidden = true;
-  $("studentForm").hidden = false;
-  $("studentLogout").hidden = true;
-
-  $("studentName").value = "";
-  $("studentMobile").value = "";
-
-  window.scrollTo(0, 0);
-};
-  const name = $("studentName").value.trim();
-  const mobile = $("studentMobile").value.trim();
-
-  if (!name || !/^\d{10}$/.test(mobile)) {
-    alert("कृपया नाम और 10 अंकों का मोबाइल नंबर भरें।");
-    return;
-  }
-
-  localStorage.setItem("apexStudentName", name);
-  localStorage.setItem("apexStudentMobile", mobile);
-$("studentLogout").hidden = false;
-  $("studentForm").hidden = true;
-  $("examSelection").hidden = false;
-
-  window.scrollTo(0, 0);
-};
-// RESTORE STUDENT SESSION AFTER REFRESH
-window.addEventListener("DOMContentLoaded", () => {
-    const savedName = localStorage.getItem("apexStudentName");
-    const savedMobile = localStorage.getItem("apexStudentMobile");
-
-    if (savedName && /^\d{10}$/.test(savedMobile || "")) {
-        $("studentName").value = savedName;
-        $("studentMobile").value = savedMobile;
-
-        $("studentForm").hidden = true;
-        $("examSelection").hidden = false;
-        $("studentLogout").hidden = false;
-    }
-});
-</script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  doc,
-  updateDoc,
-  deleteDoc
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+<!DOCTYPE html>  <html lang="hi">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<meta name="theme-color" content="#092b63">  <title>APEX PREPRATION ACADEMY | Railway GK GS Mock Test by Kumar Ankur Sir</title>  <meta name="description" content="APEX PREPRATION ACADEMY - KUMAR ANKUR SIR के साथ Railway GK GS Online Mock Test, Railway NTPC, Group D और ALP की तैयारी हिंदी और अंग्रेजी में करें। ऑनलाइन टेस्ट और प्रश्नों का अभ्यास करें।">  <meta name="robots" content="index, follow">  <link rel="canonical" href="https://apexpreparation5555.github.io/apex-railway-online-test/">  <meta property="og:title" content="APEX PREPRATION ACADEMY - Railway Online Test">  <meta property="og:description" content="KUMAR ANKUR SIR के साथ Railway GK/GS Online Test की तैयारी करें।">  <meta property="og:url" content="https://apexpreparation5555.github.io/apex-railway-online-test/">  
+ <meta property="og:site_name" content="APEX PREPRATION ACADEMY">  
+<meta property="og:type" content="website">  
+<meta property="og:image" content="https://apexpreparation5555.github.io/apex-railway-online-test/logo.png">  
+<meta name="author" content="KUMAR ANKUR SIR">  <style>  
+*{box-sizing:border-box}  
+body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#eef3f9;color:#182337}  
+header{background:linear-gradient(135deg,#092b63,#1769aa);color:#fff;text-align:center;padding:22px 12px}  
+.logos{display:flex;justify-content:center;align-items:center;gap:22px;margin-bottom:12px}  
+.logos img{width:75px;height:75px;object-fit:contain;background:#fff;border-radius:12px;padding:5px}  
+header h1{font-size:23px;margin:8px 0}  
+header p{margin:6px;font-size:14px}  
+.container{max-width:720px;margin:20px auto;padding:0 12px}  
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 3px 14px #00000012}  
+.stats{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-weight:bold;font-size:14px}  
+.timer{color:#d62828;font-size:18px}  
+.progress{height:8px;background:#e4eaf2;border-radius:9px;overflow:hidden;margin:14px 0 20px}  
+#bar{height:100%;width:0;background:#16a34a;transition:width .2s}  
+#question{font-size:19px;line-height:1.7;margin:16px 0}  
+.option{display:block;width:100%;text-align:left;padding:13px;margin:10px 0;border:2px solid #dbe3ed;border-radius:9px;background:#fff;font-size:16px;cursor:pointer;color:#182337}  
+.option:hover:not(:disabled){border-color:#1769aa;background:#f0f7ff}  
+.option:disabled{cursor:default}  
+.option.correct{background:#dcfce7;border-color:#16a34a}  
+.option.wrong{background:#fee2e2;border-color:#dc2626}  
+   
+.option.selected {  
+  background: #dcfce7 !important;  
+  border: 2px solid #16a34a !important;  
+  color: #166534 !important;  
+  font-weight: 700;  
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18);  
+}  
+button.primary{width:100%;padding:14px;border:0;border-radius:9px;background:#1259a7;color:white;font-size:16px;font-weight:bold;margin-top:12px;cursor:pointer}  
+button.primary:disabled{background:#9caec4;cursor:not-allowed}  
+.small{color:#65748b;font-size:13px;line-height:1.6}  
+footer{text-align:center;padding:18px;color:#65748b;font-size:13px}  
+.result{text-align:center}  
+.result h2{color:#1260a8}  
+.review{text-align:left;background:#f5f8fc;padding:12px;border-radius:8px;margin:10px 0;line-height:1.6}  
+[hidden]{display:none!important}  
+@media(max-width:480px){  
+ header h1{font-size:19px}  
+ #question{font-size:17px}  
+ .card{padding:15px}  
+ .logos img{width:65px;height:65px}  
+}  
+.exam-grid {  
+  display: grid;  
+  grid-template-columns: repeat(2, 1fr);  
+  gap: 12px;  
+  margin-top: 20px;  
+}  
   
-import {
-  getAuth,
-signInWithEmailAndPassword,
-signOut,
-onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCXvkDy93wP8-yCnEKNZojNALV460D2mUg",
-  authDomain: "apex-railway-gk-gs-d2caa.firebaseapp.com",
-  projectId: "apex-railway-gk-gs-d2caa",
-  storageBucket: "apex-railway-gk-gs-d2caa.firebasestorage.app",
-  messagingSenderId: "555383750688",
-  appId: "1:555383750688:web:e3aa9997fe51fb8de6bc45",
-  measurementId: "G-2RXSEHKVXM"
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
- window.loadFirebaseQuestions = async function (testSettings) {
-try {
-const snapshot = await getDocs(collection(db, "questions"));
-
-let firebaseQuestions = snapshot.docs.map(item => {
-  const data = item.data();
-
+.exam-btn {  
+  min-height: 75px;  
+  margin-top: 0 !important;  
+  background: linear-gradient(135deg, #092b63, #1769aa);  
+}  
   
-return {
-  q: data.q,
-  o: data.o,
-  a: Number(data.a),
-  subject: data.subject || "Railway GK",
-  solution: data.solution || "इस प्रश्न की व्याख्या अभी उपलब्ध नहीं है।"
-};
-}).filter(item =>
-  typeof item.q === "string" &&
-  Array.isArray(item.o) &&
-  item.o.length === 4 &&
-  Number.isInteger(item.a) &&
-  item.a >= 0 &&
-  item.a < 4
-);
+@media(max-width:480px) {  
+  .exam-grid {  
+    grid-template-columns: 1fr 1fr;  
+  }  
+}   
+</style>  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>   </head>  
+<body>  <header>  
+  <div class="logos">  
+    <img src="logo.png" alt="Apex Academy Logo">  
+    <img src="railway-logo.png.png" alt="Railway Exam Preparation Logo">  
+  </div>  
+  <h1>APEX PREPRATION ACADEMY</h1>  
+  <p><strong>KUMAR ANKUR SIR</strong></p>  
+  <p>🚆 Railway GK/GS Online Test</p>  
+<div id="testInfo">  
+  हिंदी + English | Mix Test  
+</div>  
+</header>  
+<main class="container">  
+<section class="card" id="studentForm">  
+  <h2>📝 विद्यार्थी विवरण / Student Details</h2>  <label for="studentName">नाम / Name</label>
+<input
+id="studentName"
+type="text"
+placeholder="अपना नाम लिखें"
+style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;"
 
-if (testSettings && Array.isArray(testSettings.subjects)) {
-  firebaseQuestions = firebaseQuestions.filter(item =>
-    testSettings.subjects.includes(item.subject)
-  );
-}
+> 
 
-if (testSettings?.randomQuestions) {
-  firebaseQuestions.sort(() => Math.random() - 0.5);
-}
-const subjectOrder = ["GK/GS", "Maths", "Reasoning"];
+<label for="studentMobile">मोबाइल नंबर / Mobile Number</label>
+<input
+id="studentMobile"
+type="tel"
+inputmode="numeric"
+maxlength="10"
+placeholder="10 अंकों का मोबाइल नंबर"
+style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;"
 
-firebaseQuestions.sort((a, b) => {
-  const aIndex = subjectOrder.indexOf(a.subject);
-  const bIndex = subjectOrder.indexOf(b.subject);
+> 
 
-  return (aIndex === -1 ? 999 : aIndex) -
-         (bIndex === -1 ? 999 : bIndex);
-});
+<button class="primary" id="startTest">  
+लॉगिन करें / LOGIN  
+</button>  
+</section>   <section class="card" id="examSelection" hidden>    <h2>🎓 अपना Exam चुनें / Select Your Exam</h2>  
+  <p class="small">जिस परीक्षा की तैयारी कर रहे हैं, उसे चुनें।</p>    <div class="exam-grid">  <button class="primary exam-btn" data-exam="RRB ALP">  
+  🚆 RRB ALP  
+</button>  
 
-if (testSettings?.questionCount) {
-  firebaseQuestions = firebaseQuestions.slice(
-    0, Number(testSettings.questionCount)
-  );
-}
+<button class="primary exam-btn" data-exam="RRB NTPC">  
+  🚉 RRB NTPC  
+</button>  
 
-return firebaseQuestions;
-} catch (error) {
-console.error("Firebase questions load error:", error);
-throw error;
-}
-};
- const $ = id => document.getElementById(id);
- async function saveStudentResult(name, mobile, score, testId) {
-  try {
-    await addDoc(collection(db, "results"), {
-      name: name,
-      mobile: mobile,
-      score: Number(score),
-      testId: testId,
-      createdAt: new Date()
-    });
-    console.log("Result saved successfully");
-    return true;
-  } catch (error) {
-    console.error("Result save failed:", error);
-    return false;
-  }
-}
+<button class="primary exam-btn" data-exam="Railway Group D">  
+  🚂 Railway Group D  
+</button>  
 
-window.saveStudentResult = saveStudentResult;
+<button class="primary exam-btn" data-exam="RRB Technician">  
+  🔧 RRB Technician  
+</button>  
 
-$("loadResults").onclick = async function() {
-  const user = auth.currentUser;
+<button class="primary exam-btn" data-exam="RPF Constable">  
+  🛡️ RPF Constable  
+</button>  
 
-  if (!user) {
-    alert("पहले Admin Login करें।");
-    return;
-  }
+<button class="primary exam-btn" data-exam="Other Exams">  
+  📚 Other Exams  
+</button>
 
-  $("resultsMessage").textContent = "रिज़ल्ट लोड हो रहे हैं...";
-  $("resultsList").innerHTML = "";
+  </div>  
+</section>  
+<section class="card" id="testModeSelection" hidden>  
+  <h2 id="selectedExamTitle">Select Test</h2>  
+  <p class="small">अपना टेस्ट चुनें।</p>    <div class="exam-grid">  
+    <button class="primary exam-btn" data-mode="sectional">  
+      📚 Sectional Test  
+    </button>  <button class="primary exam-btn" data-mode="full">  
+  📝 Full Mock Test  
+</button>
 
-  try {
-    const snapshot = await getDocs(
-      query(collection(db, "results"), orderBy("createdAt", "desc"))
-    );
+  </div>  
+</section>  
+<!-- PUBLISHED MOCK TESTS -->  
+<section class="card" id="publishedMockTests" hidden>    <h2>📝 Available Mock Tests</h2>  
+  <p class="small">अपना Mock Test चुनें और परीक्षा शुरू करें।</p>    <div id="studentMockTestList">  
+    Mock Tests लोड हो रहे हैं...  
+  </div>  </section>   
+<section class="card" id="quiz" hidden>  
+    <div class="stats">  
+      <span id="count">प्रश्न 1 / 25</span>  
+      <span>अधिकतम अंक: 25</span>  
+      <span class="timer">⏱ <span id="time">30</span> सेकंड</span>  
+    </div>  
+    <div class="progress"><div id="bar"></div></div>  
+    <div class="small">सही उत्तर चुनें / Choose the correct answer</div>  
+    <div id="question"></div>  
+    <div id="options"></div>  
+    <div style="display:flex;gap:10px;">  
+  <button class="primary" id="prev" disabled  
+    style="flex:1;">  
+    ← Previous  
+  </button>  <button class="primary" id="next" disabled  
+style="flex:1;">
+Next Question →
+</button>
 
-    $("resultsMessage").textContent =
-      "कुल रिज़ल्ट: " + snapshot.size;
-
-    const table = document.createElement("table");
-    table.style.width = "100%";
-    table.style.borderCollapse = "collapse";
-
-    table.innerHTML = `
-      <tr>
-        <th>नाम</th>
-        <th>मोबाइल</th>
-        <th>अंक</th>
-        <th>टेस्ट</th>
-        <th>एक्शन</th>
-      </tr>
-    `;
-
-    snapshot.forEach(resultDoc => {
-      const data = resultDoc.data();
-      const row = table.insertRow();
-
-      [data.name, data.mobile, data.score, data.testId].forEach(value => {
-        const cell = row.insertCell();
-        cell.textContent = value ?? "";
-        cell.style.padding = "8px";
-        cell.style.border = "1px solid #ddd";
-      });
-
-      const actionCell = row.insertCell();
-      actionCell.style.padding = "8px";
-      actionCell.style.border = "1px solid #ddd";
-
-      const deleteButton = document.createElement("button");
-      deleteButton.textContent = "🗑️ Delete";
-      deleteButton.style.cssText =
-        "background:#dc2626;color:white;border:0;padding:8px;border-radius:6px;";
-
-      deleteButton.onclick = async () => {
-        if (!auth.currentUser) {
-          alert("पहले Admin Login करें।");
-          return;
-        }
-
-        const confirmDelete = confirm(
-          `क्या ${data.name || "इस विद्यार्थी"} का रिज़ल्ट हटाना चाहते हैं?`
-        );
-
-        if (!confirmDelete) return;
-
-        deleteButton.disabled = true;
-
-        try {
-          await deleteDoc(doc(db, "results", resultDoc.id));
-          row.remove();
-
-          $("resultsMessage").textContent =
-            "रिज़ल्ट सफलतापूर्वक हटाया गया।";
-
-        } catch (error) {
-          console.error(error);
-          alert("रिज़ल्ट नहीं हटा। Firebase Rules जाँचें।");
-          deleteButton.disabled = false;
-        }
-      };
-
-      actionCell.appendChild(deleteButton);
-    });
-
-    $("resultsList").appendChild(table);
-
-  } catch (error) {
-    console.error(error);
-    $("resultsMessage").textContent =
-      "रिज़ल्ट नहीं खुल पाए। Firebase Rules जाँचें।";
-  }
-};
-
-const questionCollection = collection(db, "questions");
- 
-async function loadQuestions() {
-  if (!auth.currentUser) {
-    alert("पहले Admin Login करें।");
-    return;
-  }
-
-  const list = document.getElementById("questionList");
-  list.innerHTML = "प्रश्न लोड हो रहे हैं...";
-
-  try {
-    const snapshot = await getDocs(questionCollection);
-    list.innerHTML = "";
-
-    if (snapshot.empty) {
-      list.textContent = "अभी कोई प्रश्न सेव नहीं है।";
-      return;
-    }
-
-    snapshot.forEach((item) => {
-      const data = item.data();
-      const box = document.createElement("div");
-      box.style.cssText =
-        "border:1px solid #ddd;padding:12px;margin:10px 0;border-radius:8px";
-
-      const title = document.createElement("p");
-      title.textContent = data.q || "";
-      box.appendChild(title);
-
-      const options = document.createElement("p");
-      options.textContent = (data.o || []).join(" | ");
-      box.appendChild(options);
-
-      const edit = document.createElement("button");
-      edit.textContent = "✏️ Edit";
-      edit.style.marginRight = "10px";
-
-      edit.onclick = async () => {
-        const newQ = prompt("प्रश्न बदलें:", data.q || "");
-        if (newQ === null || !newQ.trim()) return;
-
-        const newOptions = [];
-        for (let i = 0; i < 4; i++) {
-          const value = prompt(
-            "विकल्प " + String.fromCharCode(65 + i) + " बदलें:",
-            (data.o || [])[i] || ""
-          );
-          if (value === null || !value.trim()) {
-            alert("चारों विकल्प भरना ज़रूरी है।");
-            return;
-          }
-          newOptions.push(value.trim());
-        }
-
-        const answerText = prompt(
-          "सही विकल्प का नंबर लिखें: 1=A, 2=B, 3=C, 4=D",
-          String(Number(data.a ?? 0) + 1)
-        );
-
-        if (answerText === null) return;
-        const answer = Number(answerText) - 1;
-
-        if (!Number.isInteger(answer) || answer < 0 || answer > 3) {
-          alert("सही विकल्प 1 से 4 के बीच होना चाहिए।");
-          return;
-        }
-
-        try {
-          await updateDoc(doc(db, "questions", item.id), {
-            q: newQ.trim(),
-            o: newOptions,
-            a: answer
-          });
-          alert("प्रश्न अपडेट हो गया!");
-          await loadQuestions();
-        } catch (error) {
-          console.error(error);
-          alert("अपडेट नहीं हुआ। Firebase Rules जाँचें।");
-        }
-      };
-
-      const remove = document.createElement("button");
-      remove.textContent = "🗑️ Delete";
-
-      remove.onclick = async () => {
-        if (!confirm("क्या यह प्रश्न हटाना चाहते हैं?")) return;
-
-        try {
-          await deleteDoc(doc(db, "questions", item.id));
-          alert("प्रश्न हटा दिया गया!");
-          await loadQuestions();
-        } catch (error) {
-          console.error(error);
-          alert("प्रश्न नहीं हटा। Firebase Rules जाँचें।");
-        }
-      };
-
-      box.appendChild(edit);
-      box.appendChild(remove);
-      list.appendChild(box);
-    });
-  } catch (error) {
-    console.error(error);
-    list.textContent = "प्रश्न लोड नहीं हुए। Firebase Rules जाँचें।";
-  }
-}
-
-$("saveQuestion").onclick = async function() {
-  if (!auth.currentUser) {
-    alert("पहले Admin Login करें।");
-    return;
-  }
-
-  const q = $("newQuestion").value.trim();
-  const options = [
-    $("option0").value.trim(),
-    $("option1").value.trim(),
-    $("option2").value.trim(),
-    $("option3").value.trim()
-  ];
-  const answer = Number($("correctOption").value);
-const solution = $("newSolution").value.trim();
-  if (!q || options.some(option => !option)) {
-    alert("प्रश्न और चारों विकल्प भरें।");
-    return;
-  }
-
-  try {
-    await addDoc(questionCollection, {
-  q: q,
-  o: options,
-  a: answer,
-  solution: solution,
-  subject: $("newSubject").value,
-  createdAt: new Date()
-});
-$("newSolution").value = "";
-    $("questionMessage").textContent = "प्रश्न सफलतापूर्वक सेव हो गया!";
+</div>  
+    <p class="small" id="message" aria-live="polite">हर प्रश्न के लिए 30 सेकंड हैं। समय पूरा होने पर अगला प्रश्न अपने आप खुलेगा।</p>  
+  </section>    <section class="card result" id="result" hidden></section>  
+</main>  <footer>© APEX PREPRATION ACADEMY | KUMAR ANKUR SIR</footer>  <script>  
+"use strict";  
+  
+let questions = [  
+{q:"भारत में पहली यात्री रेलगाड़ी कब चली थी? / When did India's first passenger train run?",o:["1843","1853","1863","1873"],a:1},  
+{q:"भारत की पहली यात्री रेलगाड़ी किन स्थानों के बीच चली थी? / Between which places did India's first passenger train run?",o:["दिल्ली–आगरा / Delhi–Agra","बॉम्बे–ठाणे / Bombay–Thane","हावड़ा–पटना / Howrah–Patna","चेन्नई–मैसूर / Chennai–Mysore"],a:1},  
+{q:"भारतीय रेलवे का मुख्यालय कहाँ है? / Where is the headquarters of Indian Railways?",o:["मुंबई / Mumbai","कोलकाता / Kolkata","नई दिल्ली / New Delhi","चेन्नई / Chennai"],a:2},  
+{q:"ब्रॉड गेज की चौड़ाई कितनी होती है? / What is the width of broad gauge?",o:["1000 mm","1435 mm","1676 mm","762 mm"],a:2},  
+{q:"भारत में पहली मेट्रो रेल कहाँ शुरू हुई? / Where did India's first metro railway start?",o:["दिल्ली / Delhi","कोलकाता / Kolkata","मुंबई / Mumbai","चेन्नई / Chennai"],a:1},  
+{q:"रेलवे बोर्ड की स्थापना किस वर्ष हुई? / In which year was the Railway Board established?",o:["1901","1905","1911","1925"],a:1},  
+{q:"राष्ट्रीय रेल संग्रहालय कहाँ स्थित है? / Where is the National Rail Museum located?",o:["जयपुर / Jaipur","नई दिल्ली / New Delhi","लखनऊ / Lucknow","भोपाल / Bhopal"],a:1},  
+{q:"चित्तरंजन लोकोमोटिव वर्क्स किस राज्य में है? / Chittaranjan Locomotive Works is in which state?",o:["बिहार / Bihar","पश्चिम बंगाल / West Bengal","झारखंड / Jharkhand","ओडिशा / Odisha"],a:1},  
+{q:"इंटीग्रल कोच फैक्ट्री कहाँ स्थित है? / Where is the Integral Coach Factory located?",o:["चेन्नई / Chennai","कपूरथला / Kapurthala","वाराणसी / Varanasi","पटना / Patna"],a:0},  
+{q:"भारतीय रेलवे की यात्री हेल्पलाइन 139 किससे संबंधित है? / Indian Railways helpline 139 is used for what?",o:["रेल यात्री सहायता / Rail passenger assistance","केवल माल ढुलाई / Freight only","मौसम विभाग / Weather department","डाक सेवा / Postal service"],a:0},  
+{q:"भारत की पहली विद्युत रेलगाड़ी कब चली थी? / When did India's first electric train run?",o:["1925","1935","1947","1951"],a:0},  
+{q:"भारत की पहली विद्युत रेलगाड़ी किस मार्ग पर चली थी? / On which route did India's first electric train run?",o:["बॉम्बे VT–कुर्ला / Bombay VT–Kurla","दिल्ली–आगरा / Delhi–Agra","हावड़ा–दिल्ली / Howrah–Delhi","चेन्नई–बेंगलुरु / Chennai–Bengaluru"],a:0},  
+{q:"रेल व्हील फैक्ट्री कहाँ स्थित है? / Where is Rail Wheel Factory located?",o:["बेंगलुरु / Bengaluru","रायबरेली / Rae Bareli","कानपुर / Kanpur","जबलपुर / Jabalpur"],a:0},  
+{q:"कोंकण रेलवे मुख्य रूप से किस तटीय क्षेत्र में है? / Konkan Railway mainly serves which coastal region?",o:["पूर्वी तट / East Coast","पश्चिमी तट / West Coast","उत्तरी मैदान / Northern Plains","मध्य भारत / Central India"],a:1},  
+{q:"रेलवे में लाल सिग्नल का सामान्य अर्थ क्या है? / What does a red railway signal generally mean?",o:["आगे बढ़ें / Proceed","रुकें / Stop","गति बढ़ाएँ / Increase speed","सीटी बजाएँ / Blow whistle"],a:1},  
+{q:"रेलवे में हरे सिग्नल का सामान्य अर्थ क्या है? / What does a green railway signal generally mean?",o:["रुकें / Stop","सावधान होकर रुकें / Prepare to stop","आगे बढ़ने की अनुमति / Proceed","लाइन बंद है / Line closed"],a:2},  
+{q:"रेल बजट को आम बजट में किस वित्त वर्ष से मिलाया गया? / From which financial year was the Railway Budget merged with the Union Budget?",o:["2015–16","2016–17","2017–18","2018–19"],a:2},  
+{q:"रेलवे सुरक्षा बल का संक्षिप्त नाम क्या है? / What is the abbreviation for Railway Protection Force?",o:["RPF","RPS","RFS","IRF"],a:0},  
+{q:"भारत की पहली यात्री रेलगाड़ी ने लगभग कितनी दूरी तय की थी? / Approximately how far did India's first passenger train travel?",o:["14 km","34 km","54 km","104 km"],a:1},  
+{q:"स्लीपर क्लास किस प्रकार के कोच का उदाहरण है? / Sleeper class is an example of which type of coach?",o:["यात्री कोच / Passenger coach","माल डिब्बा / Freight wagon","इंजन / Locomotive","केवल ब्रेक वैन / Brake van only"],a:0},  
+{q:"रेल की पटरियों के बीच की दूरी को क्या कहते हैं? / What is the distance between two railway rails called?",o:["गेज / Gauge","पिच / Pitch","स्पैन / Span","लोड / Load"],a:0},  
+{q:"रेलवे में लोकोमोटिव का क्या अर्थ है? / What does locomotive mean in railway terminology?",o:["रेल इंजन / Railway engine","प्लेटफॉर्म / Platform","सिग्नल / Signal","टिकट काउंटर / Ticket counter"],a:0},  
+{q:"डेडिकेटेड फ्रेट कॉरिडोर का मुख्य उद्देश्य क्या है? / What is the main purpose of Dedicated Freight Corridors?",o:["माल परिवहन को बेहतर बनाना / Improve freight movement","केवल पर्यटन / Tourism only","हवाई यातायात / Air traffic","मेट्रो संचालन / Metro operations"],a:0},  
+{q:"रेलवे प्लेटफॉर्म का मुख्य उपयोग क्या है? / What is the main purpose of a railway platform?",o:["यात्रियों के चढ़ने-उतरने के लिए / Passenger boarding and alighting","इंजन बनाने के लिए / Manufacturing engines","माल का उत्पादन / Producing goods","पटरियाँ बदलने के लिए / Replacing tracks"],a:0},  
+{q:"भारतीय रेलवे किस मंत्रालय के अधीन कार्य करता है? / Indian Railways functions under which ministry?",o:["गृह मंत्रालय / Home Affairs","रेल मंत्रालय / Ministry of Railways","सड़क परिवहन मंत्रालय / Road Transport","वित्त मंत्रालय / Finance"],a:1}  
+];  
+  
+let TOTAL_SECONDS = 600;  
+let activeTestSettings = null;   
+let index = 0;  
+let score = 0;  
+let remaining = TOTAL_SECONDS;  
+let clock = null;  
+let answered = false;  
+let results = [];  
+let advanceTimeout = null;  
+  
+const $ = id => document.getElementById(id);  
+  
+  
+function stopTimers(){  
+  clearInterval(clock);  
+  clearTimeout(advanceTimeout);  
+}  
+function render(){  
+  
+  answered = false;  
+const currentSubject = questions[index].subject || "General";  
+const sectionIndex = questions  
+  .slice(0, index + 1)  
+  .filter(q => (q.subject || "General") === currentSubject).length;  
+  
+const sectionTotal = questions  
+  .filter(q => (q.subject || "General") === currentSubject).length;  
+  
+$("count").textContent =  
+  currentSubject + " प्रश्न " + sectionIndex + " / " + sectionTotal;  
+  $("bar").style.width = (index / questions.length * 100) + "%";  
+  $("question").textContent = questions[index].q;  
+  
+let sectionHeading = document.getElementById("sectionHeading");  
+  
+if (!sectionHeading) {  
+  sectionHeading = document.createElement("h3");  
+  sectionHeading.id = "sectionHeading";  
+  $("question").before(sectionHeading);  
+}  
+  
+sectionHeading.textContent = "Section: " + currentSubject;   
+  $("options").innerHTML = "";  
+  $("message").textContent = "सभी प्रश्नों के लिए कुल टेस्ट टाइमर चल रहा है।";  
+  $("next").disabled = true;  
+ $("prev").disabled = index === 0;  
+  
+  $("next").textContent = index === questions.length - 1  
+    ? "रिज़ल्ट देखें / View Result"  
+    : "अगला प्रश्न / Next Question →";  
+  
+  questions[index].o.forEach((option, i) => {  
+    const button = document.createElement("button");  
+    button.className = "option";  
+    button.textContent = String.fromCharCode(65 + i) + ". " + option;  
+    button.onclick = () => choose(i);  
+    $("options").appendChild(button);  
+  });  
+ if (Number.isInteger(results[index])) {  
+  answered = true;  
+  
+  document.querySelectorAll(".option").forEach((button, buttonIndex) => {  
+    button.classList.toggle("selected", buttonIndex === results[index]);  
+  });  
+  
+  $("next").disabled = false;  
+  
+  $("message").textContent =  
+    "आप अपना उत्तर बदल सकते हैं। आगे बढ़ने के लिए Next दबाएँ।";  
+}  
+}  
+  
+  
+function updateTimerDisplay(){  
+  const minutes = Math.floor(remaining / 60);  
+  const seconds = remaining % 60;  
+  
+  $("time").textContent =  
+    String(minutes).padStart(2, "0") + ":" +  
+    String(seconds).padStart(2, "0");  
+}  
+  
+function lockOptions(){  
+  document.querySelectorAll(".option").forEach(button => {  
+    button.disabled = true;  
+  });  
+}  
+  
+  
+function choose(i) {  
+  answered = true;  
+  results[index] = i;  
+  
+  document.querySelectorAll(".option").forEach((button, buttonIndex) => {  
+    button.classList.toggle("selected", buttonIndex === i);  
+    button.disabled = false;  
+  });  
+  
+  $("message").textContent =  
+    "आप अपना उत्तर बदल सकते हैं। आगे बढ़ने के लिए Next दबाएँ।";  
+  
+  $("next").disabled = false;  
+}  
+  
+function next(){  
+  if(!answered) return;  
+  
+  clearTimeout(advanceTimeout);  
+  index++;  
+  
+  if(index < questions.length){  
+    render();  
+  } else {  
+    showResult();  
+  }  
+}  
+  
+  
+$("next").onclick = next;  
+ $("prev").onclick = function() {  
+  if (index > 0) {  
+    index--;  
+    render();  
+  }  
+};  
+  
+  
+function showResult() {  
+  stopTimers();  
+  
+  $("quiz").hidden = true;  
+  $("result").hidden = false;  
+  $("bar").style.width = "100%";  
+  
+  // सबमिट होने पर ही स्कोर की गणना  
+  const correctCount = questions.reduce((total, q, i) => {  
+    return total + (results[i] === q.a ? 1 : 0);  
+  }, 0);  
+  
+  const answeredCount = questions.reduce((total, q, i) => {  
+    return total + (  
+      Number.isInteger(results[i]) &&  
+      results[i] >= 0 &&  
+      results[i] < q.o.length ? 1 : 0  
+    );  
+  }, 0);  
+  
+  const wrongCount = questions.reduce((total, q, i) => {  
+    return total + (  
+      Number.isInteger(results[i]) &&  
+      results[i] >= 0 &&  
+      results[i] < q.o.length &&  
+      results[i] !== q.a ? 1 : 0  
+    );  
+  }, 0);  
+  
+  const unansweredCount = questions.length - answeredCount;  
+  
+const marksPerQuestion = Number(activeTestSettings?.marksPerQuestion ?? 1);  
+const negativeMarking = Number(activeTestSettings?.negativeMarking ?? 0);  
+  
+score = Math.max(  
+  0,  
+  Number(  
+    (correctCount * marksPerQuestion -  
+      wrongCount * negativeMarking).toFixed(2)  
+  )  
+);  
+  
+  const totalMarks =  
+  questions.length * Number(activeTestSettings?.marksPerQuestion ?? 1);  
+  
+const percent = totalMarks > 0  
+  ? Math.round((score / totalMarks) * 100)  
+  : 0;  
+  
+  // Firebase में विद्यार्थी का रिज़ल्ट सेव करें  
+  
+  
+const studentName =  
+  localStorage.getItem("apexStudentName") || "";  
+  
+const studentMobile =  
+  localStorage.getItem("apexStudentMobile") || "";  
+  
+const currentTestId =  
+  activeTestSettings?.mockTestId || "railway-gk-gs-test-01";  
+  
+const resultSaveKey =  
+  "apexResultSaved_" + currentTestId + "_" + studentMobile;  
+  
+if (localStorage.getItem(resultSaveKey) === "1") {  
+  console.log("यह टेस्ट पहले ही पूरा हो चुका है।");  
+  
+} else if (  
+  studentName &&  
+  studentMobile &&  
+  typeof window.saveStudentResult === "function"  
+) {  
+  localStorage.setItem(resultSaveKey, "1");  
+  
+  window.saveStudentResult(  
+    studentName,  
+    studentMobile,  
+    score,  
+currentTestId  
+  ).then(saved => {  
+    if (saved) {  
+      console.log("पहली बार का रिज़ल्ट सेव हो गया।");  
+    } else {  
+      localStorage.removeItem(resultSaveKey);  
+      alert("रिज़ल्ट सेव नहीं हुआ।");  
+    }  
+  }).catch(error => {  
+    localStorage.removeItem(resultSaveKey);  
+    console.error("Result save error:", error);  
+    alert("रिज़ल्ट सेव करने में समस्या आई।");  
+  });  
+  
+} else {  
+  console.error("विद्यार्थी का विवरण या Firebase फ़ंक्शन उपलब्ध नहीं है।");  
+}  
+$("result").innerHTML = `  
+    <h2>🎉 टेस्ट पूरा हुआ! / Test Completed!</h2>  
+    <p><strong>APEX PREPRATION ACADEMY</strong></p>  
+    <p>KUMAR ANKUR SIR</p>  
+  
+    <h1>${score} / ${questions.length * Number(activeTestSettings?.marksPerQuestion ?? 1)}</h1>  
+    <p>आपका स्कोर / Your Score: ${percent}%</p>  
+  
+    <p>✅ सही उत्तर / Correct: ${correctCount}</p>  
+    <p>❌ गलत उत्तर / Wrong: ${wrongCount}</p>  
+    <p>⏭️ बिना उत्तर / Unanswered: ${unansweredCount}</p>  
+  
+    <h2>📖 Solutions / उत्तर एवं व्याख्या</h2>  
+    <div id="review"></div>  
+  
+    <button class="primary" id="print">  
+      रिज़ल्ट प्रिंट / Save as PDF  
+    </button>  
+  
+    <button class="primary" id="restart">  
+      दोबारा टेस्ट दें / Retake Test  
+    </button>  
+  `;  
+  
+  const review = $("review");  
+  
+  questions.forEach((q, i) => {  
+    const div = document.createElement("div");  
+    div.className = "review";  
+  
+    const userAnswer =  
+      Number.isInteger(results[i]) &&  
+      results[i] >= 0 &&  
+      results[i] < q.o.length  
+        ? q.o[results[i]]  
+        : "नहीं दिया / Not answered";  
+  
+    const questionTitle = document.createElement("h3");  
+    questionTitle.textContent = `${i + 1}. ${q.q}`;  
+  
+    const yourAnswer = document.createElement("p");  
+    yourAnswer.textContent = `आपका उत्तर / Your Answer: ${userAnswer}`;  
+  
+    const correctAnswer = document.createElement("p");  
+    correctAnswer.textContent = `सही उत्तर / Correct Answer: ${q.o[q.a]}`;  
+  
+    const explanation = document.createElement("p");  
+    explanation.textContent =  
+      `व्याख्या / Explanation: ${  
+        q.solution || "इस प्रश्न की व्याख्या अभी उपलब्ध नहीं है।"  
+      }`;  
+  
+    div.appendChild(questionTitle);  
+    div.appendChild(yourAnswer);  
+    div.appendChild(correctAnswer);  
+    div.appendChild(explanation);  
+  
+    review.appendChild(div);  
+  });  
+  
+  $("print").onclick = () => window.print();  
+  
+  $("restart").onclick = () => {  
+    stopTimers();  
+    index = 0;  
+    score = 0;  
+    results = [];  
+  
+    $("result").hidden = true;  
+    $("quiz").hidden = false;  
+  
+    render();  
+    window.scrollTo(0, 0);  
+  };  
+  
+  window.scrollTo(0, 0);  
+}  
+let selectedExam = "";  
+let selectedTestMode = "";  
+  
+document.querySelectorAll(".exam-btn[data-exam]").forEach(button => {  
+  button.onclick = () => {  
+    selectedExam = button.dataset.exam;  
+  
+    $("examSelection").hidden = true;  
+$("testModeSelection").hidden = true;  
+$("publishedMockTests").hidden = false;  
+  
+$("selectedExamTitle").textContent = selectedExam + " — अपना टेस्ट चुनें";  
+  
+window.loadStudentMockTests(selectedExam);  
+  
+    window.scrollTo(0, 0);  
+  };  
+});  
+ document.querySelectorAll(".exam-btn[data-mode]").forEach(button => {  
+  button.onclick = async () => {  
+    selectedTestMode = button.dataset.mode;  
+  
+    button.disabled = true;  
+    button.textContent = "टेस्ट लोड हो रहा है...";  
+  
+    try {  
+      const settings = await window.getFirebaseTestSettings(  
+        selectedExam,  
+        selectedTestMode  
+      );  
+  
+      activeTestSettings = settings;  
+      window.updateTestInfo?.(settings);  
+  
+      TOTAL_SECONDS = (Number(settings.durationMinutes) || 90) * 60;  
+  
+      const firebaseQuestions =  
+        await window.loadFirebaseQuestions(settings);  
+  
+      if (!firebaseQuestions.length) {  
+        throw new Error("इस टेस्ट के लिए प्रश्न नहीं मिले।");  
+      }  
+  
+      questions = firebaseQuestions;  
+      index = 0;  
+      score = 0;  
+      results = [];  
+quizReturnSection = "testModeSelection";  
+      $("testModeSelection").hidden = true;  
+      $("quiz").hidden = false;  
+  
+      remaining = TOTAL_SECONDS;  
+      updateTimerDisplay();  
+  
+      clock = setInterval(() => {  
+        remaining--;  
+        updateTimerDisplay();  
+  
+        if (remaining <= 0) {  
+          clearInterval(clock);  
+          showResult();  
+        }  
+      }, 1000);  
+  
+      render();  
+  
+    } catch (error) {  
+      console.error(error);  
+      alert("टेस्ट शुरू नहीं हुआ: " + error.message);  
+    } finally {  
+      button.disabled = false;  
+      button.textContent =  
+        selectedTestMode === "sectional"  
+          ? "📚 Sectional Test"  
+          : "📝 Full Mock Test";  
+    }  
+  };  
+});  
+console.log("Start Test button connected");  
+// APEX MOBILE BACK NAVIGATION  
+  
+let quizReturnSection = "testModeSelection";  
+  
+document.addEventListener("click", function(e) {  
+  const target = e.target.closest(  
+    "#startTest, [data-exam], [data-mode], #studentMockTestList button"  
+  );  
+  
+  if (target) {  
+    history.pushState({ apexPage: true }, "", location.href);  
+  }  
+});  
+  
+window.addEventListener("popstate", function() {  
+  
+  // Result से वापस Quiz  
+  if (!$("result").hidden) {  
+    $("result").hidden = true;  
+    $("quiz").hidden = false;  
+    return;  
+  }  
+  
+  // Quiz से पिछली स्क्रीन  
+  if (!$("quiz").hidden) {  
+    const confirmExit = confirm("क्या आप चल रहा टेस्ट छोड़ना चाहते हैं?");  
+  
+    if (confirmExit) {  
+      stopTimers();  
+      $("quiz").hidden = true;  
+      $(quizReturnSection).hidden = false;  
+      window.scrollTo(0, 0);  
+    } else {  
+      history.pushState({ apexPage: true }, "", location.href);  
+    }  
+    return;  
+  }  
+  
+  // Published Mock Test से Exam Selection  
+  if (!$("publishedMockTests").hidden) {  
+    $("publishedMockTests").hidden = true;  
+    $("examSelection").hidden = false;  
+    window.scrollTo(0, 0);  
+    return;  
+  }  
+  
+  // Test Mode से Exam Selection  
+  if (!$("testModeSelection").hidden) {  
+    $("testModeSelection").hidden = true;  
+    $("examSelection").hidden = false;  
+    window.scrollTo(0, 0);  
+    return;  
+  }  
+  
+  // Exam Selection से Student Details  
+  if (!$("examSelection").hidden) {  
+    $("examSelection").hidden = true;  
+    $("studentForm").hidden = false;  
+    window.scrollTo(0, 0);  
+    return;  
+  }  
+});  
+});  
+$("startTest").onclick = () => {  
+  const name = $("studentName").value.trim();  
+  const mobile = $("studentMobile").value.trim();  
+  
+  if (!name || !/^\d{10}$/.test(mobile)) {  
+    alert("कृपया नाम और 10 अंकों का मोबाइल नंबर भरें।");  
+    return;  
+  }  
+  
+  localStorage.setItem("apexStudentName", name);  
+  localStorage.setItem("apexStudentMobile", mobile);  
+  
+  $("studentForm").hidden = true;  
+  $("examSelection").hidden = false;  
+  
+  window.scrollTo(0, 0);  
+};  
+  
+</script>  <script type="module">  
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";  
+  
+import {  
+  getFirestore,  
+  collection,  
+  addDoc,  
+  getDocs,  
+  query,  
+  where,  
+  orderBy,  
+  doc,  
+  updateDoc,  
+  deleteDoc  
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";  
+    
+import {  
+  getAuth,  
+  signInWithEmailAndPassword,  
+  signOut  
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";  
+  
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional  
+const firebaseConfig = {  
+  apiKey: "AIzaSyCXvkDy93wP8-yCnEKNZojNALV460D2mUg",  
+  authDomain: "apex-railway-gk-gs-d2caa.firebaseapp.com",  
+  projectId: "apex-railway-gk-gs-d2caa",  
+  storageBucket: "apex-railway-gk-gs-d2caa.firebasestorage.app",  
+  messagingSenderId: "555383750688",  
+  appId: "1:555383750688:web:e3aa9997fe51fb8de6bc45",  
+  measurementId: "G-2RXSEHKVXM"  
+};  
+const app = initializeApp(firebaseConfig);  
+const auth = getAuth(app);  
+const db = getFirestore(app);  
+ window.loadFirebaseQuestions = async function (testSettings) {  
+try {  
+const snapshot = await getDocs(collection(db, "questions"));  
+  
+let firebaseQuestions = snapshot.docs.map(item => {  
+  const data = item.data();  
+  
+    
+return {  
+  q: data.q,  
+  o: data.o,  
+  a: Number(data.a),  
+  subject: data.subject || "Railway GK",  
+  solution: data.solution || "इस प्रश्न की व्याख्या अभी उपलब्ध नहीं है।"  
+};  
+}).filter(item =>  
+  typeof item.q === "string" &&  
+  Array.isArray(item.o) &&  
+  item.o.length === 4 &&  
+  Number.isInteger(item.a) &&  
+  item.a >= 0 &&  
+  item.a < 4  
+);  
+  
+if (testSettings && Array.isArray(testSettings.subjects)) {  
+  firebaseQuestions = firebaseQuestions.filter(item =>  
+    testSettings.subjects.includes(item.subject)  
+  );  
+}  
+  
+if (testSettings?.randomQuestions) {  
+  firebaseQuestions.sort(() => Math.random() - 0.5);  
+}  
+const subjectOrder = ["GK/GS", "Maths", "Reasoning"];  
+  
+firebaseQuestions.sort((a, b) => {  
+  const aIndex = subjectOrder.indexOf(a.subject);  
+  const bIndex = subjectOrder.indexOf(b.subject);  
+  
+  return (aIndex === -1 ? 999 : aIndex) -  
+         (bIndex === -1 ? 999 : bIndex);  
+});  
+  
+if (testSettings?.questionCount) {  
+  firebaseQuestions = firebaseQuestions.slice(  
+    0, Number(testSettings.questionCount)  
+  );  
+}  
+  
+return firebaseQuestions;  
+} catch (error) {  
+console.error("Firebase questions load error:", error);  
+throw error;  
+}  
+};  
+ const $ = id => document.getElementById(id);  
+ async function saveStudentResult(name, mobile, score, testId) {  
+  try {  
+    await addDoc(collection(db, "results"), {  
+      name: name,  
+      mobile: mobile,  
+      score: Number(score),  
+      testId: testId,  
+      createdAt: new Date()  
+    });  
+    console.log("Result saved successfully");  
+    return true;  
+  } catch (error) {  
+    console.error("Result save failed:", error);  
+    return false;  
+  }  
+}  
+  
+window.saveStudentResult = saveStudentResult;  
+  
+$("loadResults").onclick = async function() {  
+  const user = auth.currentUser;  
+  
+  if (!user) {  
+    alert("पहले Admin Login करें।");  
+    return;  
+  }  
+  
+  $("resultsMessage").textContent = "रिज़ल्ट लोड हो रहे हैं...";  
+  $("resultsList").innerHTML = "";  
+  
+  try {  
+    const snapshot = await getDocs(  
+      query(collection(db, "results"), orderBy("createdAt", "desc"))  
+    );  
+  
+    $("resultsMessage").textContent =  
+      "कुल रिज़ल्ट: " + snapshot.size;  
+  
+    const table = document.createElement("table");  
+    table.style.width = "100%";  
+    table.style.borderCollapse = "collapse";  
+  
+    table.innerHTML = `  
+      <tr>  
+        <th>नाम</th>  
+        <th>मोबाइल</th>  
+        <th>अंक</th>  
+        <th>टेस्ट</th>  
+        <th>एक्शन</th>  
+      </tr>  
+    `;  
+  
+    snapshot.forEach(resultDoc => {  
+      const data = resultDoc.data();  
+      const row = table.insertRow();  
+  
+      [data.name, data.mobile, data.score, data.testId].forEach(value => {  
+        const cell = row.insertCell();  
+        cell.textContent = value ?? "";  
+        cell.style.padding = "8px";  
+        cell.style.border = "1px solid #ddd";  
+      });  
+  
+      const actionCell = row.insertCell();  
+      actionCell.style.padding = "8px";  
+      actionCell.style.border = "1px solid #ddd";  
+  
+      const deleteButton = document.createElement("button");  
+      deleteButton.textContent = "🗑️ Delete";  
+      deleteButton.style.cssText =  
+        "background:#dc2626;color:white;border:0;padding:8px;border-radius:6px;";  
+  
+      deleteButton.onclick = async () => {  
+        if (!auth.currentUser) {  
+          alert("पहले Admin Login करें।");  
+          return;  
+        }  
+  
+        const confirmDelete = confirm(  
+          `क्या ${data.name || "इस विद्यार्थी"} का रिज़ल्ट हटाना चाहते हैं?`  
+        );  
+  
+        if (!confirmDelete) return;  
+  
+        deleteButton.disabled = true;  
+  
+        try {  
+          await deleteDoc(doc(db, "results", resultDoc.id));  
+          row.remove();  
+  
+          $("resultsMessage").textContent =  
+            "रिज़ल्ट सफलतापूर्वक हटाया गया।";  
+  
+        } catch (error) {  
+          console.error(error);  
+          alert("रिज़ल्ट नहीं हटा। Firebase Rules जाँचें।");  
+          deleteButton.disabled = false;  
+        }  
+      };  
+  
+      actionCell.appendChild(deleteButton);  
+    });  
+  
+    $("resultsList").appendChild(table);  
+  
+  } catch (error) {  
+    console.error(error);  
+    $("resultsMessage").textContent =  
+      "रिज़ल्ट नहीं खुल पाए। Firebase Rules जाँचें।";  
+  }  
+};  
+  
+const questionCollection = collection(db, "questions");  
+   
+async function loadQuestions() {  
+  if (!auth.currentUser) {  
+    alert("पहले Admin Login करें।");  
+    return;  
+  }  
+  
+  const list = document.getElementById("questionList");  
+  list.innerHTML = "प्रश्न लोड हो रहे हैं...";  
+  
+  try {  
+    const snapshot = await getDocs(questionCollection);  
+    list.innerHTML = "";  
+  
+    if (snapshot.empty) {  
+      list.textContent = "अभी कोई प्रश्न सेव नहीं है।";  
+      return;  
+    }  
+  
+    snapshot.forEach((item) => {  
+      const data = item.data();  
+      const box = document.createElement("div");  
+      box.style.cssText =  
+        "border:1px solid #ddd;padding:12px;margin:10px 0;border-radius:8px";  
+  
+      const title = document.createElement("p");  
+      title.textContent = data.q || "";  
+      box.appendChild(title);  
+  
+      const options = document.createElement("p");  
+      options.textContent = (data.o || []).join(" | ");  
+      box.appendChild(options);  
+  
+      const edit = document.createElement("button");  
+      edit.textContent = "✏️ Edit";  
+      edit.style.marginRight = "10px";  
+  
+      edit.onclick = async () => {  
+        const newQ = prompt("प्रश्न बदलें:", data.q || "");  
+        if (newQ === null || !newQ.trim()) return;  
+  
+        const newOptions = [];  
+        for (let i = 0; i < 4; i++) {  
+          const value = prompt(  
+            "विकल्प " + String.fromCharCode(65 + i) + " बदलें:",  
+            (data.o || [])[i] || ""  
+          );  
+          if (value === null || !value.trim()) {  
+            alert("चारों विकल्प भरना ज़रूरी है।");  
+            return;  
+          }  
+          newOptions.push(value.trim());  
+        }  
+  
+        const answerText = prompt(  
+          "सही विकल्प का नंबर लिखें: 1=A, 2=B, 3=C, 4=D",  
+          String(Number(data.a ?? 0) + 1)  
+        );  
+  
+        if (answerText === null) return;  
+        const answer = Number(answerText) - 1;  
+  
+        if (!Number.isInteger(answer) || answer < 0 || answer > 3) {  
+          alert("सही विकल्प 1 से 4 के बीच होना चाहिए।");  
+          return;  
+        }  
+  
+        try {  
+          await updateDoc(doc(db, "questions", item.id), {  
+            q: newQ.trim(),  
+            o: newOptions,  
+            a: answer  
+          });  
+          alert("प्रश्न अपडेट हो गया!");  
+          await loadQuestions();  
+        } catch (error) {  
+          console.error(error);  
+          alert("अपडेट नहीं हुआ। Firebase Rules जाँचें।");  
+        }  
+      };  
+  
+      const remove = document.createElement("button");  
+      remove.textContent = "🗑️ Delete";  
+  
+      remove.onclick = async () => {  
+        if (!confirm("क्या यह प्रश्न हटाना चाहते हैं?")) return;  
+  
+        try {  
+          await deleteDoc(doc(db, "questions", item.id));  
+          alert("प्रश्न हटा दिया गया!");  
+          await loadQuestions();  
+        } catch (error) {  
+          console.error(error);  
+          alert("प्रश्न नहीं हटा। Firebase Rules जाँचें।");  
+        }  
+      };  
+  
+      box.appendChild(edit);  
+      box.appendChild(remove);  
+      list.appendChild(box);  
+    });  
+  } catch (error) {  
+    console.error(error);  
+    list.textContent = "प्रश्न लोड नहीं हुए। Firebase Rules जाँचें।";  
+  }  
+}  
+  
+$("saveQuestion").onclick = async function() {  
+  if (!auth.currentUser) {  
+    alert("पहले Admin Login करें।");  
+    return;  
+  }  
+  
+  const q = $("newQuestion").value.trim();  
+  const options = [  
+    $("option0").value.trim(),  
+    $("option1").value.trim(),  
+    $("option2").value.trim(),  
+    $("option3").value.trim()  
+  ];  
+  const answer = Number($("correctOption").value);  
+const solution = $("newSolution").value.trim();  
+  if (!q || options.some(option => !option)) {  
+    alert("प्रश्न और चारों विकल्प भरें।");  
+    return;  
+  }  
+  
+  try {  
+    await addDoc(questionCollection, {  
+  q: q,  
+  o: options,  
+  a: answer,  
+  solution: solution,  
+  subject: $("newSubject").value,  
+  createdAt: new Date()  
+});  
+$("newSolution").value = "";  
+    $("questionMessage").textContent = "प्रश्न सफलतापूर्वक सेव हो गया!";  
+await loadQuestions();     
+    $("newQuestion").value = "";  
+    for (let i = 0; i < 4; i++) {  
+      $("option" + i).value = "";  
+    }  
+  } catch (error) {  
+    console.error(error);  
+    $("questionMessage").textContent =  
+      "प्रश्न सेव नहीं हुआ। Firebase Rules जाँचें।";  
+  }  
+};  
+  
+const testCollection = collection(db, "tests");  
+const mockTestCollection = collection(db, "mockTests");  
+const mockTestQuestionsCollection = collection(db, "mockTestQuestions");  
+// STUDENT PUBLISHED MOCK TESTS  
+window.loadStudentMockTests = async function(exam) {  
+  const list = document.getElementById("studentMockTestList");  
+  
+  list.textContent = "Mock Tests लोड हो रहे हैं...";  
+  
+  try {  
+    const testQuery = query(  
+      mockTestCollection,  
+      where("examCategory", "==", exam),  
+      where("isPublished", "==", true)  
+    );  
+  
+    const snapshot = await getDocs(testQuery);  
+  
+    list.innerHTML = "";  
+  
+    if (snapshot.empty) {  
+      list.textContent = "अभी इस परीक्षा के लिए कोई Mock Test उपलब्ध नहीं है।";  
+      return;  
+    }  
+  
+    snapshot.forEach((testDoc) => {  
+      const test = testDoc.data();  
+  
+      const button = document.createElement("button");  
+      button.type = "button";  
+      button.className = "primary exam-btn";  
+      button.style.width = "100%";  
+      button.style.marginBottom = "10px";  
+  
+      button.textContent =  
+        test.name + " | " +  
+        (test.questionCount || 0) + " प्रश्न | " +  
+        (test.durationMinutes || 0) + " मिनट";  
+  
+      button.dataset.mockTestId = testDoc.id;  
+    button.dataset.durationMinutes = test.durationMinutes || 30;  
+button.dataset.testName = test.name;   
+  
+      list.appendChild(button);  
+    });  
+  
+  } catch (error) {  
+    console.error("Student Mock Test Error:", error);  
+    list.textContent = "Mock Tests लोड नहीं हुए। कृपया दोबारा कोशिश करें।";  
+  }  
+};  
+// LOAD SELECTED MOCK TEST QUESTIONS  
+document.getElementById("studentMockTestList").addEventListener("click", async function(e) {  
+  const button = e.target.closest("button[data-mock-test-id]");  
+  if (!button) return;  
+  
+  const mockTestId = button.dataset.mockTestId;  
+  const list = document.getElementById("studentMockTestList");  
+  
+  list.textContent = "प्रश्न लोड हो रहे हैं...";  
+  
+  try {  
+    const questionQuery = query(  
+      mockTestQuestionsCollection,  
+      where("mockTestId", "==", mockTestId)  
+    );  
+  
+    const questionSnapshot = await getDocs(questionQuery);  
+  
+    if (questionSnapshot.empty) {  
+      list.textContent = "इस Mock Test में अभी प्रश्न उपलब्ध नहीं हैं।";  
+      return;  
+    }  
+  
+    const loadedQuestions = [];  
+  
+    questionSnapshot.forEach((questionDoc) => {  
+      const q = questionDoc.data();  
+  
+      loadedQuestions.push({  
+  q: q.q,  
+  o: q.o,  
+  a: q.a,  
+  subject: q.subject || "General",  
+  solution: q.solution || ""  
+});  
+    });  
+  
+    // START SELECTED MOCK TEST  
+if (!loadedQuestions.length) {  
+  alert("इस टेस्ट में प्रश्न उपलब्ध नहीं हैं।");  
+  return;  
+}  
+  
+stopTimers();  
+  
+questions = loadedQuestions;  
+index = 0;  
+score = 0;  
+results = [];  
+  
+activeTestSettings = {  
+  name: button.dataset.testName,  
+ mockTestId: mockTestId,  
+  durationMinutes: Number(button.dataset.durationMinutes || 30),  
+  marksPerQuestion: 1,  
+  negativeMarking: 0  
+};  
+  
+remaining = activeTestSettings.durationMinutes * 60;  
+  quizReturnSection = "publishedMockTests";   
+document.getElementById("publishedMockTests").hidden = true;  
+$("quiz").hidden = false;  
+  
+updateTimerDisplay();  
+  
+clock = setInterval(() => {  
+  remaining--;  
+  updateTimerDisplay();  
+  
+  if (remaining <= 0) {  
+    stopTimers();  
+    showResult();  
+  }  
+}, 1000);  
+  
+render();  
+window.scrollTo(0, 0);  
+  } catch (error) {  
+    console.error(error);  
+    list.textContent = "प्रश्न लोड नहीं हुए। कृपया दोबारा कोशिश करें।";  
+  }  
+});  
+let activeMockTestId = "";  
+  
+const mockTarget = $("mockTestQuestionTarget");  
+  
+mockTarget.onchange = () => {  
+  activeMockTestId = mockTarget.value;  
+};  
+  
+async function loadMockTests() {  
+  const snapshot = await getDocs(mockTestCollection);  
+  
+  mockTarget.innerHTML = '<option value="">Mock Test चुनें</option>';  
+  $("mockTestList").innerHTML = "";  
+  
+  snapshot.forEach(item => {  
+    const data = item.data();  
+  
+    const option = document.createElement("option");  
+    option.value = item.id;  
+    option.textContent = data.name;  
+    mockTarget.appendChild(option);  
+  
+    const box = document.createElement("div");  
+    box.style.cssText = "padding:10px;border:1px solid #ddd;margin:8px 0;border-radius:8px";  
+  
+    const title = document.createElement("strong");  
+    title.textContent = data.name;  
+  
+    const selectButton = document.createElement("button");  
+    selectButton.textContent = "इस टेस्ट में प्रश्न जोड़ें";  
+    selectButton.onclick = () => {  
+      mockTarget.value = item.id;  
+      activeMockTestId = item.id;  
+      $("mockQuestionMessage").textContent = data.name + " चुना गया।";  
+    };  
+  
+    box.append(title, document.createElement("br"), selectButton);  
+    $("mockTestList").appendChild(box);  
+  });  
+}  
+  
+$("saveMockTest").onclick = async function() {  
+  if (!auth.currentUser) return alert("पहले Admin Login करें।");  
+  
+  const name = $("mockTestName").value.trim();  
+  const durationMinutes = Number($("mockTestDuration").value);  
+  const questionCount = Number($("mockTestQuestions").value);  
+  
+  if (!name || durationMinutes < 1 || questionCount < 1) {  
+    return alert("टेस्ट की जानकारी सही भरें।");  
+  }  
+  
+  try {  
+    const saved = await addDoc(mockTestCollection, {  
+      name,  
+      examCategory: $("mockTestCategory").value,  
+      durationMinutes,  
+      questionCount,  
+      isPublished: $("mockTestPublished").checked,  
+      createdAt: new Date()  
+    });  
+  
+    activeMockTestId = saved.id;  
+    $("mockTestName").value = "";  
+  
+    await loadMockTests();  
+    mockTarget.value = saved.id;  
+  
+    $("mockTestMessage").textContent = "Mock Test सेव हो गया!";  
+  } catch (error) {  
+    console.error(error);  
+    $("mockTestMessage").textContent = "Mock Test सेव नहीं हुआ।";  
+  }  
+};  
+  
+async function saveMockQuestion(data) {  
+  if (!auth.currentUser) throw new Error("Admin Login जरूरी है।");  
+  if (!activeMockTestId) throw new Error("पहले Mock Test चुनें।");  
+  
+  await addDoc(mockTestQuestionsCollection, {  
+    mockTestId: activeMockTestId,  
+    q: data.q,  
+    o: data.o,  
+    a: data.a,  
+    subject: data.subject || "GK/GS",  
+    solution: data.solution || "",  
+    createdAt: new Date()  
+  });  
+}  
+  
+$("saveMockQuestion").onclick = async function() {  
+  try {  
+    const q = $("mockQ").value.trim();  
+    const options = ["A", "B", "C", "D"].map(letter =>  
+      $("mock" + letter).value.trim()  
+    );  
+  
+    if (!q || options.some(value => !value)) {  
+      throw new Error("प्रश्न और चारों विकल्प भरें।");  
+    }  
+  
+    const answer = ["A", "B", "C", "D"].indexOf($("mockAnswer").value);  
+  
+    await saveMockQuestion({  
+      q,  
+      o: options,  
+      a: answer,  
+      subject: $("mockSubject").value,  
+      solution: $("mockSolution").value.trim()  
+    });  
+  
+    $("mockQ").value = "";  
+    ["A", "B", "C", "D"].forEach(x => $("mock" + x).value = "");  
+    $("mockSolution").value = "";  
+  
+    $("mockQuestionMessage").textContent = "प्रश्न सेव हो गया!";  
+  } catch (error) {  
+    $("mockQuestionMessage").textContent = error.message;  
+  }  
+};  
+  
+$("uploadMockExcel").onclick = async function() {  
+  try {  
+    if (!auth.currentUser) throw new Error("पहले Admin Login करें।");  
+    if (!activeMockTestId) throw new Error("पहले Mock Test चुनें।");  
+  
+    const file = $("mockExcelFile").files[0];  
+    if (!file) throw new Error("पहले Excel या CSV फाइल चुनें।");  
+  
+    const buffer = await file.arrayBuffer();  
+    const workbook = XLSX.read(buffer, { type: "array" });  
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];  
+    const rows = XLSX.utils.sheet_to_json(sheet, { defval: "" });  
+  
+    if (!rows.length) throw new Error("फाइल में प्रश्न नहीं मिले।");  
+  
+    const normalize = value =>  
+      String(value || "").trim().toLowerCase().replace(/[\s_-]/g, "");  
+  
+    const savedRows = [];  
+  
+    for (const row of rows) {  
+      const values = {};  
+      Object.keys(row).forEach(key => values[normalize(key)] = row[key]);  
+  
+      const answer = String(values.correctanswer || "").trim().toUpperCase();  
+      const answerIndex = ["A", "B", "C", "D"].indexOf(answer);  
+  
+      const q = String(values.question || "").trim();  
+      const options = ["a", "b", "c", "d"].map(letter =>  
+        String(values["option" + letter] || "").trim()  
+      );  
+  
+      if (!q || options.some(x => !x) || answerIndex < 0) {  
+        throw new Error("किसी प्रश्न में जानकारी अधूरी है। Correct Answer A/B/C/D होना चाहिए।");  
+      }  
+  
+      savedRows.push({  
+        q,  
+        o: options,  
+        a: answerIndex,  
+        subject: String(values.subject || "GK/GS").trim(),  
+        solution: String(values.solution || "").trim()  
+      });  
+    }  
+  
+    for (const question of savedRows) {  
+      await saveMockQuestion(question);  
+    }  
+  
+    $("mockQuestionMessage").textContent =  
+      savedRows.length + " प्रश्न सफलतापूर्वक Upload हुए।";  
+  
+    $("mockExcelFile").value = "";  
+  
+  } catch (error) {  
+    console.error(error);  
+    $("mockQuestionMessage").textContent = error.message;  
+  }  
+};  
+window.updateTestInfo = function (settings) {  
+  const info = document.getElementById("testInfo");  
+  if (!info || !settings) return;  
+  
+  const typeNames = {  
+    mixed: "Mix Test",  
+    sectional: "Sectional Test",  
+    full: "Full Mock Test"  
+  };  
+  
+  const subjects = Array.isArray(settings.subjects)  
+    ? settings.subjects.join(" + ")  
+    : "Railway GK";  
+  
+  const count = Number(settings.questionCount) || 0;  
+  const marks = Number(settings.marksPerQuestion) || 0;  
+  const duration = Number(settings.durationMinutes) || 10;  
+  
+  info.textContent =  
+    `${typeNames[settings.type] || settings.name} | ` +  
+    `${subjects} | ${count} प्रश्न | ` +  
+    `${count * marks} अंक | ${duration} मिनट`;  
+};  
+  
+window.getFirebaseTestSettings = async function (exam, mode) {  
+  const snapshot = await getDocs(testCollection);  
+  
+  if (snapshot.empty) {  
+    throw new Error("Firebase में कोई Test Settings नहीं मिलीं।");  
+  }  
+  
+  const settings = snapshot.docs.find(item => {  
+    const data = item.data();  
+  
+    return data.exam === exam && data.type === mode;  
+  });  
+  
+  if (!settings) {  
+    throw new Error(  
+      exam + " के लिए " + mode + " टेस्ट उपलब्ध नहीं है।"  
+    );  
+  }  
+  
+  return {  
+    id: settings.id,  
+    ...settings.data()  
+  };  
+};  
+   
+$("saveTestSettings").onclick = async function () {  
+if (!auth.currentUser) {  
+alert("पहले Admin Login करें।");  
+return;  
+}  
+  
+const name = $("testName").value.trim();  
+const type = $("testType").value;  
+const durationMinutes = Number($("testDuration").value);  
+const questionCount = Number($("testQuestionCount").value);  
+const marksPerQuestion = Number($("testMarks").value);  
+const negativeMarking = Number($("testNegative").value);  
+const subjects = $("testSubjects").value  
+.split(",").map(s => s.trim()).filter(Boolean);  
+const randomQuestions = $("testRandom").checked;  
+  
+if (  
+!name ||  
+!["mixed", "sectional", "full"].includes(type) ||  
+!Number.isFinite(durationMinutes) || durationMinutes < 1 ||  
+!Number.isInteger(questionCount) || questionCount < 1 ||  
+!Number.isFinite(marksPerQuestion) || marksPerQuestion < 0 ||  
+!Number.isFinite(negativeMarking) || negativeMarking < 0 ||  
+subjects.length === 0  
+) {  
+$("testSettingsMessage").textContent =  
+"कृपया सभी सेटिंग्स सही भरें।";  
+return;  
+}  
+  
+const settings = {  
+name,  
+type,  
+durationMinutes,  
+questionCount,  
+marksPerQuestion,  
+negativeMarking,  
+randomQuestions,  
+subjects,  
+updatedAt: new Date()  
+};  
+  
+try {  
+const snapshot = await getDocs(testCollection);  
+const existing = snapshot.docs.find(  
+item => item.data().name === name  
+);  
+  
+if (existing) {  
+  await updateDoc(doc(db, "tests", existing.id), settings);  
+} else {  
+  await addDoc(testCollection, {  
+    ...settings,  
+    createdAt: new Date()  
+  });  
+}  
+  
+$("testSettingsMessage").textContent =  
+  "✅ टेस्ट सेटिंग्स Firebase में सेव हो गईं!";  
+  
+} catch (error) {  
+console.error(error);  
+$("testSettingsMessage").textContent =  
+"सेव नहीं हुआ। Firebase Rules या Console में error जाँचें।";  
+}  
+};  
+  
+   
+window.apexAdminLogin = async function(email, password) {  
+  try {  
+    await signInWithEmailAndPassword(auth, email, password);  
+    alert("Admin Login सफल हुआ!");  
+   document.getElementById("adminResults").hidden = false;  
+   document.getElementById("questionManager").hidden = false;  
+  document.getElementById("testSettings").hidden = false;  
+   document.getElementById("mockTestManager").hidden = false;  
 await loadQuestions();   
-    $("newQuestion").value = "";
-    for (let i = 0; i < 4; i++) {
-      $("option" + i).value = "";
-    }
-  } catch (error) {
-    console.error(error);
-    $("questionMessage").textContent =
-      "प्रश्न सेव नहीं हुआ। Firebase Rules जाँचें।";
-  }
-};
-
-const testCollection = collection(db, "tests");
-const mockTestCollection = collection(db, "mockTests");
-const mockTestQuestionsCollection = collection(db, "mockTestQuestions");
-// STUDENT PUBLISHED MOCK TESTS
-window.loadStudentMockTests = async function(exam) {
-  const list = document.getElementById("studentMockTestList");
-
-  list.textContent = "Mock Tests लोड हो रहे हैं...";
-
-  try {
-    const testQuery = query(
-      mockTestCollection,
-      where("examCategory", "==", exam),
-      where("isPublished", "==", true)
-    );
-
-    const snapshot = await getDocs(testQuery);
-
-    list.innerHTML = "";
-
-    if (snapshot.empty) {
-      list.textContent = "अभी इस परीक्षा के लिए कोई Mock Test उपलब्ध नहीं है।";
-      return;
-    }
-
-    snapshot.forEach((testDoc) => {
-      const test = testDoc.data();
-
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "primary exam-btn";
-      button.style.width = "100%";
-      button.style.marginBottom = "10px";
-
-      button.textContent =
-        test.name + " | " +
-        (test.questionCount || 0) + " प्रश्न | " +
-        (test.durationMinutes || 0) + " मिनट";
-
-      button.dataset.mockTestId = testDoc.id;
-    button.dataset.durationMinutes = test.durationMinutes || 30;
-button.dataset.testName = test.name; 
-
-      list.appendChild(button);
-    });
-
-  } catch (error) {
-    console.error("Student Mock Test Error:", error);
-    list.textContent = "Mock Tests लोड नहीं हुए। कृपया दोबारा कोशिश करें।";
-  }
-};
-// LOAD SELECTED MOCK TEST QUESTIONS
-document.getElementById("studentMockTestList").addEventListener("click", async function(e) {
-  const button = e.target.closest("button[data-mock-test-id]");
-  if (!button) return;
-
-  const mockTestId = button.dataset.mockTestId;
-  const list = document.getElementById("studentMockTestList");
-
-  list.textContent = "प्रश्न लोड हो रहे हैं...";
-
-  try {
-    const questionQuery = query(
-      mockTestQuestionsCollection,
-      where("mockTestId", "==", mockTestId)
-    );
-
-    const questionSnapshot = await getDocs(questionQuery);
-
-    if (questionSnapshot.empty) {
-      list.textContent = "इस Mock Test में अभी प्रश्न उपलब्ध नहीं हैं।";
-      return;
-    }
-
-    const loadedQuestions = [];
-
-    questionSnapshot.forEach((questionDoc) => {
-      const q = questionDoc.data();
-
-      loadedQuestions.push({
-  q: q.q,
-  o: q.o,
-  a: q.a,
-  subject: q.subject || "General",
-  solution: q.solution || ""
-});
-    });
-
-    // START SELECTED MOCK TEST
-if (!loadedQuestions.length) {
-  alert("इस टेस्ट में प्रश्न उपलब्ध नहीं हैं।");
-  return;
-}
-
-stopTimers();
-
-questions = loadedQuestions;
-index = 0;
-score = 0;
-results = [];
-
-activeTestSettings = {
-  name: button.dataset.testName,
-  mockTestId: mockTestId,
-  durationMinutes: Number(button.dataset.durationMinutes || 30),
-  marksPerQuestion: 1,
-  negativeMarking: 0.33
-};
-
-remaining = activeTestSettings.durationMinutes * 60;
-  quizReturnSection = "publishedMockTests"; 
-document.getElementById("publishedMockTests").hidden = true;
-$("quiz").hidden = false;
-
-updateTimerDisplay();
-
-clock = setInterval(() => {
-  remaining--;
-  updateTimerDisplay();
-
-  if (remaining <= 0) {
-    stopTimers();
-    showResult();
-  }
-}, 1000);
-
-render();
-window.scrollTo(0, 0);
-  } catch (error) {
-    console.error(error);
-    list.textContent = "प्रश्न लोड नहीं हुए। कृपया दोबारा कोशिश करें।";
-  }
-});
-let activeMockTestId = "";
-
-const mockTarget = $("mockTestQuestionTarget");
-
-mockTarget.onchange = () => {
-  activeMockTestId = mockTarget.value;
-};
-
-async function loadMockTests() {
-  const snapshot = await getDocs(mockTestCollection);
-
-  mockTarget.innerHTML = '<option value="">Mock Test चुनें</option>';
-  $("mockTestList").innerHTML = "";
-
-  snapshot.forEach(item => {
-    const data = item.data();
-
-    const option = document.createElement("option");
-    option.value = item.id;
-    option.textContent = data.name;
-    mockTarget.appendChild(option);
-
-    const box = document.createElement("div");
-    box.style.cssText = "padding:10px;border:1px solid #ddd;margin:8px 0;border-radius:8px";
-
-    const title = document.createElement("strong");
-    title.textContent = data.name;
-
-    const selectButton = document.createElement("button");
-    selectButton.textContent = "इस टेस्ट में प्रश्न जोड़ें";
-    selectButton.onclick = () => {
-      mockTarget.value = item.id;
-      activeMockTestId = item.id;
-      $("mockQuestionMessage").textContent = data.name + " चुना गया।";
-    };
-
-    box.append(title, document.createElement("br"), selectButton);
-    $("mockTestList").appendChild(box);
-  });
-}
-
-$("saveMockTest").onclick = async function() {
-  if (!auth.currentUser) return alert("पहले Admin Login करें।");
-
-  const name = $("mockTestName").value.trim();
-  const durationMinutes = Number($("mockTestDuration").value);
-  const questionCount = Number($("mockTestQuestions").value);
-
-  if (!name || durationMinutes < 1 || questionCount < 1) {
-    return alert("टेस्ट की जानकारी सही भरें।");
-  }
-
-  try {
-    const saved = await addDoc(mockTestCollection, {
-      name,
-      examCategory: $("mockTestCategory").value,
-      durationMinutes,
-      questionCount,
-      isPublished: $("mockTestPublished").checked,
-      createdAt: new Date()
-    });
-
-    activeMockTestId = saved.id;
-    $("mockTestName").value = "";
-
-    await loadMockTests();
-    mockTarget.value = saved.id;
-
-    $("mockTestMessage").textContent = "Mock Test सेव हो गया!";
-  } catch (error) {
-    console.error(error);
-    $("mockTestMessage").textContent = "Mock Test सेव नहीं हुआ।";
-  }
-};
-
-async function saveMockQuestion(data) {
-  if (!auth.currentUser) throw new Error("Admin Login जरूरी है।");
-  if (!activeMockTestId) throw new Error("पहले Mock Test चुनें।");
-
-  await addDoc(mockTestQuestionsCollection, {
-    mockTestId: activeMockTestId,
-    q: data.q,
-    o: data.o,
-    a: data.a,
-    subject: data.subject || "GK/GS",
-    solution: data.solution || "",
-    createdAt: new Date()
-  });
-}
-
-$("saveMockQuestion").onclick = async function() {
-  try {
-    const q = $("mockQ").value.trim();
-    const options = ["A", "B", "C", "D"].map(letter =>
-      $("mock" + letter).value.trim()
-    );
-
-    if (!q || options.some(value => !value)) {
-      throw new Error("प्रश्न और चारों विकल्प भरें।");
-    }
-
-    const answer = ["A", "B", "C", "D"].indexOf($("mockAnswer").value);
-
-    await saveMockQuestion({
-      q,
-      o: options,
-      a: answer,
-      subject: $("mockSubject").value,
-      solution: $("mockSolution").value.trim()
-    });
-
-    $("mockQ").value = "";
-    ["A", "B", "C", "D"].forEach(x => $("mock" + x).value = "");
-    $("mockSolution").value = "";
-
-    $("mockQuestionMessage").textContent = "प्रश्न सेव हो गया!";
-  } catch (error) {
-    $("mockQuestionMessage").textContent = error.message;
-  }
-};
-
-$("uploadMockExcel").onclick = async function() {
-  try {
-    if (!auth.currentUser) throw new Error("पहले Admin Login करें।");
-    if (!activeMockTestId) throw new Error("पहले Mock Test चुनें।");
-
-    const file = $("mockExcelFile").files[0];
-    if (!file) throw new Error("पहले Excel या CSV फाइल चुनें।");
-
-    const buffer = await file.arrayBuffer();
-    const workbook = XLSX.read(buffer, { type: "array" });
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json(sheet, { defval: "" });
-
-    if (!rows.length) throw new Error("फाइल में प्रश्न नहीं मिले।");
-
-    const normalize = value =>
-      String(value || "").trim().toLowerCase().replace(/[\s_-]/g, "");
-
-    const savedRows = [];
-
-    for (const row of rows) {
-      const values = {};
-      Object.keys(row).forEach(key => values[normalize(key)] = row[key]);
-
-      const answer = String(values.correctanswer || "").trim().toUpperCase();
-      const answerIndex = ["A", "B", "C", "D"].indexOf(answer);
-
-      const q = String(values.question || "").trim();
-      const options = ["a", "b", "c", "d"].map(letter =>
-        String(values["option" + letter] || "").trim()
-      );
-
-      if (!q || options.some(x => !x) || answerIndex < 0) {
-        throw new Error("किसी प्रश्न में जानकारी अधूरी है। Correct Answer A/B/C/D होना चाहिए।");
-      }
-
-      savedRows.push({
-        q,
-        o: options,
-        a: answerIndex,
-        subject: String(values.subject || "GK/GS").trim(),
-        solution: String(values.solution || "").trim()
-      });
-    }
-
-    for (const question of savedRows) {
-      await saveMockQuestion(question);
-    }
-
-    $("mockQuestionMessage").textContent =
-      savedRows.length + " प्रश्न सफलतापूर्वक Upload हुए।";
-
-    $("mockExcelFile").value = "";
-
-  } catch (error) {
-    console.error(error);
-    $("mockQuestionMessage").textContent = error.message;
-  }
-};
-window.updateTestInfo = function (settings) {
-  const info = document.getElementById("testInfo");
-  if (!info || !settings) return;
-
-  const typeNames = {
-    mixed: "Mix Test",
-    sectional: "Sectional Test",
-    full: "Full Mock Test"
-  };
-
-  const subjects = Array.isArray(settings.subjects)
-    ? settings.subjects.join(" + ")
-    : "Railway GK";
-
-  const count = Number(settings.questionCount) || 0;
-  const marks = Number(settings.marksPerQuestion) || 0;
-  const duration = Number(settings.durationMinutes) || 10;
-
-  info.textContent =
-    `${typeNames[settings.type] || settings.name} | ` +
-    `${subjects} | ${count} प्रश्न | ` +
-    `${count * marks} अंक | ${duration} मिनट`;
-};
-
-window.getFirebaseTestSettings = async function (exam, mode) {
-  const snapshot = await getDocs(testCollection);
-
-  if (snapshot.empty) {
-    throw new Error("Firebase में कोई Test Settings नहीं मिलीं।");
-  }
-
-  const settings = snapshot.docs.find(item => {
-    const data = item.data();
-
-    return data.exam === exam && data.type === mode;
-  });
-
-  if (!settings) {
-    throw new Error(
-      exam + " के लिए " + mode + " टेस्ट उपलब्ध नहीं है।"
-    );
-  }
-
-  return {
-    id: settings.id,
-    ...settings.data()
-  };
-};
- 
-$("saveTestSettings").onclick = async function () {
-if (!auth.currentUser) {
-alert("पहले Admin Login करें।");
-return;
-}
-
-const name = $("testName").value.trim();
-const type = $("testType").value;
-const durationMinutes = Number($("testDuration").value);
-const questionCount = Number($("testQuestionCount").value);
-const marksPerQuestion = Number($("testMarks").value);
-const negativeMarking = Number($("testNegative").value);
-const subjects = $("testSubjects").value
-.split(",").map(s => s.trim()).filter(Boolean);
-const randomQuestions = $("testRandom").checked;
-
-if (
-!name ||
-!["mixed", "sectional", "full"].includes(type) ||
-!Number.isFinite(durationMinutes) || durationMinutes < 1 ||
-!Number.isInteger(questionCount) || questionCount < 1 ||
-!Number.isFinite(marksPerQuestion) || marksPerQuestion < 0 ||
-!Number.isFinite(negativeMarking) || negativeMarking < 0 ||
-subjects.length === 0
-) {
-$("testSettingsMessage").textContent =
-"कृपया सभी सेटिंग्स सही भरें।";
-return;
-}
-
-const settings = {
-name,
-type,
-durationMinutes,
-questionCount,
-marksPerQuestion,
-negativeMarking,
-randomQuestions,
-subjects,
-updatedAt: new Date()
-};
-
-try {
-const snapshot = await getDocs(testCollection);
-const existing = snapshot.docs.find(
-item => item.data().name === name
-);
-
-if (existing) {
-  await updateDoc(doc(db, "tests", existing.id), settings);
-} else {
-  await addDoc(testCollection, {
-    ...settings,
-    createdAt: new Date()
-  });
-}
-
-$("testSettingsMessage").textContent =
-  "✅ टेस्ट सेटिंग्स Firebase में सेव हो गईं!";
-
-} catch (error) {
-console.error(error);
-$("testSettingsMessage").textContent =
-"सेव नहीं हुआ। Firebase Rules या Console में error जाँचें।";
-}
-};
-
- 
-window.apexAdminLogin = async function(email, password) {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    alert("Admin Login सफल हुआ!");
-  } catch (error) {
-    alert("Login नहीं हुआ। Email और Password जाँचें।");
-  }
-};
-
-window.apexAdminLogout = async function() {
-  await signOut(auth);
-  alert("Logout हो गया।");
-};
-// ADMIN SESSION RESTORE
-onAuthStateChanged(auth, async (user) => {
-  const adminSections = [
-    "adminResults",
-    "questionManager",
-    "testSettings",
-    "mockTestManager"
-  ];
-
-  adminSections.forEach(id => {
-    document.getElementById(id).hidden = !user;
-  });
-
-  $("adminLogout").hidden = !user;
-
-  if (user) {
-    try {
-      await loadQuestions();
-      await loadMockTests();
-    } catch (error) {
-      console.error("Admin Dashboard Load Error:", error);
-    }
-  }
-}); 
-</script>
- <!-- APEX QUESTION MANAGER -->
-<section id="questionManager" hidden
-  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
-
-  <h2>📚 GK/GS प्रश्न प्रबंधन</h2>
-<label>विषय चुनें</label>
-<select id="newSubject" style="width:100%;padding:10px;margin:8px 0;">
-  <option value="GK/GS">GK/GS</option>
-  <option value="Maths">Maths</option>
-  <option value="Reasoning">Reasoning</option>
-  <option value="Railway GK">पुराने Railway GK प्रश्न</option>
+ await loadMockTests();    
+  } catch (error) {  
+    alert("Login नहीं हुआ। Email और Password जाँचें।");  
+  }  
+};  
+  
+window.apexAdminLogout = async function() {  
+  await signOut(auth);  
+  alert("Logout हो गया।");  
+};  
+</script>   <!-- APEX QUESTION MANAGER -->  <section id="questionManager" hidden  
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">    <h2>📚 GK/GS प्रश्न प्रबंधन</h2>  
+<label>विषय चुनें</label>  
+<select id="newSubject" style="width:100%;padding:10px;margin:8px 0;">  
+  <option value="GK/GS">GK/GS</option>  
+  <option value="Maths">Maths</option>  
+  <option value="Reasoning">Reasoning</option>  
+  <option value="Railway GK">पुराने Railway GK प्रश्न</option>  
+</select>  
+  <label>प्रश्न हिंदी + English</label>  
+  <textarea id="newQuestion" rows="3"  
+    placeholder="प्रश्न यहाँ लिखें"  
+    style="width:100%;padding:10px;margin:8px 0;"></textarea>  <label>विकल्प A</label>
+<input id="option0" placeholder="विकल्प A"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>विकल्प B</label>
+<input id="option1" placeholder="विकल्प B"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>विकल्प C</label>
+<input id="option2" placeholder="विकल्प C"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>विकल्प D</label>
+<input id="option3" placeholder="विकल्प D"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>सही उत्तर चुनें</label>
+<label>Solution / उत्तर की व्याख्या</label>
+
+<textarea id="newSolution" rows="4"  
+  placeholder="सही उत्तर क्यों है? सरल भाषा में समझाएँ"  
+  style="width:100%;padding:10px;margin:8px 0;"></textarea>  <select id="correctOption"  
+style="width:100%;padding:10px;margin:8px 0;">
+<option value="0">A</option>
+<option value="1">B</option>
+<option value="2">C</option>
+<option value="3">D</option>
 </select>
-  <label>प्रश्न हिंदी + English</label>
-  <textarea id="newQuestion" rows="3"
-    placeholder="प्रश्न यहाँ लिखें"
-    style="width:100%;padding:10px;margin:8px 0;"></textarea>
 
-  <label>विकल्प A</label>
-  <input id="option0" placeholder="विकल्प A"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>विकल्प B</label>
-  <input id="option1" placeholder="विकल्प B"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>विकल्प C</label>
-  <input id="option2" placeholder="विकल्प C"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>विकल्प D</label>
-  <input id="option3" placeholder="विकल्प D"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>सही उत्तर चुनें</label>
- <label>Solution / उत्तर की व्याख्या</label>
-<textarea id="newSolution" rows="4"
-  placeholder="सही उत्तर क्यों है? सरल भाषा में समझाएँ"
-  style="width:100%;padding:10px;margin:8px 0;"></textarea>
-  <select id="correctOption"
-    style="width:100%;padding:10px;margin:8px 0;">
-    <option value="0">A</option>
-    <option value="1">B</option>
-    <option value="2">C</option>
-    <option value="3">D</option>
-  </select>
-
-  <button type="button" id="saveQuestion"
-    style="width:100%;padding:12px;background:#176b3a;color:white;border:0;border-radius:8px;">
-    प्रश्न सेव करें
-  </button>
-
-  <p id="questionMessage"></p>
-  <div id="questionList"></div>
-</section>
-<!-- APEX ADMIN PANEL -->
- <!-- APEX MOCK TEST MANAGER -->
-<section id="mockTestManager" hidden
-  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
-
-  <h2>📝 Mock Test प्रबंधन</h2>
-
-  <label>टेस्ट का नाम</label>
-  <input id="mockTestName" placeholder="RRB ALP Mock Test 01"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>Exam Category</label>
-  <select id="mockTestCategory" style="width:100%;padding:10px;margin:6px 0;">
-    <option>RRB ALP</option>
-    <option>RRB NTPC</option>
-    <option>Railway Group D</option>
-    <option>RRB Technician</option>
-  </select>
-
-  <label>समय (मिनट)</label>
-  <input id="mockTestDuration" type="number" min="1" value="90"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>प्रश्नों की संख्या</label>
-  <input id="mockTestQuestions" type="number" min="1" value="100"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label><input id="mockTestPublished" type="checkbox"> Publish करें</label>
-
-  <button type="button" id="saveMockTest" class="primary">
-    Mock Test सेव करें
-  </button>
-
-  <p id="mockTestMessage"></p>
-
-  <hr>
-  <h3>प्रश्न जोड़ें</h3>
-
-  <label>Mock Test चुनें</label>
-  <select id="mockTestQuestionTarget"
-    style="width:100%;padding:10px;margin:6px 0;">
-    <option value="">पहले Mock Test सेव करें</option>
-  </select>
-
-  <h3>Manual Question Upload</h3>
-
-  <textarea id="mockQ" placeholder="प्रश्न लिखें"
-    style="width:100%;padding:10px;margin:6px 0;"></textarea>
-
-  <input id="mockA" placeholder="Option A" style="width:100%;padding:10px;margin:5px 0;">
-  <input id="mockB" placeholder="Option B" style="width:100%;padding:10px;margin:5px 0;">
-  <input id="mockC" placeholder="Option C" style="width:100%;padding:10px;margin:5px 0;">
-  <input id="mockD" placeholder="Option D" style="width:100%;padding:10px;margin:5px 0;">
-
-  <label>सही उत्तर</label>
-  <select id="mockAnswer" style="width:100%;padding:10px;margin:6px 0;">
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="C">C</option>
-    <option value="D">D</option>
-  </select>
-
-  <label>Subject</label>
-  <select id="mockSubject" style="width:100%;padding:10px;margin:6px 0;">
-    <option>GK/GS</option>
-    <option>Maths</option>
-    <option>Reasoning</option>
-  </select>
-
-  <textarea id="mockSolution" placeholder="Solution / व्याख्या"
-    style="width:100%;padding:10px;margin:6px 0;"></textarea>
-
-  <button type="button" id="saveMockQuestion" class="primary">
-    प्रश्न सेव करें
-  </button>
-
-  <hr>
-  <h3>Excel / CSV Bulk Upload</h3>
-  <input type="file" id="mockExcelFile" accept=".xlsx,.xls,.csv">
-
-  <p class="small">
-    Excel Columns: Question, Option A, Option B, Option C,
-    Option D, Correct Answer, Subject, Solution
-  </p>
-
-  <button type="button" id="uploadMockExcel" class="primary">
-    Excel / CSV Upload करें
-  </button>
-
-  <p id="mockQuestionMessage"></p>
-  <div id="mockTestList"></div>
-</section>
-<!-- APEX TEST SETTINGS -->
-<section id="testSettings" hidden
-  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
-
-  <h2>⚙️ टेस्ट सेटिंग्स / Test Settings</h2>
-
-  <label>टेस्ट का नाम</label>
-  <input id="testName" value="Full Mock Test 01"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>टेस्ट का प्रकार</label>
-  <select id="testType" style="width:100%;padding:10px;margin:6px 0;">
-    <option value="mixed">Mixed Test</option>
-    <option value="sectional">Sectional Test</option>
-    <option value="full" selected>Full Mock Test</option>
-  </select>
-
-  <label>समय (मिनट)</label>
-  <input id="testDuration" type="number" min="1" value="90"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>प्रश्नों की संख्या</label>
-  <input id="testQuestionCount" type="number" min="1" value="100"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>प्रत्येक सही उत्तर के अंक</label>
-  <input id="testMarks" type="number" min="0" step="0.25" value="1"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>गलत उत्तर पर अंक कटौती</label>
-  <input id="testNegative" type="number" min="0" step="0.01" value="0.33"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label>विषय (अभी एक विषय का नाम)</label>
-  <input id="testSubjects" value="Railway GK"
-    placeholder="जैसे History, Geography, Science"
-    style="width:100%;padding:10px;margin:6px 0;">
-
-  <label style="display:block;margin:10px 0;">
-    <input id="testRandom" type="checkbox">
-    प्रश्न Random क्रम में दिखाएँ
-  </label>
-
-  <button type="button" id="saveTestSettings"
-    style="width:100%;padding:12px;background:#1259a7;color:white;border:0;border-radius:8px;">
-    सेटिंग सेव करें
-  </button>
-
-  <p id="testSettingsMessage"></p>
-</section>
-
- <!-- STUDENT RESULTS -->
-<section id="adminResults" hidden
-  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">
-
-  <h2>📊 विद्यार्थियों के टेस्ट रिज़ल्ट</h2>
-
-  <button id="loadResults"
-    style="padding:12px;background:#1259a7;color:white;border:0;border-radius:6px;">
-    रिज़ल्ट देखें
-  </button>
-
-  <p id="resultsMessage">Admin Login के बाद रिज़ल्ट देखें।</p>
-
-  <div id="resultsList" style="overflow-x:auto;"></div>
-</section>
-<section id="adminLogin" hidden
-style="max-width:400px;margin:25px auto;padding:20px;border:2px solid #176b3a;border-radius:12px;">
-  <h2>🔐 APEX ADMIN LOGIN</h2>
-  <p>KUMAR ANKUR SIR</p>
-
-  <input id="adminEmail" type="email" placeholder="Admin Email"
-    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-
-  <input id="adminPassword" type="password" placeholder="Admin Password"
-    style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-
-  <button onclick="apexAdminLogin(
-    document.getElementById('adminEmail').value,
-    document.getElementById('adminPassword').value
-  )" style="width:100%;padding:12px;background:#176b3a;color:white;border:0;border-radius:6px;">
-    Login
-  </button>
- <button id="adminLogout" type="button" hidden
-  onclick="apexAdminLogout()"
-  style="width:100%;padding:12px;background:#dc2626;color:white;border:0;border-radius:6px;margin-top:10px;">
-  Admin Logout
+<button type="button" id="saveQuestion"  
+style="width:100%;padding:12px;background:#176b3a;color:white;border:0;border-radius:8px;">
+प्रश्न सेव करें
 </button>
-</section>
+
+  <p id="questionMessage"></p>  
+  <div id="questionList"></div>  
+</section>  
+<!-- APEX ADMIN PANEL -->  
+ <!-- APEX MOCK TEST MANAGER -->  
+<section id="mockTestManager" hidden  
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">    <h2>📝 Mock Test प्रबंधन</h2>  <label>टेस्ट का नाम</label>
+<input id="mockTestName" placeholder="RRB ALP Mock Test 01"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>Exam Category</label>
+<select id="mockTestCategory" style="width:100%;padding:10px;margin:6px 0;">
+<option>RRB ALP</option>
+<option>RRB NTPC</option>
+<option>Railway Group D</option>
+<option>RRB Technician</option>
+</select>
+
+<label>समय (मिनट)</label>
+<input id="mockTestDuration" type="number" min="1" value="90"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>प्रश्नों की संख्या</label>
+<input id="mockTestQuestions" type="number" min="1" value="100"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label><input id="mockTestPublished" type="checkbox"> Publish करें</label>
+
+  <button type="button" id="saveMockTest" class="primary">  
+    Mock Test सेव करें  
+  </button>    <p id="mockTestMessage"></p>    <hr>  
+  <h3>प्रश्न जोड़ें</h3>  <label>Mock Test चुनें</label>
+<select id="mockTestQuestionTarget"  
+style="width:100%;padding:10px;margin:6px 0;">
+<option value="">पहले Mock Test सेव करें</option>
+</select>
+
+  <h3>Manual Question Upload</h3>    <textarea id="mockQ" placeholder="प्रश्न लिखें"  
+    style="width:100%;padding:10px;margin:6px 0;"></textarea>    <input id="mockA" placeholder="Option A" style="width:100%;padding:10px;margin:5px 0;">  
+  <input id="mockB" placeholder="Option B" style="width:100%;padding:10px;margin:5px 0;">  
+  <input id="mockC" placeholder="Option C" style="width:100%;padding:10px;margin:5px 0;">  
+  <input id="mockD" placeholder="Option D" style="width:100%;padding:10px;margin:5px 0;">  <label>सही उत्तर</label>
+<select id="mockAnswer" style="width:100%;padding:10px;margin:6px 0;">
+<option value="A">A</option>
+<option value="B">B</option>
+<option value="C">C</option>
+<option value="D">D</option>
+</select>
+
+<label>Subject</label>
+<select id="mockSubject" style="width:100%;padding:10px;margin:6px 0;">
+<option>GK/GS</option>
+<option>Maths</option>
+<option>Reasoning</option>
+</select>
+
+  <textarea id="mockSolution" placeholder="Solution / व्याख्या"  
+    style="width:100%;padding:10px;margin:6px 0;"></textarea>    <button type="button" id="saveMockQuestion" class="primary">  
+    प्रश्न सेव करें  
+  </button>    <hr>  
+  <h3>Excel / CSV Bulk Upload</h3>  
+  <input type="file" id="mockExcelFile" accept=".xlsx,.xls,.csv">    <p class="small">  
+    Excel Columns: Question, Option A, Option B, Option C,  
+    Option D, Correct Answer, Subject, Solution  
+  </p>    <button type="button" id="uploadMockExcel" class="primary">  
+    Excel / CSV Upload करें  
+  </button>    <p id="mockQuestionMessage"></p>  
+  <div id="mockTestList"></div>  
+</section>  
+<!-- APEX TEST SETTINGS -->  
+<section id="testSettings" hidden  
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">    <h2>⚙️ टेस्ट सेटिंग्स / Test Settings</h2>  <label>टेस्ट का नाम</label>
+<input id="testName" value="Full Mock Test 01"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>टेस्ट का प्रकार</label>
+<select id="testType" style="width:100%;padding:10px;margin:6px 0;">
+<option value="mixed">Mixed Test</option>
+<option value="sectional">Sectional Test</option>
+<option value="full" selected>Full Mock Test</option>
+</select>
+
+<label>समय (मिनट)</label>
+<input id="testDuration" type="number" min="1" value="90"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>प्रश्नों की संख्या</label>
+<input id="testQuestionCount" type="number" min="1" value="100"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>प्रत्येक सही उत्तर के अंक</label>
+<input id="testMarks" type="number" min="0" step="0.25" value="1"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>गलत उत्तर पर अंक कटौती</label>
+<input id="testNegative" type="number" min="0" step="0.01" value="0.33"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+<label>विषय (अभी एक विषय का नाम)</label>
+<input id="testSubjects" value="Railway GK"  
+placeholder="जैसे History, Geography, Science"  
+style="width:100%;padding:10px;margin:6px 0;">
+
+  <label style="display:block;margin:10px 0;">  
+    <input id="testRandom" type="checkbox">  
+    प्रश्न Random क्रम में दिखाएँ  
+  </label>  <button type="button" id="saveTestSettings"  
+style="width:100%;padding:12px;background:#1259a7;color:white;border:0;border-radius:8px;">
+सेटिंग सेव करें
+</button>
+
+  <p id="testSettingsMessage"></p>  
+</section>   <!-- STUDENT RESULTS -->  <section id="adminResults" hidden  
+  style="max-width:900px;margin:25px auto;padding:20px;background:white;border-radius:12px;">    <h2>📊 विद्यार्थियों के टेस्ट रिज़ल्ट</h2>  <button id="loadResults"  
+style="padding:12px;background:#1259a7;color:white;border:0;border-radius:6px;">
+रिज़ल्ट देखें
+</button>
+
+  <p id="resultsMessage">Admin Login के बाद रिज़ल्ट देखें।</p>    <div id="resultsList" style="overflow-x:auto;"></div>  
+</section>  
+<section id="adminLogin" style="max-width:400px;margin:25px auto;padding:20px;border:2px solid #176b3a;border-radius:12px;">  
+  <h2>🔐 APEX ADMIN LOGIN</h2>  
+  <p>KUMAR ANKUR SIR</p>  <input id="adminEmail" type="email" placeholder="Admin Email"  
+style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+<input id="adminPassword" type="password" placeholder="Admin Password"  
+style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
+
+<button onclick="apexAdminLogin(  
+document.getElementById('adminEmail').value,  
+document.getElementById('adminPassword').value  
+)" style="width:100%;padding:12px;background:#176b3a;color:white;border:0;border-radius:6px;">
+Login
+</button>
+
+</section>  
 </html>
